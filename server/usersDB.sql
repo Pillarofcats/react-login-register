@@ -1,0 +1,8 @@
+CREATE DATABASE usersDB;
+
+CREATE TABLE users (
+  u_id SERIAL PRIMARY KEY,
+  u_name VARCHAR(30) NOT NULL,
+  u_email varchar(254) UNIQUE NOT NULL,
+  u_pass VARCHAR(30) NOT NULL 
+)
