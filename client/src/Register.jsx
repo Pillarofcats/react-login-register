@@ -21,7 +21,8 @@ function Register({setUser}) {
     if(!email || !password || !name) return console.log("input form error")
 
     const registerFormData = {name: name, email: email, password: password}
-    const URL = "http://localhost:3000/register"
+    // const URL = "http://localhost:3000/register"
+    const URL = "https://classy-steel-production.up.railway.app/register"
 
     let response = await fetch(URL, {
       method: "POST",
