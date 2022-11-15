@@ -16,6 +16,10 @@ const mockUser = {
   password: 'hash'
 }
 
+app.get("/", (req,res) => {
+  res.status(200).send('Server is live..')
+})
+
 app.post("/register", (req,res) => {
   
   let data = req.body
