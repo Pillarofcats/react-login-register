@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const db = require("./db")
 
 const app = express()
 
@@ -9,29 +10,33 @@ app.use(express.json())
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })) 
 
-const mockUser = {
-  id: Date.now(),
-  name: "Jacob",
-  email: "J@W.com",
-  password: 'hash'
-}
-
 app.get("/", (req,res) => {
   res.status(200).send('Server is live..')
 })
 
-app.post("/register", (req,res) => {
+app.post("/register", async (req,res) => {
   
-  let data = req.body
+  const {name, email, password} = req.body
   console.log("data", req.body)
-  console.log("POST - Server received user register data:", data)
-
-  if(data.email !== mockUser.email) {
-    return res.status(200).send({id: Date.now(), name: data.name, email: data.email})
-  }
   
-  if (data.email === mockUser.email) {
-    return res.status(200).send({errMessage: "Email already exists"})
+  const queryCheckEmail = {
+  text: 'SELECT email FROM users WHERE email = $1',
+  values: [`${email}`],
+}
+  try {
+    const dbRes = await db.query(queryCheckEmail)
+    console.log("dbRes", dbRes)
+
+    if(email !== dbRes.rows[0]) {
+      return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
+    }
+    
+    if (email === dbRes.rows[0]) {
+      return res.status(200).send({errMessage: "Email already exists"})
+    }
+
+  } catch(err) {
+    console.error(err)
   }
 
   return res.status(500).send({errMessage: "Register failed"})
@@ -55,6 +60,17 @@ app.post("/login", (req,res) => {
   }
 
   return res.status(500).send({errMessage: "Login failed"})
+})
+
+app.post("/saveEdits", (req, res) => {
+  
+  const edits = req.body
+  console.log("user edits", edits)
+  //find person in data base
+
+  //change user properties based on what properties changed in database
+
+  return res.status(200).send({edits})
 })
 
 const PORT = process.env.PORT || 3000

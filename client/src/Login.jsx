@@ -20,15 +20,18 @@ function Login({setUser}) {
     const loginFormData = {email: email, password: password}
     // const URL = "http://localhost:3000/login"
     const URL = "https://classy-steel-production.up.railway.app/login"
-    let response = await fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginFormData)
-    })
 
-    return await response.json()
+    try {
+      let response = await fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(loginFormData)
+      })
+
+      return await response.json()
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   function loginSubmit(e) {

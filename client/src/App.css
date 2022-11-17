@@ -53,7 +53,6 @@
   text-align: center;
   flex: 1 1 auto;
   /* border: 1px solid blue; */
-
 }
 
 .reg-log-forms > div > form > label {
@@ -65,13 +64,6 @@
   margin: 0 auto;
 }
 
-.reg-form {
-  width: 100vw;
-  max-width: 30rem;
-  /* border: 1px solid red; */
-  padding: 1rem;
-}
-
 .log-form {
   width: 100vw;
   max-width: 30rem;
@@ -79,4 +71,84 @@
   padding: 1rem;
 }
 
+.reg-form {
+  width: 100vw;
+  max-width: 30rem;
+  /* border: 1px solid red; */
+  padding: 1rem;
+}
 
+.profile {
+  display: flex;
+  padding: .5rem;
+  gap: 1rem;
+  flex-direction: column;
+  /* border: 1px solid red; */
+  /* height: fit-content; */
+}
+
+.profile-grid-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1rem;
+  /* border: 1px solid blue; */
+}
+
+.profile-keys, .profile-values, .profile-edits {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: flex-start;
+  gap: 1rem;
+  /* border: 1px solid orange; */
+}
+
+.profile-keys > *, .profile-values > *, .profile-edits > button {
+  /* border: 1px solid blue; */
+  height: 2rem;
+  padding: 0 .3rem;
+}
+
+.profile-keys {
+  font-weight: bold;
+}
+
+.profile-keys > * {
+  padding-top: 3px;
+}
+
+.profile-values {
+  overflow: hidden;
+  width: 15vw;
+  min-width: 7rem;
+}
+
+.profile-values>p {
+  margin: 0;
+  padding-left: 7px;
+  padding-top: 3px;
+}
+
+.profile-values > input {
+  padding-bottom: 2px;
+  letter-spacing: normal;
+}
+
+.profile-values>input, .profile-values>select {
+  width: 100%;
+}
+
+.profile-logout-save-btns {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-logout-save-btns > button {
+  max-width: fit-content;
+  /* border: 1px solid black; */
+}
+
+.home {
+
+}

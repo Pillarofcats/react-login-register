@@ -15,13 +15,17 @@ import {useState} from "react"
 //Main
 function App() {
 
-const initUser = {
-  id: null,
-  name: null,
-  email: null,
+function initUser () {
+  return { 
+    id: null,
+    name: "",
+    email: "",
+    gender: "",
+    birthday: "",
+  }
 }
 
-const [user, setUser] = useState(initUser)
+const [user, setUser] = useState(() => initUser())
 
   console.log("user data:", user)
 
@@ -32,7 +36,7 @@ const [user, setUser] = useState(initUser)
       <Routes>
         <Route path="/" element={<Home name={user.name} />} />
         <Route path="LoginRegister" element={<LoginRegister setUser={setUser} />} />
-        <Route path="Profile" element={<Profile user={user} />} />
+        <Route path="Profile" element={<Profile user={user} logout={() => setUser(initUser)} setUser={setUser}/>} />
       </Routes>
       
     </div>

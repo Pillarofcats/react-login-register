@@ -21,18 +21,20 @@ function Register({setUser}) {
     if(!email || !password || !name) return console.log("input form error")
 
     const registerFormData = {name: name, email: email, password: password}
-    // const URL = "http://localhost:3000/register"
-    const URL = "https://classy-steel-production.up.railway.app/register"
+    const URL = "http://localhost:3000/register"
+    // const URL = "https://classy-steel-production.up.railway.app/register"
 
-    let response = await fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(registerFormData)
-    })
+    try {
+      let response = await fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(registerFormData)
+      })
 
-    return await response.json()
+      return await response.json()
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   function registerSubmit(e) {
@@ -49,7 +51,7 @@ function Register({setUser}) {
         } else {
           console.log("Server Response Success:", user)
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email})
+          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
           //If an error existed before successful submission, set false
           if(isError) setIsError(false)
           //Reset form inputs after successful form submission
