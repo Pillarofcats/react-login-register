@@ -14,7 +14,7 @@ app.get("/", (req,res) => {
   res.status(200).send('Server is live..')
 })
 
-app.post("https://classy-steel-production.up.railway.app/register", async (req,res) => {
+app.post("/register", async (req,res) => {
   
   const {name, email, password} = req.body
   console.log("data", req.body)
