@@ -33,7 +33,7 @@ function Register({setUser}) {
 
       return await response.json()
     } catch(err) {
-      console.log(err)
+      console.log(err.message)
     }
   }
 

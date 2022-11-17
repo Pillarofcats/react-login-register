@@ -57,7 +57,6 @@ function Profile({user, logout, setUser}) {
         body: JSON.stringify(userAfterEdit)
       })
       return await response.json()
-
     } catch(err) {
       return console.log(err)
     }
@@ -99,7 +98,7 @@ function Profile({user, logout, setUser}) {
           </div>
         </div>
         ) : (
-          <h1 className="center-page">You aren't logged in Stranger</h1>
+          <h1 className="center-page">You aren't logged in Stranger!</h1>
       )
     }
     </div>
