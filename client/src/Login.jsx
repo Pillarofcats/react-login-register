@@ -18,8 +18,8 @@ function Login({setUser}) {
     if(!email || !password) return console.log("input form error")
 
     const loginFormData = {email: email, password: password}
-    const URL = "http://localhost:3000/login"
-    // const URL = "https://classy-steel-production.up.railway.app/login"
+    // const URL = "http://localhost:3000/login"
+    const URL = "https://classy-steel-production.up.railway.app/login"
 
     try {
       let response = await fetch(URL, {
