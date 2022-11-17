@@ -46,8 +46,8 @@ function Profile({user, logout, setUser}) {
       edits: edits
     }
 
-    const URL = "http://localhost:3000/saveEdits"
-    // const URL = "https://classy-steel-production.up.railway.app/saveEdits"
+    // const URL = "http://localhost:3000/saveEdits"
+    const URL = "https://classy-steel-production.up.railway.app/saveEdits"
 
     try {
       console.log("USER EDITS:", userAfterEdit)
