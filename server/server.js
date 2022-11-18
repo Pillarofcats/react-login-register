@@ -1,7 +1,6 @@
 const express = require("express")
 const cors = require("cors")
 const dotenv = require('dotenv').config()
-console.log(process.env)
 
 const app = express()
 const db = require("./db")
@@ -28,20 +27,23 @@ app.post("/register", async (req,res) => {
   }
 
   try {
+    
     const dbRes = await db.query(queryCheckEmail)
     console.log("rows[0]", dbRes.rows[0])
+
+    if(email !== dbRes.rows[0]) {
+      return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
+    }
+    
+    if (email === dbRes.rows[0]) {
+      return res.status(200).send({errMessage: "Email already exists"})
+    }
+
   } catch(err) {
     console.error(err)
   }
   
 
-  if(email !== dbRes.rows[0]) {
-    return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
-  }
-  
-  if (email === dbRes.rows[0]) {
-    return res.status(200).send({errMessage: "Email already exists"})
-  }
 
   return res.status(500).send({errMessage: "Register failed"})
 })
