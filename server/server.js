@@ -22,14 +22,15 @@ app.post("/register", async (req,res) => {
   console.log("email", email)
 
   const queryCheckEmail = {
-  text: 'SELECT * FROM users WHERE email = $1',
+  text: 'SELECT email FROM users WHERE email = $1',
   values: [email],
   }
 
   try {
-    
+
     const dbRes = await db.query(queryCheckEmail)
     console.log("rows[0]", dbRes.rows[0])
+    console.log("email =>", dbRes.rows[0]?.email)
 
     if(email !== dbRes.rows[0]) {
       return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
