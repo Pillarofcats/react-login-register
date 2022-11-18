@@ -20,39 +20,48 @@ app.post("/register", async (req,res) => {
   
   const {name, email, password} = req.body
   console.log("data", req.body)
-  console.log("email", email)
 
   const queryCheckEmail = {
-  text: 'SELECT email FROM users WHERE email = $1',
-  values: [email],
+    text: 'SELECT email FROM users WHERE email = $1',
+    values: [email],
   }
 
-
+  const queryInsertUser = {
+    text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
+    values: [name, email]
+  }
 
   try {
     //Query for registered email
-    const dbRes = await db.query(queryCheckEmail)
+    const qe = await db.query(queryCheckEmail)
     //Email does not exist, register user
-    if(email !== dbRes.rows[0]?.email) {
+    if(email !== qe.rows[0]?.email) {
       //Encrypt/Hash password
       const hashPass = await bcryptjs.hash(password, 10)
-      //Query definition - Return
-      const queryInsertUser = {
-        text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
-        values: [name, email, hashPass]
-      }
-      //Insert user into users database
-      dbRes = await db.query(queryInsertUser)
-      console.log("dbRes should return name, email", dbRes)
-      console.log("uid", dbRes.rows[0]?.uid)
-      console.log("name", dbRes.rows[0]?.name)
-      console.log("email", dbRes.rows[0]?.email)
+      console.log("hashpass", hashPass)
 
+      //Insert user into users database
+      const qiu = await db.query(queryInsertUser)
+      console.log("qiu should return name, email", qiu.rows[0])
+      console.log("uid", qiu.rows[0]?.uid)
+      console.log("name", qiu.rows[0]?.name)
+      console.log("email", qiu.rows[0]?.email)
+
+      const queryInsertPass = {
+        text: 'INSERT INTO hash_pass(id, password) VALUES($1, $2)',
+        values: [qiu.rows[0]?.uid, hashPass]
+      }
+      
+      //Insert hash password into hash_pass database using uid primary key from users database
+      const qip = await db.query(queryInsertPass)
+      console.log("dbRes should return uid, pass", qip.rows[0])
+      console.log("id", qip.rows[0]?.id)
+      console.log("pass", qip.rows[0]?.password)
       //Return uid,name, and email
-      return res.status(200).send({id: dbRes.rows[0]?.uid, name: dbRes.rows[0]?.name, email: dbRes.rows[0]?.email, gender: "", birthday: ""})
+      return res.status(200).send({id: qiu.rows[0]?.uid, name: qiu.rows[0]?.name, email: qiu.rows[0]?.email, gender: "", birthday: ""})
     }
     //Email already exists
-    if (email === dbRes.rows[0]?.email) {
+    if (email === qe.rows[0]?.email) {
       return res.status(200).send({errMessage: "Email already exists"})
     }
 
