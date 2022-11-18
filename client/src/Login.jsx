@@ -18,6 +18,7 @@ function Login({setUser}) {
     if(!email || !password) return console.log("input form error")
 
     const loginFormData = {email: email, password: password}
+    console.log('emailpass', email, password)
     // const URL = "http://localhost:3000/login"
     const URL = "https://classy-steel-production.up.railway.app/login"
 
@@ -30,7 +31,7 @@ function Login({setUser}) {
 
       return await response.json()
     } catch(err) {
-      console.log(err)
+      console.log(err.message)
     }
   }
 
