@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
   //Query definition
   const queryEmailValid = {
     text: 'SELECT email FROM users WHERE email = $1',
-    value: [email]
+    values: [email]
   }
   //test
   res.setHeader('Content-Type', 'application/json')
@@ -77,7 +77,7 @@ app.post("/login", async (req, res) => {
     //Query definition
     const queryEmailPassword = {
       text: 'SELECT password FROM users WHERE email = $1',
-      value: [email]
+      values: [email]
     }
     console.log("query hash pass")
     //Query email for hashed password
@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
       //Query definition
       const queryUser = {
         text: 'SELECT * FROM users WHERE email = $1',
-        value: [email]
+        values: [email]
       }
       console.log('query user data')
       //Query user data to be sent back to client
