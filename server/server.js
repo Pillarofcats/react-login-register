@@ -18,7 +18,8 @@ app.post("/register", async (req,res) => {
   
   const {name, email, password} = req.body
   console.log("data", req.body)
-  
+  console.log("email", email)
+
   const queryCheckEmail = {
   text: 'SELECT * FROM users WHERE email = $1',
   values: [email],
