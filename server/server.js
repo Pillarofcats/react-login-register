@@ -74,6 +74,7 @@ app.post("/login", async (req,res) => {
   }
   //Query email for hashed password
   const qep = await db.query(queryEmailPassword)
+  console.log("pass", qep.rows[0]?.password)
   //Password comapare with bcryptjs
   const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
   //Succesful login
