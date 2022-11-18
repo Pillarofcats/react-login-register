@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const bcrypt = require('bcrypt')
 const dotenv = require('dotenv').config()
 
 const app = express()
@@ -26,26 +27,39 @@ app.post("/register", async (req,res) => {
   values: [email],
   }
 
+
+
   try {
-
+    //Query for registered email
     const dbRes = await db.query(queryCheckEmail)
-    console.log("rows[0]", dbRes.rows[0])
-    console.log("email =>", dbRes.rows[0]?.email)
-
+    //Email does not exist, register user
     if(email !== dbRes.rows[0]?.email) {
-      return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
+      //Encrypt/Hash password
+      const hashPass = await bcrypt.hash(password, 10)
+      //Query definition - Return
+      const queryInsertUser = {
+        text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
+        values: [name, email, hashPass]
+      }
+      //Insert user into users database
+      dbRes = await db.query(queryInsertUser)
+      console.log("dbRes should return name, email", dbRes)
+      console.log("uid", dbRes.rows[0]?.uid)
+      console.log("name", dbRes.rows[0]?.name)
+      console.log("email", dbRes.rows[0]?.email)
+
+      //Return uid,name, and email
+      return res.status(200).send({id: dbRes.rows[0]?.uid, name: dbRes.rows[0]?.name, email: dbRes.rows[0]?.email, gender: "", birthday: ""})
     }
-    
+    //Email already exists
     if (email === dbRes.rows[0]?.email) {
       return res.status(200).send({errMessage: "Email already exists"})
     }
 
   } catch(err) {
-    console.error(err)
+    console.error(err.message)
   }
-  
-
-
+  //Error fallback
   return res.status(500).send({errMessage: "Register failed"})
 })
 
