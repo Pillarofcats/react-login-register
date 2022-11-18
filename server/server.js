@@ -58,11 +58,12 @@ app.post("/login", async (req,res) => {
   let {email, password} = req.body
   //Query definition
   const queryEmailValid = {
-    text: "SELECT email from users WHERE email = $1",
+    text: "SELECT email FROM users WHERE email = $1",
     value: [email]
   }
+  console.log
   //Query email to see if it exists with login email
-  const qev = db.query(queryEmailValid)
+  const qev = await db.query(queryEmailValid)
   //Validate email
   if(email !== qev.rows[0].email) {
     return res.status(200).send({errMessage: "Email doesn't exist"})
