@@ -53,16 +53,17 @@ app.post("/register", async (req,res) => {
   return res.status(500).send({errMessage: "Register failed"})
 })
 
-app.post("/login", async (req,res) => {
+app.post("/login", async (req, res) => {
   //POST - destructed keys
   const {email, password} = req.body
+  console.log(email, password)
   //Query definition
   const queryEmailValid = {
     text: "SELECT email FROM users WHERE email = $1",
     value: [email]
   }
   //test
-  res.set('Content-Type', 'application/json')
+  res.setHeader('Content-Type', 'application/json')
   //Query email to see if it exists with login email
   const qev = await db.query(queryEmailValid)
   //Validate email
