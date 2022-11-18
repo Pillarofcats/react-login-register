@@ -27,7 +27,7 @@ app.post("/register", async (req,res) => {
   }
 
   const queryInsertUser = {
-    text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
+    text: 'INSERT INTO users(name, email) VALUES($1, $2) RETURNING uid, name, email',
     values: [name, email]
   }
 
