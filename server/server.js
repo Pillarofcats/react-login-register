@@ -32,11 +32,11 @@ app.post("/register", async (req,res) => {
     console.log("rows[0]", dbRes.rows[0])
     console.log("email =>", dbRes.rows[0]?.email)
 
-    if(email !== dbRes.rows[0]) {
+    if(email !== dbRes.rows[0]?.email) {
       return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
     }
     
-    if (email === dbRes.rows[0]) {
+    if (email === dbRes.rows[0]?.email) {
       return res.status(200).send({errMessage: "Email already exists"})
     }
 
