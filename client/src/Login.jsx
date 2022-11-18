@@ -18,7 +18,7 @@ function Login({setUser}) {
     const loginFormData = {email: email, password: password}
     console.log('emailpass', email, password)
     // const URL = "http://localhost:3000/login"
-    const URL = "https://classy-steel-production.up.railway.app/login"
+    const URL = "http://classy-steel-production.up.railway.app/login"
 
     try {
       let response = await fetch(URL, {
