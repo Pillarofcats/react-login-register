@@ -4,9 +4,10 @@ const bcryptjs = require('bcryptjs')
 const dotenv = require('dotenv').config()
 
 const app = express()
+app.use(cors())
+
 const db = require("./db")
 
-app.use(cors())
 // for parsing application/json
 app.use(express.json())
 // for parsing application/x-www-form-urlencoded
