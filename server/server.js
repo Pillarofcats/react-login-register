@@ -17,46 +17,27 @@ app.get("/", (req,res) => {
 })
 
 app.post("/register", async (req,res) => {
-  
+  //POST - destructed keys
   const {name, email, password} = req.body
-  console.log("data", req.body)
 
-  const queryCheckEmail = {
-    text: 'SELECT email FROM users WHERE email = $1',
-    values: [email],
-  }
-
-  const queryInsertUser = {
-    text: 'INSERT INTO users(name, email) VALUES($1, $2) RETURNING uid, name, email',
-    values: [name, email]
-  }
-
+  //Queries
   try {
+    //Query definition
+    const queryCheckEmail = {
+      text: 'SELECT email FROM users WHERE email = $1',
+      values: [email],
+    }
     //Query for registered email
     const qe = await db.query(queryCheckEmail)
     //Email does not exist, register user
     if(email !== qe.rows[0]?.email) {
       //Encrypt/Hash password
       const hashPass = await bcryptjs.hash(password, 10)
-      console.log("hashpass", hashPass)
-
-      //Insert user into users database
-      const qiu = await db.query(queryInsertUser)
-      console.log("qiu should return name, email", qiu.rows[0])
-      console.log("uid", qiu.rows[0]?.uid)
-      console.log("name", qiu.rows[0]?.name)
-      console.log("email", qiu.rows[0]?.email)
-
-      const queryInsertPass = {
-        text: 'INSERT INTO hash_pass(id, password) VALUES($1, $2)',
-        values: [qiu.rows[0]?.uid, hashPass]
+      //Query definition
+      const queryInsertUser = {
+        text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
+        values: [name, email, hashPass]
       }
-      
-      //Insert hash password into hash_pass database using uid primary key from users database
-      const qip = await db.query(queryInsertPass)
-      console.log("dbRes should return uid, pass", qip.rows[0])
-      console.log("id", qip.rows[0]?.id)
-      console.log("pass", qip.rows[0]?.password)
       //Return uid,name, and email
       return res.status(200).send({id: qiu.rows[0]?.uid, name: qiu.rows[0]?.name, email: qiu.rows[0]?.email, gender: "", birthday: ""})
     }
@@ -72,24 +53,43 @@ app.post("/register", async (req,res) => {
   return res.status(500).send({errMessage: "Register failed"})
 })
 
-app.post("/login", (req,res) => {
-  
-  let data = req.body
-  console.log("POST - Server received user login data:", data)
-
-  if(data.email === mockUser.email && data.password === mockUser.password) {
-    return res.status(200).send({id: mockUser.id, name: mockUser.name, email: mockUser.email})
+app.post("/login", async (req,res) => {
+  //POST - destructed keys
+  let {email, password} = req.body
+  //Query definition
+  const queryEmailValid = {
+    text: "SELECT email from users WHERE email = $1",
+    value: [email]
   }
-  
-  if (data.email === mockUser.email && data.password !== mockUser.password ) {
-    return res.status(200).send({errMessage: "Password incorrect"})
-  }
-
-  if(data.email !== mockUser.email) {
+  //Query email to see if it exists with login email
+  const qev = db.query(queryEmailValid)
+  //Validate email
+  if(email !== qev.rows[0].email) {
     return res.status(200).send({errMessage: "Email doesn't exist"})
   }
+  //Query definition
+  const queryEmailPassword = {
+    text: "SELECT password FROM users WHERE email = $1",
+    value: [email]
+  }
+  //Query email for hashed password
+  const qep = await db.query(queryEmailPassword)
+  //Password comapare with bcryptjs
+  const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
+  //Succesful login
+  if(passMatch) {
+    //Query definition
+    const queryUser = {
+      text: "SELECT * FROM users WHERE email = $1 RETURNING uid, name, email, gender, birthday",
+      value: [email]
+    }
+    //Query user data to be sent back to client
+    const qe = await db.query(queryUser)
 
-  return res.status(500).send({errMessage: "Login failed"})
+    return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
+  } 
+  //Unsuccessful login
+  return res.status(200).send({errMessage: "Password incorrect"})
 })
 
 app.post("/saveEdits", (req, res) => {
