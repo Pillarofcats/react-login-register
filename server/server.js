@@ -65,7 +65,7 @@ app.post("/login", async (req,res) => {
   //Query email to see if it exists with login email
   const qev = await db.query(queryEmailValid)
   //Validate email
-  if(email !== qev.rows[0].email) {
+  if(email !== qev.rows[0]?.email) {
     return res.status(200).send({errMessage: "Email doesn't exist"})
   }
   //Query definition
@@ -82,7 +82,7 @@ app.post("/login", async (req,res) => {
   if(passMatch) {
     //Query definition
     const queryUser = {
-      text: "SELECT * FROM users WHERE email = $1 RETURNING uid, name, email, gender, birthday",
+      text: "SELECT * FROM users WHERE email = $1",
       value: [email]
     }
     //Query user data to be sent back to client
