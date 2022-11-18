@@ -26,7 +26,7 @@ function initUser () {
 }
 
 const [user, setUser] = useState(() => initUser())
-  console.log('env', process.env.RAILWAY_ENVIRONMENT)
+  console.log('env', import.meta.env)
   console.log("user data:", user)
 
   return (
