@@ -28,9 +28,9 @@ app.post("/register", async (req,res) => {
       values: [email],
     }
     //Query for registered email
-    const qe = await db.query(queryCheckEmail)
+    const qce = await db.query(queryCheckEmail)
     //Email does not exist, register user
-    if(email !== qe.rows[0]?.email) {
+    if(email !== qce.rows[0]?.email) {
       //Encrypt/Hash password
       const hashPass = await bcryptjs.hash(password, 10)
       //Query definition
@@ -38,13 +38,13 @@ app.post("/register", async (req,res) => {
         text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
         values: [name, email, hashPass]
       }
+      //Query to insert user into users database
+      const qiu = await db.query(queryInsertUser)
       //Return uid,name, and email
       return res.status(200).send({id: qiu.rows[0]?.uid, name: qiu.rows[0]?.name, email: qiu.rows[0]?.email, gender: "", birthday: ""})
     }
     //Email already exists
-    if (email === qe.rows[0]?.email) {
-      return res.status(200).send({errMessage: "Email already exists"})
-    }
+    return res.status(200).send({errMessage: "Email already exists"})
 
   } catch(err) {
     console.error(err.message)
@@ -86,7 +86,7 @@ app.post("/login", async (req,res) => {
     }
     //Query user data to be sent back to client
     const qe = await db.query(queryUser)
-
+    //Server response with user fata
     return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
   } 
   //Unsuccessful login
@@ -94,7 +94,6 @@ app.post("/login", async (req,res) => {
 })
 
 app.post("/saveEdits", (req, res) => {
-  
   const edits = req.body
   console.log("user edits", edits)
   //find person in data base
