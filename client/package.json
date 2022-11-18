@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "npx http-server ./dist --cors",
+    "start": "npx http-server ./dist --cors -a https://react-register-login-production.up.railway.app",
     "server": "npm start --prefix ../server",
     "client": "vite",
     "client-server": "concurrently \"npm run client\" \"npm run server\"",
