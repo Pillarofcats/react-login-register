@@ -1,6 +1,6 @@
-import React, {useRef, useState} from "react"
-
 import ErrorMessage from "./ErrorMessage"
+
+import React, {useRef, useState} from "react"
 
 function Login({setUser}) {
 
@@ -14,8 +14,6 @@ function Login({setUser}) {
 
     const email = loginEmailRef.current.value
     const password = loginPasswordRef.current.value
-
-    if(!email || !password) return console.log("input form error")
 
     const loginFormData = {email: email, password: password}
     console.log('emailpass', email, password)
@@ -31,7 +29,7 @@ function Login({setUser}) {
 
       return await response.json()
     } catch(err) {
-      console.log(err.message)
+      console.log(err)
     }
   }
 
