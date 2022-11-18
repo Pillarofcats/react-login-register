@@ -47,7 +47,7 @@ app.post("/register", async (req,res) => {
     return res.status(200).send({errMessage: "Email already exists"})
 
   } catch(err) {
-    console.error(err.message)
+    console.error(err)
   }
   //Error fallback
   return res.status(500).send({errMessage: "Register failed"})
@@ -59,41 +59,46 @@ app.post("/login", async (req, res) => {
   console.log(email, password)
   //Query definition
   const queryEmailValid = {
-    text: "SELECT email FROM users WHERE email = $1",
+    text: 'SELECT email FROM users WHERE email = $1',
     value: [email]
   }
   //test
   res.setHeader('Content-Type', 'application/json')
-  //Query email to see if it exists with login email
-  const qev = await db.query(queryEmailValid)
-  //Validate email
-  if(email !== qev.rows[0]?.email) {
-    return res.status(200).send({errMessage: "Email doesn't exist"})
-  }
-  //Query definition
-  const queryEmailPassword = {
-    text: "SELECT password FROM users WHERE email = $1",
-    value: [email]
-  }
-  //Query email for hashed password
-  const qep = await db.query(queryEmailPassword)
-  console.log("pass", qep.rows[0]?.password)
-  //Password comapare with bcryptjs
-  const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
-  //Succesful login
-  if(passMatch) {
+
+  try {
+    //Query email to see if it exists with login email
+    const qev = await db.query(queryEmailValid)
+    //Validate email
+    if(email !== qev.rows[0]?.email) {
+      return res.status(200).send({errMessage: "Email doesn't exist"})
+    }
     //Query definition
-    const queryUser = {
-      text: "SELECT * FROM users WHERE email = $1",
+    const queryEmailPassword = {
+      text: 'SELECT password FROM users WHERE email = $1',
       value: [email]
     }
-    //Query user data to be sent back to client
-    const qe = await db.query(queryUser)
-    //Server response with user fata
-    return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
-  } 
-  //Unsuccessful login
-  return res.status(200).send({errMessage: "Password incorrect"})
+    //Query email for hashed password
+    const qep = await db.query(queryEmailPassword)
+    console.log("pass", qep.rows[0]?.password)
+    //Password comapare with bcryptjs
+    const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
+    //Succesful login
+    if(passMatch) {
+      //Query definition
+      const queryUser = {
+        text: 'SELECT * FROM users WHERE email = $1',
+        value: [email]
+      }
+      //Query user data to be sent back to client
+      const qe = await db.query(queryUser)
+      //Server response with user fata
+      return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
+    }
+    //Unsuccessful login
+    return res.status(200).send({errMessage: "Password incorrect"})
+  } catch(err) {
+    console.error(err)
+  }
 })
 
 app.post("/saveEdits", (req, res) => {
