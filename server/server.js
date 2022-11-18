@@ -1,12 +1,12 @@
 const express = require("express")
-// const cors = require("cors")
+const cors = require("cors")
 const bcryptjs = require('bcryptjs')
 const dotenv = require('dotenv').config()
 
 const app = express()
 const db = require("./db")
 
-// app.use(cors())
+app.use(cors())
 // for parsing application/json
 app.use(express.json())
 // for parsing application/x-www-form-urlencoded
@@ -16,7 +16,7 @@ app.get("/", (req,res) => {
   res.status(200).send('Server is live..')
 })
 
-app.post("/register", async (req,res) => {
+app.post("/register", cors(), async (req,res) => {
   //POST - destructed keys
   const {name, email, password} = req.body
 
@@ -53,7 +53,7 @@ app.post("/register", async (req,res) => {
   return res.status(500).send({errMessage: "Register failed"})
 })
 
-app.post("/login", async (req,res) => {
+app.post("/login", cors(), async (req,res) => {
   //POST - destructed keys
   let {email, password} = req.body
   //Query definition
