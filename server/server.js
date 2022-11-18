@@ -16,7 +16,7 @@ app.get("/", (req,res) => {
   res.status(200).send('Server is live..')
 })
 
-app.post("/register", cors(), async (req,res) => {
+app.post("/register", async (req,res) => {
   //POST - destructed keys
   const {name, email, password} = req.body
 
@@ -53,7 +53,7 @@ app.post("/register", cors(), async (req,res) => {
   return res.status(500).send({errMessage: "Register failed"})
 })
 
-app.post("/login", cors(), async (req,res) => {
+app.post("/login", async (req,res) => {
   //POST - destructed keys
   let {email, password} = req.body
   //Query definition
