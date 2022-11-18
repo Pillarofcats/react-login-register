@@ -23,7 +23,7 @@ function Register({setUser}) {
     const registerFormData = {name: name, email: email, password: password}
     // const URL = "http://localhost:3000/register"
     const URL = "https://classy-steel-production.up.railway.app/register"
-    console.log("url", URL)
+
     try {
       let response = await fetch(URL, {
         method: "POST",
