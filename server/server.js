@@ -1,8 +1,10 @@
 const express = require("express")
 const cors = require("cors")
-const db = require("./db")
+const dotenv = require('dotenv').config()
+console.log(process.env)
 
 const app = express()
+const db = require("./db")
 
 app.use(cors())
 // for parsing application/json
