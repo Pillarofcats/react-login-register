@@ -6,7 +6,9 @@ const dotenv = require('dotenv').config()
 const app = express()
 const db = require("./db")
 
-app.use(cors())
+app.use(cors({
+  origin: 'react-register-login-production.up.railway.app'
+}))
 // for parsing application/json
 app.use(express.json())
 // for parsing application/x-www-form-urlencoded
