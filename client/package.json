@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "npx http-server ./dist -p process.env.PORT",
+    "start": "npx http-server ./dist",
     "server": "npm start --prefix ../server",
     "client": "vite",
     "client-server": "concurrently \"npm run client\" \"npm run server\"",
