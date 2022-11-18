@@ -26,13 +26,14 @@ app.post("/register", async (req,res) => {
   try {
     const dbRes = await db.query(queryCheckEmail)
     console.log("dbRes", dbRes)
-    console.log("rows[0]", dbRes.rows[0].email)
+    console.log("rows[0]", dbRes.rows[0])
+    console.log("rows[0].email", dbRes.rows[0].email)
 
-    if(email !== dbRes.rows[0]?.email) {
+    if(email !== dbRes.rows[0]) {
       return res.status(200).send({id: Date.now(), name: name, email: email, gender: "", birthday: ""})
     }
     
-    if (email === dbRes.rows[0]?.email) {
+    if (email === dbRes.rows[0]) {
       return res.status(200).send({errMessage: "Email already exists"})
     }
 
