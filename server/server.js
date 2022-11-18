@@ -1,6 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 const dotenv = require('dotenv').config()
 
 const app = express()
@@ -35,7 +35,7 @@ app.post("/register", async (req,res) => {
     //Email does not exist, register user
     if(email !== dbRes.rows[0]?.email) {
       //Encrypt/Hash password
-      const hashPass = await bcrypt.hash(password, 10)
+      const hashPass = await bcryptjs.hash(password, 10)
       //Query definition - Return
       const queryInsertUser = {
         text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
