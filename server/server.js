@@ -55,13 +55,14 @@ app.post("/register", async (req,res) => {
 
 app.post("/login", async (req,res) => {
   //POST - destructed keys
-  let {email, password} = req.body
+  const {email, password} = req.body
   //Query definition
   const queryEmailValid = {
     text: "SELECT email FROM users WHERE email = $1",
     value: [email]
   }
-  console.log
+  //test
+  res.set('Content-Type', 'application/json')
   //Query email to see if it exists with login email
   const qev = await db.query(queryEmailValid)
   //Validate email
@@ -101,7 +102,7 @@ app.post("/saveEdits", (req, res) => {
 
   //change user properties based on what properties changed in database
 
-  return res.status(200).send({edits})
+  return res.status(200).send({edits: edits})
 })
 
 const PORT = process.env.PORT || 3000
