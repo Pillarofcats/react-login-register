@@ -26,7 +26,6 @@ function initUser () {
 }
 
 const [user, setUser] = useState(() => initUser())
-  console.log('env', import.meta.env)
   console.log("user data:", user)
 
   return (
