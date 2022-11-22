@@ -119,7 +119,7 @@ app.post("/saveEdits", async (req, res) => {
     }
 
     //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
-    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING *`
+    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid,name,email,gender,birthday`
     console.log(qs)
     //change user properties based on what properties changed in database
     const queryUserUpdate = {
@@ -130,7 +130,7 @@ app.post("/saveEdits", async (req, res) => {
     console.log(quu.rows[0])
     const {uid, name, email, gender, birthday} = quu.rows[0]
     console.log('returning data', uid, name, email, gender, birthday)
-    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
+    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday.slice(10)})
   } catch(err) {
     console.error(err)
   }
