@@ -15,7 +15,7 @@ function Profile({user, logout, setUser}) {
   function editSubmit() {
     //Submit profile data for update
     getEdits()
-      .then((data) => {
+      .then((user) => {
         console.log("profile data", data)
         setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
       })
