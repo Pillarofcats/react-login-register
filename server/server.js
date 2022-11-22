@@ -131,7 +131,7 @@ app.post("/saveEdits", async (req, res) => {
     const {uid, name, email, gender, birthday} = quu.rows[0]
     console.log(typeof birthday)
     console.log('returning data', uid, name, email, gender, birthday)
-    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday.slice(0,10)})
+    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
   } catch(err) {
     console.error(err)
   }
