@@ -119,7 +119,7 @@ app.post("/saveEdits", async (req, res) => {
     }
 
     //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
-    const qs = `UPDATE users SET (${[...qsEdits]}) WHERE uid = $1`
+    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1`
     console.log(qs)
     //change user properties based on what properties changed in database
     const queryUserUpdate = {
