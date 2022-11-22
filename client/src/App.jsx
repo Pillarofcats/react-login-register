@@ -7,7 +7,7 @@ import LoginRegister from "./routes/LoginRegister"
 import Profile from "./routes/Profile"
 
 //React Router Library
-import { Routes, Route} from "react-router-dom"
+import { Routes, Route, Redirect} from "react-router-dom"
 
 //Hooks
 import {useState} from "react"
