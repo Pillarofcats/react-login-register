@@ -118,7 +118,7 @@ app.post("/saveEdits", async (req, res) => {
       qsEdits.push(`${key} = '${value}'`)
     }
 
-    //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
+    //Create query definition from edits in the form: column=value
     const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid,name,email,gender,birthday`
     console.log(qs)
     //change user properties based on what properties changed in database
@@ -126,12 +126,14 @@ app.post("/saveEdits", async (req, res) => {
       text: qs,
       values: [id]
     }
+    //Query update user data
     const quu = await db.query(queryUserUpdate)
-    console.log(quu.rows[0])
+    //Destructure query data
     const {uid, name, email, gender, birthday} = quu.rows[0]
-    console.log(typeof birthday)
-    console.log('returning data', uid, name, email, gender, birthday.toISOString().slice(0,10))
-    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday.toISOString().slice(0,10)})
+    //Format birthday
+    const bDay = `${birthday.getMonth()}-${birthday.getDay()}-${birthday.getFullYear()}`
+    //Return user data after updating db
+    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
   } catch(err) {
     console.error(err)
   }
