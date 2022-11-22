@@ -106,14 +106,46 @@ app.post("/login", async (req, res) => {
   }
 })
 
-app.post("/saveEdits", (req, res) => {
-  const edits = req.body
+app.post("/saveEdits", async (req, res) => {
+  const {id, edits} = req.body
   console.log("user edits", edits)
-  //find person in data base
 
-  //change user properties based on what properties changed in database
+  try {
+    //Edit number for query definition
+    let qsNums = []
+    //Edits keys for query definition
+    let qsKeys = []
+    //Edits values for query definition
+    let qsValues = []
+    //Set edit keys/values
+    let qsInitNum = 1
+    for(let [key, value] of Object.entries(edits)) {
+      console.log(qsInitNum, key, value)
+      qsNums.push['$' + qsInitNum++]
+      qsKeys.push(key)
+      qsValues.push(value)
+    }
+    //Add id to query  definition
+    let idNum = '$' + qsInitNum
+    //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
+    const qs = `UPDATE users SET (${qsKeys.toString()}) VALUES(${qsNums.toString()}) WHERE uid = ${idNum}`
+    console.log(qs)
+    //change user properties based on what properties changed in database
+    const queryUserUpdate = {
+      text: qs,
+      values: [...qsValues, id]
+    }
+    console.log('qs values', [...qsValues, id])
+    const quu = await db.query(queryUserUpdate)
+    console.log(quu.rows[0])
+    const {uid, name, email, gender, birthday} = quu.rows[0]
+    console.log('returning data', uid, name, email, gender, birthday)
+    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
+  } catch(err) {
+    console.error(err)
+  }
 
-  return res.status(200).send({edits: edits})
+  return res.status(500).send('Error updating user data to db')
 })
 
 const PORT = process.env.PORT || 3000
