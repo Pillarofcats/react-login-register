@@ -17,7 +17,7 @@ function Profile({user, logout, setUser}) {
     getEdits()
       .then((user) => {
         console.log("profile data", user)
-        setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
+        setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday.toISOString().slice(0,10)})
       })
       .catch((err) => console.log(err))
 
