@@ -111,31 +111,21 @@ app.post("/saveEdits", async (req, res) => {
   console.log("user edits", edits)
 
   try {
-    //Edit number for query definition
-    let qsNums = []
-    //Edits keys for query definition
-    let qsKeys = []
-    //Edits values for query definition
-    let qsValues = []
-    //Set edit keys/values
-    let qsInitNum = 1
+
+    let qsEdits = []
+
     for(let [key, value] of Object.entries(edits)) {
-      console.log(qsInitNum, key, value)
-      qsNums.push('$' + qsInitNum++)
-      qsKeys.push(key)
-      qsValues.push(value)
+      qsEdits.push(`${key} = ${value}`)
     }
-    //Add id to query  definition
-    let idNum = '$' + qsInitNum
+
     //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
-    const qs = `UPDATE users SET (${qsKeys.toString()}) VALUES(${qsNums.toString()}) WHERE uid = ${idNum}`
+    const qs = `UPDATE users SET (${[...qsEdits]}) WHERE uid = $1`
     console.log(qs)
     //change user properties based on what properties changed in database
     const queryUserUpdate = {
       text: qs,
-      values: [...qsValues, id]
+      values: [id]
     }
-    console.log('qs values', [...qsValues, id])
     const quu = await db.query(queryUserUpdate)
     console.log(quu.rows[0])
     const {uid, name, email, gender, birthday} = quu.rows[0]
