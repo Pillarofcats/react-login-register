@@ -115,7 +115,7 @@ app.post("/saveEdits", async (req, res) => {
     let qsEdits = []
 
     for(let [key, value] of Object.entries(edits)) {
-      qsEdits.push(`${key} = ${value}`)
+      qsEdits.push(`${key} = '${value}'`)
     }
 
     //Create query definition from edits in the form: (name, email, password) VALUES($1, $2, $3)
