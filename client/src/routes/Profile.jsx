@@ -17,6 +17,7 @@ function Profile({user, logout, setUser}) {
     getEdits()
       .then((data) => {
         console.log("profile data", data)
+        setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
       })
       .catch((err) => console.log(err))
 
