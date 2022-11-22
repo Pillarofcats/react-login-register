@@ -121,7 +121,7 @@ app.post("/saveEdits", async (req, res) => {
     let qsInitNum = 1
     for(let [key, value] of Object.entries(edits)) {
       console.log(qsInitNum, key, value)
-      qsNums.push['$' + qsInitNum++]
+      qsNums.push(['$' + qsInitNum++])
       qsKeys.push(key)
       qsValues.push(value)
     }
