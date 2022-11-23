@@ -18,7 +18,7 @@ function Register({setUser}) {
     const email = registerEmailRef.current.value
     const password = registerPasswordRef.current.value
 
-    const registerFormData = {name: name, email: email, password: password}
+    const registerFormData = {uName: name, uEmail: email, uPassword: password}
     // const URL = "http://localhost:3000/register"
     const URL = "https://classy-steel-production.up.railway.app/register"
 

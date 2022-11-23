@@ -78,7 +78,7 @@ app.post('/login', async (req, res) => {
     console.log('query email')
     const qev = await db.query(queryEmailValid)
     //Validate email
-    if(uEmail !== qev.rows[0]?.email) {
+    if(uEmail !== qev.rows[0].email) {
       console.log('email NOT valid')
       return res.status(200).send({errMessage: "Email doesn't exist"})
     }
@@ -90,9 +90,9 @@ app.post('/login', async (req, res) => {
     console.log('query hash pass')
     //Query email for hashed password
     const qep = await db.query(queryEmailPassword)
-    console.log('pass', qep.rows[0]?.password)
+    console.log('pass', qep.rows[0].password)
     //Password comapare with bcryptjs
-    const passMatch = await bcryptjs.compare(uPassword, qep.rows[0]?.password)
+    const passMatch = await bcryptjs.compare(uPassword, qep.rows[0].password)
     //Succesful login
     if(passMatch) {
       console.log('password match')

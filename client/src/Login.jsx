@@ -15,8 +15,8 @@ function Login({setUser}) {
     const email = loginEmailRef.current.value
     const password = loginPasswordRef.current.value
 
-    const loginFormData = {email: email, password: password}
-    console.log('emailpass', email, password)
+    const loginFormData = {uEmail: email, uPassword: password}
+
     // const URL = "http://localhost:3000/login"
     const URL = "https://classy-steel-production.up.railway.app/login"
 
