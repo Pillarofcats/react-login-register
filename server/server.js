@@ -148,7 +148,7 @@ app.post('/saveEdits', async (req, res) => {
     //Destructure query data
     const {uid, name, email, gender, birthday} = quu.rows[0]
     //Format birthday
-    const bDay = `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}`
+    const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
     //Return user data after updating db
     return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
   } catch(err) {
