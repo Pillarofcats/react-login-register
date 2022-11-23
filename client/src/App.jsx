@@ -25,6 +25,22 @@ function initUser () {
   }
 }
 
+//LOGUT - CLEAR COOKIE IN SERVERS.JS
+//res.clearCookie('user')
+//redirect to login/register page
+
+//USER ALREADY LOGGED IN?
+//  useEffect(() => {
+//     const loggedInUser = localStorage.getItem("user");
+//     if (loggedInUser) {
+//       const foundUser = JSON.parse(loggedInUser);
+//       setUser(foundUser);
+//     }
+//   }, []);
+
+//STORE USER IN LOCAL STORAGE
+// localStorage.setItem('user', response.data)
+
 const [user, setUser] = useState(() => initUser())
   console.log("user data:", user)
 

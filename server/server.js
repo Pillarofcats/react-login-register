@@ -1,28 +1,34 @@
-const express = require("express")
-const cors = require("cors")
+const express = require('express')
+const cors = require('cors')
 const bcryptjs = require('bcryptjs')
+const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv').config()
 
 const app = express()
-const db = require("./db")
-
+//Import database (PSQL)
+const db = require('./db')
+//Middleware cross-origin resource sharing (config)
 app.use(cors())
-// for parsing application/json
+//Middleware parsing application/json
 app.use(express.json())
-// for parsing application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })) 
+//Middleware parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }))
+//Middleware parsing cookies
+app.use(cookieParser())
 
-app.get("/", (req,res) => {
+//Default end-point/route
+app.get('/', (req,res) => {
   res.status(200).send('Server is live..')
 })
 
-app.post("/register", async (req,res) => {
+//Register end-point/route
+app.post('/register', async (req,res) => {
   //POST - destructed keys
   const {name, email, password} = req.body
 
   //Queries
   try {
-    //Query definition
+    //Query definition, check email
     const queryCheckEmail = {
       text: 'SELECT email FROM users WHERE email = $1',
       values: [email],
@@ -44,16 +50,17 @@ app.post("/register", async (req,res) => {
       return res.status(200).send({id: qiu.rows[0]?.uid, name: qiu.rows[0]?.name, email: qiu.rows[0]?.email, gender: "", birthday: ""})
     }
     //Email already exists
-    return res.status(200).send({errMessage: "Email already exists"})
+    return res.status(200).send({errMessage: 'Email already exists'})
 
   } catch(err) {
     console.error(err)
   }
   //Error fallback
-  return res.status(500).send({errMessage: "Register failed"})
+  return res.status(500).send({errMessage: 'Register failed'})
 })
 
-app.post("/login", async (req, res) => {
+//Login end-point/route
+app.post('/login', async (req, res) => {
   //POST - destructed keys
   const {email, password} = req.body
   console.log(email, password)
@@ -63,7 +70,7 @@ app.post("/login", async (req, res) => {
     values: [email]
   }
   //test
-  res.setHeader('Content-Type', 'application/json')
+  // res.setHeader('Content-Type', 'application/json')
 
   try {
     //Query email to see if it exists with login email
@@ -71,7 +78,7 @@ app.post("/login", async (req, res) => {
     const qev = await db.query(queryEmailValid)
     //Validate email
     if(email !== qev.rows[0]?.email) {
-      console.log("email NOT valid")
+      console.log('email NOT valid')
       return res.status(200).send({errMessage: "Email doesn't exist"})
     }
     //Query definition
@@ -79,10 +86,10 @@ app.post("/login", async (req, res) => {
       text: 'SELECT password FROM users WHERE email = $1',
       values: [email]
     }
-    console.log("query hash pass")
+    console.log('query hash pass')
     //Query email for hashed password
     const qep = await db.query(queryEmailPassword)
-    console.log("pass", qep.rows[0]?.password)
+    console.log('pass', qep.rows[0]?.password)
     //Password comapare with bcryptjs
     const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
     //Succesful login
@@ -96,24 +103,30 @@ app.post("/login", async (req, res) => {
       console.log('query user data')
       //Query user data to be sent back to client
       const qe = await db.query(queryUser)
+      //Set user cookie
+      res.cookie('user', email, { expires: new Date(Date.now().getMinutes() + 5), secure: true })
       //Server response with user fata
       return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
     }
     //Unsuccessful login
-    return res.status(200).send({errMessage: "Password incorrect"})
+    return res.status(200).send({errMessage: 'Password incorrect'})
   } catch(err) {
     console.error(err)
   }
 })
 
-app.post("/saveEdits", async (req, res) => {
+
+//saveEdits end-point/route
+app.post('/saveEdits', async (req, res) => {
+  console.log(req.cookies)
+  //Destructure object data
   const {id, edits} = req.body
-  console.log("user edits", edits)
+  console.log('user edits', edits)
 
   try {
-
+    //Array holds strings of key values from user submitted edits
     let qsEdits = []
-
+    //Loop through creating key = value strings for database update query definition
     for(let [key, value] of Object.entries(edits)) {
       qsEdits.push(`${key} = '${value}'`)
     }
@@ -121,7 +134,7 @@ app.post("/saveEdits", async (req, res) => {
     //Create query definition from edits in the form: column=value
     const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid,name,email,gender,birthday`
     console.log(qs)
-    //change user properties based on what properties changed in database
+    //Query definition, change user properties based on what properties changed in database
     const queryUserUpdate = {
       text: qs,
       values: [id]
@@ -137,12 +150,14 @@ app.post("/saveEdits", async (req, res) => {
   } catch(err) {
     console.error(err)
   }
-
+  //Error
   return res.status(500).send('Error updating user data to db')
 })
 
+//Set port production/local
 const PORT = process.env.PORT || 3000
 
+//Server active on specified port
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`)
 })
