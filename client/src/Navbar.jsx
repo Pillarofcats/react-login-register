@@ -11,13 +11,13 @@ function Navbar() {
           <p className="navbar-brand h1 m-0 p-2">React Auth</p>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/Home" className="nav-link">Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="LoginRegister" className="nav-link">Login/Register</Link>
+              <Link to="/LoginRegister" className="nav-link">Login/Register</Link>
             </li>
             <li className="nav-item">
-              <Link to="Profile" className="nav-link">Profile</Link>
+              <Link to="/Profile" className="nav-link">Profile</Link>
             </li>
           </ul>
         </div>
