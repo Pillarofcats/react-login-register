@@ -24,7 +24,7 @@ function Login({setUser}) {
       let response = await fetch(URL, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        credentials: 'same-origin',
+        credentials: 'include',
         body: JSON.stringify(loginFormData)
       })
       
