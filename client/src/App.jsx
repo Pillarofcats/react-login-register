@@ -7,7 +7,7 @@ import LoginRegister from "./routes/LoginRegister"
 import Profile from "./routes/Profile"
 
 //React Router Library
-import { Routes, Route, Redirect} from "react-router-dom"
+import { Routes, Route, Navigate} from "react-router-dom"
 
 //Hooks
 import {useState} from "react"
@@ -37,7 +37,7 @@ const [user, setUser] = useState(() => initUser())
         <Route path="Home" element={<Home name={user.name} />} />
         <Route path="LoginRegister" element={<LoginRegister setUser={setUser} />} />
         <Route path="Profile" element={<Profile user={user} logout={() => setUser(initUser)} setUser={setUser}/>} />
-        <Route path ="*" element={<Redirect to="Home" />} />
+        <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
     </div>
