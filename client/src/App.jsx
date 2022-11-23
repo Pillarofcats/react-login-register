@@ -34,9 +34,9 @@ const [user, setUser] = useState(() => initUser())
     
       <Routes>
         <Route path="/" element={<Home name={user.name} />} />
-        <Route path="Home" element={<Home name={user.name} />} />
-        <Route path="LoginRegister" element={<LoginRegister setUser={setUser} />} />
-        <Route path="Profile" element={<Profile user={user} logout={() => setUser(initUser)} setUser={setUser}/>} />
+        <Route path="/Home" element={<Home name={user.name} />} />
+        <Route path="/LoginRegister" element={<LoginRegister setUser={setUser} />} />
+        <Route path="/Profile" element={<Profile user={user} logout={() => setUser(initUser)} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
