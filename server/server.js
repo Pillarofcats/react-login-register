@@ -63,14 +63,13 @@ app.post('/register', async (req,res) => {
 app.post('/login', async (req, res) => {
   //POST - destructed keys
   const {email, password} = req.body
-  console.log(email, password)
   //Query definition
   const queryEmailValid = {
     text: 'SELECT email FROM users WHERE email = $1',
     values: [email]
   }
-  //test
-  // res.setHeader('Content-Type', 'application/json')
+
+  console.log('cookie', req.cookies.user)
 
   try {
     //Query email to see if it exists with login email
@@ -106,6 +105,7 @@ app.post('/login', async (req, res) => {
       //Set user cookie
       const expireMinutes = new Date((Date.now() / (1000 * 60)) + 5)
       res.cookie('user', email, { expires: expireMinutes, secure: true })
+      console.log(req.cookies)
       //Server response with user fata
       return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
     }
@@ -119,7 +119,7 @@ app.post('/login', async (req, res) => {
 
 //saveEdits end-point/route
 app.post('/saveEdits', async (req, res) => {
-  console.log(req.cookies)
+  console.log('cookies', req.cookies.user)
   //Destructure object data
   const {id, edits} = req.body
   console.log('user edits', edits)
