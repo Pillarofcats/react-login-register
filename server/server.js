@@ -71,7 +71,7 @@ app.post('/login', async (req, res) => {
     values: [uEmail]
   }
 
-  console.log('cookie', req.cookies.user)
+  console.log('cookie', req.cookies['user'])
 
   try {
     //Query email to see if it exists with login email
@@ -106,13 +106,12 @@ app.post('/login', async (req, res) => {
       const qe = await db.query(queryUser)
       //Destructure query data
       const {uid, name, email, gender, birthday} = qe.rows[0]
-      //Set user cookie
-      const expireMinutes = new Date((Date.now() / (1000 * 60)) + 5)
-      res.cookie('user', email, { expires: expireMinutes, secure: true })
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
-      //Server response with user data
-      return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
+      //Server response with user data & 5 min cookie
+      return res.cookie('user', email, { maxAge: 300000, secure: true })
+                .status(200)
+                .send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
     //Unsuccessful login
     return res.status(200).send({errMessage: 'Password incorrect'})
