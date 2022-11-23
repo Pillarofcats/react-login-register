@@ -24,30 +24,32 @@ app.get('/', (req,res) => {
 //Register end-point/route
 app.post('/register', async (req,res) => {
   //POST - destructed keys
-  const {name, email, password} = req.body
+  const {uName, uEmail, uPassword} = req.body
 
   //Queries
   try {
     //Query definition, check email
     const queryCheckEmail = {
       text: 'SELECT email FROM users WHERE email = $1',
-      values: [email],
+      values: [uEmail],
     }
     //Query for registered email
     const qce = await db.query(queryCheckEmail)
     //Email does not exist, register user
-    if(email !== qce.rows[0]?.email) {
+    if(uEmail !== qce.rows[0]?.email) {
       //Encrypt/Hash password
-      const hashPass = await bcryptjs.hash(password, 10)
+      const hashPass = await bcryptjs.hash(uPassword, 10)
       //Query definition
       const queryInsertUser = {
         text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
-        values: [name, email, hashPass]
+        values: [uName, uEmail, hashPass]
       }
       //Query to insert user into users database
       const qiu = await db.query(queryInsertUser)
+      //Destructure query data
+      const {uid, name, email} = qiu.rows[0]
       //Return uid,name, and email
-      return res.status(200).send({id: qiu.rows[0].uid, name: qiu.rows[0].name, email: qiu.rows[0].email})
+      return res.status(200).send({id: uid, name: name, email: email})
     }
     //Email already exists
     return res.status(200).send({errMessage: 'Email already exists'})
@@ -62,11 +64,11 @@ app.post('/register', async (req,res) => {
 //Login end-point/route
 app.post('/login', async (req, res) => {
   //POST - destructed keys
-  const {email, password} = req.body
+  const {uEmail, uPassword} = req.body
   //Query definition
   const queryEmailValid = {
     text: 'SELECT email FROM users WHERE email = $1',
-    values: [email]
+    values: [uEmail]
   }
 
   console.log('cookie', req.cookies.user)
@@ -76,37 +78,37 @@ app.post('/login', async (req, res) => {
     console.log('query email')
     const qev = await db.query(queryEmailValid)
     //Validate email
-    if(email !== qev.rows[0]?.email) {
+    if(uEmail !== qev.rows[0]?.email) {
       console.log('email NOT valid')
       return res.status(200).send({errMessage: "Email doesn't exist"})
     }
     //Query definition
     const queryEmailPassword = {
       text: 'SELECT password FROM users WHERE email = $1',
-      values: [email]
+      values: [uEmail]
     }
     console.log('query hash pass')
     //Query email for hashed password
     const qep = await db.query(queryEmailPassword)
     console.log('pass', qep.rows[0]?.password)
     //Password comapare with bcryptjs
-    const passMatch = await bcryptjs.compare(password, qep.rows[0]?.password)
+    const passMatch = await bcryptjs.compare(uPassword, qep.rows[0]?.password)
     //Succesful login
     if(passMatch) {
       console.log('password match')
       //Query definition
       const queryUser = {
         text: 'SELECT * FROM users WHERE email = $1',
-        values: [email]
+        values: [uEmail]
       }
       console.log('query user data')
       //Query user data to be sent back to client
       const qe = await db.query(queryUser)
+      //Destructure query data
+      const {uid, name, email, gender, birthday} = qe.rows[0]
       //Set user cookie
       const expireMinutes = new Date((Date.now() / (1000 * 60)) + 5)
       res.cookie('user', email, { expires: expireMinutes, secure: true })
-      //Destructure query data
-      const {uid, name, email, gender, birthday} = qe.rows[0]
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
       //Server response with user data
