@@ -47,7 +47,7 @@ app.post('/register', async (req,res) => {
       //Query to insert user into users database
       const qiu = await db.query(queryInsertUser)
       //Return uid,name, and email
-      return res.status(200).send({id: qiu.rows[0]?.uid, name: qiu.rows[0]?.name, email: qiu.rows[0]?.email, gender: "", birthday: ""})
+      return res.status(200).send({id: qiu.rows[0].uid, name: qiu.rows[0].name, email: qiu.rows[0].email})
     }
     //Email already exists
     return res.status(200).send({errMessage: 'Email already exists'})
@@ -105,9 +105,12 @@ app.post('/login', async (req, res) => {
       //Set user cookie
       const expireMinutes = new Date((Date.now() / (1000 * 60)) + 5)
       res.cookie('user', email, { expires: expireMinutes, secure: true })
-      console.log(req.cookies)
-      //Server response with user fata
-      return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
+      //Destructure query data
+      const {uid, name, email, gender, birthday} = qe.rows[0]
+      //Format birthday
+      const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
+      //Server response with user data
+      return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
     //Unsuccessful login
     return res.status(200).send({errMessage: 'Password incorrect'})

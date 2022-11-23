@@ -49,7 +49,7 @@ function Register({setUser}) {
         } else {
           console.log("Server Response Success:", user)
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
+          setUser({id: user.id, name: user.name, email: user.email})
           //If an error existed before successful submission, set false
           if(isError) setIsError(false)
           //Reset form inputs after successful form submission

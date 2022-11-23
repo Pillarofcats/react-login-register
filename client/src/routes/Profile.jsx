@@ -17,9 +17,7 @@ function Profile({user, logout, setUser}) {
     getEdits()
       .then((user) => {
         console.log("profile data", user)
-        //Format birthday
-        const bDay = `${user.birthday.getMonth()+1}-${user.birthday.getDate()}-${user.birthday.getFullYear()}`
-        setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: bDay})
+        setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
       })
       .catch((err) => console.log(err))
 

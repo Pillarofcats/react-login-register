@@ -46,10 +46,8 @@ function Login({setUser}) {
           setIsError(true)
         } else {
           console.log("Server Response Success:", user)
-          //Format birthday
-          const bDay = `${user.birthday.getMonth()+1}-${user.birthday.getDate()}-${user.birthday.getFullYear()}`
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: bDay})
+          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
           //If an error existed before successful submission, set false
           if(isError) setIsError(false)
           //Reset form inputs after successful form submission
