@@ -104,8 +104,8 @@ app.post('/login', async (req, res) => {
       //Query user data to be sent back to client
       const qe = await db.query(queryUser)
       //Set user cookie
-      const timeMinutes = Date.now() / (1000 * 60)
-      res.cookie('user', email, { expires: timeMinutes + 5, secure: true })
+      const expireMinutes = new Date((Date.now() / (1000 * 60)) + 5)
+      res.cookie('user', email, { expires: expireMinutes, secure: true })
       //Server response with user fata
       return res.status(200).send({id: qe.rows[0].uid, name: qe.rows[0].name, email: qe.rows[0].email, gender: qe.rows[0].gender, birthday: qe.rows[0].birthday})
     }
