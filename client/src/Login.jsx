@@ -24,9 +24,11 @@ function Login({setUser}) {
       let response = await fetch(URL, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
+        credentials: 'same-origin',
         body: JSON.stringify(loginFormData)
       })
-
+      
+      console.log("response headers", [...response.headers?.entries()])
       return await response.json()
     } catch(err) {
       console.log(err)
@@ -46,6 +48,7 @@ function Login({setUser}) {
           setIsError(true)
         } else {
           console.log("Server Response Success:", user)
+          console.log("response headers", [...user.headers?.entries()])
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
           //If an error existed before successful submission, set false
