@@ -8,13 +8,31 @@ const app = express()
 //Import database (PSQL)
 const db = require('./db')
 //Middleware cross-origin resource sharing (config)
-app.use(cors())
+app.use(cors({
+  //Access-Control-Allow-Origin
+  origin: 'https://react-register-login-production.up.railway.app',
+  //Access-Control-Allow-Methods
+  methods: ['GET','POST'],
+  //Access-Control-Allow-Credentials
+  credentials: true
+}))
 //Middleware parsing application/json
 app.use(express.json())
 //Middleware parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
 //Middleware parsing cookies
 app.use(cookieParser())
+
+
+// Add Access Control Allow Origin headers
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://yoursite.com");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 //Default end-point/route
 app.get('/', (req,res) => {
