@@ -96,7 +96,8 @@ app.post('/login', async (req, res) => {
     console.log('query email')
     const qev = await db.query(queryEmailValid)
     //Validate email
-    if(uEmail !== qev.rows[0].email) {
+    console.log('qev', qev.rows[0]?.email)
+    if(uEmail !== qev.rows[0]?.email) {
       console.log('email NOT valid')
       return res.status(200).send({errMessage: "Email doesn't exist"})
     }
