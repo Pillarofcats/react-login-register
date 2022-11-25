@@ -26,6 +26,7 @@ app.use(cookieParser())
 
 //Controllers
 const postRegister = require('./controllers/postRegister')
+const postLogin = require('./controllers/postLogin')
 
 //Default end-point/route
 app.get('/', (req,res) => {
