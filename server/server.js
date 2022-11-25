@@ -36,65 +36,7 @@ app.get('/', (req,res) => {
 app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 
 //Login end-point/route
-app.post('/login', async (req, res) => {
-  //POST - destructed keys
-  const {uEmail, uPassword} = req.body
-  //Query definition
-  const queryEmailValid = {
-    text: 'SELECT email FROM users WHERE email = $1',
-    values: [uEmail]
-  }
-
-  console.log('cookie', req.cookies['user'])
-
-  try {
-    //Query email to see if it exists with login email
-    console.log('query email')
-    const qev = await dbPool.query(queryEmailValid)
-    //Validate email
-    console.log('qev', qev.rows[0]?.email)
-    if(uEmail !== qev.rows[0]?.email) {
-      console.log('email NOT valid')
-      return res.status(200).send({errMessage: "Email doesn't exist"})
-    }
-    //Query definition
-    const queryEmailPassword = {
-      text: 'SELECT password FROM users WHERE email = $1',
-      values: [uEmail]
-    }
-    console.log('query hash pass')
-    //Query email for hashed password
-    const qep = await dbPool.query(queryEmailPassword)
-    console.log('pass', qep.rows[0].password)
-    //Password comapare with bcryptjs
-    const passMatch = await bcryptjs.compare(uPassword, qep.rows[0].password)
-    //Succesful login
-    if(passMatch) {
-      console.log('password match')
-      //Query definition
-      const queryUser = {
-        text: 'SELECT * FROM users WHERE email = $1',
-        values: [uEmail]
-      }
-      console.log('query user data')
-      //Query user data to be sent back to client
-      const qe = await dbPool.query(queryUser)
-      //Destructure query data
-      const {uid, name, email, gender, birthday} = qe.rows[0]
-      //Format birthday
-      const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
-      //Server response with user data & 5 min cookie
-      return res.cookie('user', email, { maxAge: 300000, secure: true })
-                .status(200)
-                .send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
-    }
-    //Unsuccessful login
-    return res.status(200).send({errMessage: 'Password incorrect'})
-  } catch(err) {
-    console.error(err)
-  }
-})
-
+app.post('/login', async (req, res) => postLogin(req, res, dbPool, bcryptjs))
 
 //saveEdits end-point/route
 app.post('/saveEdits', async (req, res) => {
