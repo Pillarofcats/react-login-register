@@ -1,10 +1,11 @@
 async function postRegister(req, res, dbPool, bcryptjs) {
   //POST - destructed keys
   const {uName, uEmail, uPassword} = req.body
+  //Add db client for register
+  const client = await dbPool.connect()
 
   //Queries
   try {
-    const client = await dbPool.connect()
     //Query definition, check email
     const queryCheckEmail = {
       text: 'SELECT email FROM users WHERE email = $1',
@@ -25,10 +26,12 @@ async function postRegister(req, res, dbPool, bcryptjs) {
       const qiu = await client.query(queryInsertUser)
       //Destructure query data
       const {uid, name, email} = qiu.rows[0]
+      //Release client from db connection
       client.release()
       //Return uid,name, and email
       return res.status(200).send({id: uid, name: name, email: email})
     }
+    //Release client from db connection
     client.release()
     //Email already exists
     return res.status(200).send({errMessage: 'Email already exists'})

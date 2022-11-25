@@ -1,9 +1,10 @@
 async function postLogin (req, res, dbPool, bcryptjs) {
   //POST - destructed keys
   const {uEmail, uPassword} = req.body
+  //Add db client for login
+  const client = await dbPool.connect()
 
   try {
-    const client = await dbPool.connect()
     //Query definition
     const queryEmailValid = {
       text: 'SELECT email FROM users WHERE email = $1',
@@ -43,15 +44,17 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       const {uid, name, email, gender, birthday} = qe.rows[0]
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
-
+      //Release client from db connection
       client.release()
       //Server response with user data & 5 min cookie
       return res.cookie('user', email, { maxAge: 300000, secure: true })
                 .status(200)
                 .send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
-    //Unsuccessful login
+    
+    //Release client from db connection
     client.release()
+    //Unsuccessful login
     return res.status(200).send({errMessage: 'Password incorrect'})
   } catch(err) {
     console.error(err)
