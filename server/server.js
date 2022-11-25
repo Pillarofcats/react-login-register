@@ -30,6 +30,7 @@ app.use(cookieParser())
 //CONTROLLERS
 const postRegister = require('./controllers/postRegister')
 const postLogin = require('./controllers/postLogin')
+const postEditProfile = require('./controllers/postEditProfile')
 
 //ENDPOINTS/ROUTES
 //Register end-point/route
