@@ -2,7 +2,7 @@ async function postEditProfile (req, res, dbPool) {
   //Destructure object data
   const {id, edits} = req.body
   //Add db client for profile edit
-  const client = dbPool.connect()
+  const client = await dbPool.connect()
 
   try {
     //Array holds strings of key values from user submitted edits
