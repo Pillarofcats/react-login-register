@@ -57,3 +57,5 @@ async function postLogin (req, res, dbPool, bcryptjs) {
     console.error(err)
   }
 }
+
+module.exports = postLogin
