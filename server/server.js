@@ -11,7 +11,7 @@ const dotenv = require('dotenv').config()
 //Create express app
 const app = express()
 //Import database (PSQL)
-const db = require('./db')
+const dbPool = require('./db')
 //Cors options
 const corsOptions = require('./corsOptions')
 
@@ -33,7 +33,7 @@ app.get('/', (req,res) => {
 })
 
 //Register end-point/route
-app.post('/register', postRegister)
+app.post('/register', (req, res) => postRegister(req, res, dbPool))
 
 //Login end-point/route
 app.post('/login', async (req, res) => {
@@ -50,7 +50,7 @@ app.post('/login', async (req, res) => {
   try {
     //Query email to see if it exists with login email
     console.log('query email')
-    const qev = await db.query(queryEmailValid)
+    const qev = await dbPool.query(queryEmailValid)
     //Validate email
     console.log('qev', qev.rows[0]?.email)
     if(uEmail !== qev.rows[0]?.email) {
@@ -64,7 +64,7 @@ app.post('/login', async (req, res) => {
     }
     console.log('query hash pass')
     //Query email for hashed password
-    const qep = await db.query(queryEmailPassword)
+    const qep = await dbPool.query(queryEmailPassword)
     console.log('pass', qep.rows[0].password)
     //Password comapare with bcryptjs
     const passMatch = await bcryptjs.compare(uPassword, qep.rows[0].password)
@@ -78,7 +78,7 @@ app.post('/login', async (req, res) => {
       }
       console.log('query user data')
       //Query user data to be sent back to client
-      const qe = await db.query(queryUser)
+      const qe = await dbPool.query(queryUser)
       //Destructure query data
       const {uid, name, email, gender, birthday} = qe.rows[0]
       //Format birthday
@@ -120,7 +120,7 @@ app.post('/saveEdits', async (req, res) => {
       values: [id]
     }
     //Query update user data
-    const quu = await db.query(queryUserUpdate)
+    const quu = await dbPool.query(queryUserUpdate)
     //Destructure query data
     const {uid, name, email, gender, birthday} = quu.rows[0]
     //Format birthday
