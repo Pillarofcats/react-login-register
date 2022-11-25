@@ -1,4 +1,4 @@
-async function postRegister(req, res, dbPool) {
+async function postRegister(req, res, dbPool, bcryptjs) {
   //POST - destructed keys
   const {uName, uEmail, uPassword} = req.body
 

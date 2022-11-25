@@ -33,7 +33,7 @@ app.get('/', (req,res) => {
 })
 
 //Register end-point/route
-app.post('/register', (req, res) => postRegister(req, res, dbPool))
+app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 
 //Login end-point/route
 app.post('/login', async (req, res) => {
