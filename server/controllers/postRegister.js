@@ -1,4 +1,4 @@
-export async function postRegister(req, res) {
+async function postRegister(req, res) {
   //POST - destructed keys
   const {uName, uEmail, uPassword} = req.body
 
@@ -36,3 +36,5 @@ export async function postRegister(req, res) {
   //Error fallback
   return res.status(500).send({errMessage: 'Register failed'})
 }
+
+module.exports = postRegister
