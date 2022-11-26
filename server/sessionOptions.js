@@ -1,4 +1,7 @@
 const sessionOptions = {
+  genid: function(req) {
+    return genuuid()
+  },
   secret: process.env.SESSION_SECRET,
   path: '/login',
   resave: false,

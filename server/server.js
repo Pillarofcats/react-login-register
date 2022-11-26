@@ -52,5 +52,4 @@ const PORT = process.env.PORT || 3000
 //SERVER ACTIVE
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`)
-  console.log(process.env.SESSION_SECRET)
 })
