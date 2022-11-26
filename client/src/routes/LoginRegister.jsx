@@ -5,7 +5,7 @@ function LoginRegister({setUser}) {
   return (
     <div className="reg-log-forms">
       <Login setUser={setUser} />
-      <Register setUser={setUser}/>
+      <Register/>
     </div>
   )
 }

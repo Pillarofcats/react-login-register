@@ -1,4 +1,4 @@
-import ErrorMessage from "./ErrorMessage"
+import ServerMessage from "./ServerMessage"
 
 import React, {useRef, useState} from "react"
 
@@ -7,8 +7,8 @@ function Login({setUser}) {
   const loginEmailRef = useRef()
   const loginPasswordRef = useRef()
 
-  const [errorMessage, setErrorMessage] = useState("null")
-  const [isError, setIsError] = useState(false)
+  const [serverMessage, setServerMessage] = useState("null")
+  const [isMessage, setIsMessage] = useState(false)
 
   async function getUser() {
 
@@ -42,16 +42,16 @@ function Login({setUser}) {
     getUser()
       .then(user => {
         //If user response has .errMessage property set error message
-        if(user.errMessage) {
+        if(user?.errMessage) {
           console.log("Server Response Error:", user)
-          setErrorMessage(user.errMessage)
-          setIsError(true)
+          setServerMessage(`<h4 className="text-danger">${user.errMessage}</h4>`)
+          setIsMessage(true)
         } else {
           console.log("Server Response Success:", user)
+          setServerMessage(`<h4 className="text-success">${user.resMessage}</h4>`)
+          setIsMessage(true)
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
-          //If an error existed before successful submission, set false
-          if(isError) setIsError(false)
           //Reset form inputs after successful form submission
           loginEmailRef.current.value = ""
           loginPasswordRef.current.value = ""
@@ -71,7 +71,7 @@ function Login({setUser}) {
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 
-      <ErrorMessage isError={isError} msg={errorMessage} />
+      <ServerMessage isMessage={isMessage} msg={serverMessage} />
     </div>
   )
 }

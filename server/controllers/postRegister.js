@@ -19,17 +19,15 @@ async function postRegister(req, res, dbPool, bcryptjs) {
       const hashPass = await bcryptjs.hash(uPassword, 10)
       //Query definition
       const queryInsertUser = {
-        text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING uid, name, email',
+        text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3)',
         values: [uName, uEmail, hashPass]
       }
       //Query to insert user into users database
       const qiu = await client.query(queryInsertUser)
-      //Destructure query data
-      const {uid, name, email} = qiu.rows[0]
       //Release client from db connection
       client.release()
       //Return uid,name, and email
-      return res.status(200).send({id: uid, name: name, email: email})
+      return res.status(200).send({resMessage: 'Registration successful'})
     }
     //Release client from db connection
     client.release()

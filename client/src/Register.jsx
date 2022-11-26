@@ -1,16 +1,16 @@
 
-import ErrorMessage from "./ErrorMessage"
+import ServerMessage from "./ServerMessage"
 
 import React, {useState, useRef} from 'react'
 
-function Register({setUser}) {
+function Register() {
 
   const registerNameRef = useRef()
   const registerEmailRef = useRef()
   const registerPasswordRef = useRef()
 
-  const [errorMessage, setErrorMessage] = useState("null")
-  const [isError, setIsError] = useState(false)
+  const [serverMessage, setServerMessage] = useState("null")
+  const [isMessage, setIsMessage] = useState(false)
 
   async function getUser() {
 
@@ -42,16 +42,15 @@ function Register({setUser}) {
     getUser()
       .then(user => {
         //If user response has .errMessage property set error message
-        if(user.errMessage) {
+        if(user?.errMessage) {
           console.log("Server Response Error:", user)
-          setErrorMessage(user.errMessage)
-          setIsError(true)
+          setServerMessage(`<h4 className="text-danger">${user.errMessage}</h4>`)
+          setIsMessage(true)
         } else {
           console.log("Server Response Success:", user)
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email})
-          //If an error existed before successful submission, set false
-          if(isError) setIsError(false)
+          setServerMessage(`<h4 className="text-success">${user.resMessage}</h4>`)
+          setIsMessage(true)
           //Reset form inputs after successful form submission
           registerNameRef.current.value = ""
           registerEmailRef.current.value = ""
@@ -74,7 +73,7 @@ function Register({setUser}) {
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 
-      <ErrorMessage isError={isError} msg={errorMessage} />
+      <ServerMessage isMessage={isMessage} msg={serverMessage} />
     </div>
   )
 }

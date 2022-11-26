@@ -52,7 +52,7 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       //Server response with user data & 5 min cookie
       return res.cookie('user', email, { maxAge: 300000, secure: true })
                 .status(200)
-                .send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
+                .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
     
     //Release client from db connection
