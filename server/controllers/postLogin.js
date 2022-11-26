@@ -1,6 +1,8 @@
 async function postLogin (req, res, dbPool, bcryptjs) {
   //POST - destructed keys
   const {uEmail, uPassword} = req.body
+  //Get client cookies
+  const cookies = req.cookies
   //Add db client for login
   const client = await dbPool.connect()
 
