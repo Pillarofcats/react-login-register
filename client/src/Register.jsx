@@ -9,7 +9,7 @@ function Register() {
   const registerEmailRef = useRef()
   const registerPasswordRef = useRef()
 
-  const [serverMessage, setServerMessage] = useState("null")
+  const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
 
   async function getUser() {
@@ -43,13 +43,10 @@ function Register() {
       .then(user => {
         //If user response has .errMessage property set error message
         if(user?.errMessage) {
-          console.log("Server Response Error:", user)
-          setServerMessage(`<h4 className="text-danger">${user.errMessage}</h4>`)
+          setServerMessage(["text-danger", user.errMessage])
           setIsMessage(true)
         } else {
-          console.log("Server Response Success:", user)
-          //Set the userdata
-          setServerMessage(`<h4 className="text-success">${user.resMessage}</h4>`)
+          setServerMessage(["text-success", user.resMessage])
           setIsMessage(true)
           //Reset form inputs after successful form submission
           registerNameRef.current.value = ""

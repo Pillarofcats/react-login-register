@@ -43,12 +43,10 @@ function Login({setUser}) {
       .then(user => {
         //If user response has .errMessage property set error message
         if(user?.errMessage) {
-          console.log("Server Response Error:", user)
-          setServerMessage(`<h4 className="text-danger">${user.errMessage}</h4>`)
+          setServerMessage(["text-danger", user.errMessage])
           setIsMessage(true)
         } else {
-          console.log("Server Response Success:", user)
-          setServerMessage(`<h4 className="text-success">${user.resMessage}</h4>`)
+          setServerMessage(["text-success", user.resMessage])
           setIsMessage(true)
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})

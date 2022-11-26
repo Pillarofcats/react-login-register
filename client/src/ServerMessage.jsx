@@ -3,7 +3,7 @@ function ServerMessage({isMessage, msg}) {
 
   return(
     <>
-      {isMessage ? msg : <h4 className="hidden">{msg}</h4> }
+      {isMessage ? <h4 className={msg[0]}>${msg[1]}</h4> : <h4 className="hidden">{msg[1]}</h4> }
     </>
   )
 }
