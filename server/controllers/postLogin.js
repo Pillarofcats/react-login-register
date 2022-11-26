@@ -3,6 +3,7 @@ async function postLogin (req, res, dbPool, bcryptjs) {
   const {uEmail, uPassword} = req.body
   //Get client cookies
   const cookies = req.cookies
+  console.log(cookies)
   //Add db client for login
   const client = await dbPool.connect()
 
