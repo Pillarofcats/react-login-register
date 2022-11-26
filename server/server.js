@@ -25,6 +25,7 @@ const app = express()
 //Cross-origin resource sharing config
 app.use(cors(corsOptions))
 //Sessions config
+app.set('trust proxy', 1)
 app.use(session(sessOptions))
 //Parsing application/json
 app.use(express.json())
