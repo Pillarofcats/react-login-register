@@ -70,7 +70,7 @@ function Register() {
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 
-      <ServerMessage isMessage={isMessage} msg={serverMessage} />
+      <ServerMessage isMessage={isMessage} setIsMessage={setIsMessage} msg={serverMessage} />
     </div>
   )
 }
