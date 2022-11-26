@@ -55,6 +55,7 @@ function Profile({user, logout, setUser}) {
       const response = await fetch(URL, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
+        credentials: 'include',
         body: JSON.stringify(userAfterEdit)
       })
       return await response.json()
