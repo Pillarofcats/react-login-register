@@ -51,8 +51,8 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
       //Release client from db connection
       client.release()
-      //Server response with user data & 5 min cookie
-      return res.cookie('user', email, { path: '/', maxAge: 300000, secure: true, sameSite:'None', expires: new Date(Date.now() + 8 * 3600000) })
+      //Server response with user data & expires in 3 days
+      return res.cookie('user', email, { maxAge: 300000, secure: true, sameSite:'None', expires: new Date(Date.now() + 3 * 86,400,000) })
                 .status(200)
                 .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
