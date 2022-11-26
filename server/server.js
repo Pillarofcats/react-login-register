@@ -13,13 +13,19 @@ const dotenv = require('dotenv').config()
 const dbPool = require('./db')
 //Cors options
 const corsOptions = require('./corsOptions')
+//Sessions/Cookies
+const session = require('express-session')
+//Session options
+const sessOptions = require('./sessionOptions')
 
 //EXPRESS APP
 const app = express()
 
 //MIDDLEWARE
-//Cross-origin resource sharing (config)
+//Cross-origin resource sharing config
 app.use(cors(corsOptions))
+//Sessions config
+app.use(session(sessOptions))
 //Parsing application/json
 app.use(express.json())
 //Parsing application/x-www-form-urlencoded
@@ -46,4 +52,5 @@ const PORT = process.env.PORT || 3000
 //SERVER ACTIVE
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`)
+  console.log(process.env.SESSION_SECRET)
 })

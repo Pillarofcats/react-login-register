@@ -13,7 +13,7 @@ function Register() {
   const [isMessage, setIsMessage] = useState(false)
 
   async function getUser() {
-
+    
     const name = registerNameRef.current.value
     const email = registerEmailRef.current.value
     const password = registerPasswordRef.current.value
