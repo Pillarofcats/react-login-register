@@ -3,7 +3,7 @@ const sessionOptions = {
   path: '/login',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true, maxAge: 60000, sameSite: 'none'  }
+  cookie: { secure: true, httpOnly: true, maxAge: 60000, sameSite: 'none'  }
 }
 
 module.exports = sessionOptions
