@@ -7,7 +7,7 @@ function Login({setUser}) {
   const loginEmailRef = useRef()
   const loginPasswordRef = useRef()
 
-  const [serverMessage, setServerMessage] = useState("null")
+  const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
 
   async function getUser() {
