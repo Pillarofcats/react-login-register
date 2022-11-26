@@ -148,3 +148,8 @@
   max-width: fit-content;
   /* border: 1px solid black; */
 }
+
+.server-msg {
+  border: 1px solid blue;
+  width: 100%;
+}
