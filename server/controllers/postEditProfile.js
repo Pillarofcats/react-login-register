@@ -16,7 +16,7 @@ async function postEditProfile (req, res, dbPool) {
     }
 
     //Create query definition from edits in the form: column=value
-    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid,name,email,gender,birthday`
+    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid, name, email, gender, birthday`
     //Query definition, change user properties based on what properties changed in database
     const queryUserUpdate = {
       text: qs,
