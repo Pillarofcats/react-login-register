@@ -27,8 +27,7 @@ function Login({setUser}) {
         credentials: 'include',
         body: JSON.stringify(loginFormData)
       })
-      console.log("response ", [...response])
-      console.log("response headers", [...response.headers.entries()])
+      console.log("response ", response)
       return await response.json()
     } catch(err) {
       console.log(err)
