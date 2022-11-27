@@ -68,7 +68,7 @@ function Profile({user, logout, setUser}) {
   return(
     <div className="center-page">
     {
-      user.name ? 
+      user.email ? 
       ( <div className="profile ">
           <div className="profile-grid-container">
             <div className="profile-keys">
