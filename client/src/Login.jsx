@@ -28,7 +28,7 @@ function Login({setUser}) {
         body: JSON.stringify(loginFormData)
       })
       console.log("response ", [...response])
-      console.log("response headers", [...response.headers])
+      console.log("response headers", [...response.headers.entries()])
       return await response.json()
     } catch(err) {
       console.log(err)
