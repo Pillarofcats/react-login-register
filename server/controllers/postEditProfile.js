@@ -1,6 +1,6 @@
 async function postEditProfile (req, res, dbPool) {
 
-  console.log(JSON.stringify(req.headers))
+  console.log(JSON.stringify(req.headers.cookie))
 
   //Destructure object data
   const {id, edits} = req.body
