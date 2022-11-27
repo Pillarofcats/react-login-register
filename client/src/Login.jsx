@@ -27,7 +27,7 @@ function Login({setUser}) {
         credentials: 'include',
         body: JSON.stringify(loginFormData)
       })
-      console.log("response ", response)
+
       return await response.json()
     } catch(err) {
       console.log(err)
@@ -40,9 +40,8 @@ function Login({setUser}) {
 
     getUser()
       .then(user => {
-        console.log('user response', user)
         //If user response has .errMessage property set error message
-        if(user?.errMessage) {
+        if(user.errMessage) {
           setServerMessage(["text-danger", user.errMessage])
           setIsMessage(true)
         } else {
