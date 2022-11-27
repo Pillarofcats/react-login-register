@@ -43,6 +43,7 @@ function initUser () {
 
 const [user, setUser] = useState(() => initUser())
   console.log("user data:", user)
+  console.log("cookie", document.cookie)
 
   return (
     <div className="app">
