@@ -52,7 +52,7 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       //Release client from db connection
       client.release()
       //Server response with user data & expires in 3 days
-      return res.cookie('user', email, { maxAge: 300000, secure: true, sameSite:'None', expires: new Date(Date.now() + 3 * 86,400,000) })
+      return res.cookie('user', email, { domain: 'https://react-register-login-production.up.railway.app/', maxAge: 300000, secure: true, sameSite:'None', expires: new Date(Date.now() + 3 * 86,400,000) })
                 .status(200)
                 .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
