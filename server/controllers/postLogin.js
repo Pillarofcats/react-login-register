@@ -53,7 +53,7 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       client.release()
       //Server response with user data & expires in 5 days
       //secure: true, sameSite: 'None'
-      return res.cookie('userid', email, { maxAge: 5*86400000, secure: true, httpOnly: true, sameSite: 'none', expires: new Date(Date.now() + 5 * 86,400,000) })
+      return res.cookie('userid', email, { domain: '.railway.app', maxAge: 5*86400000, secure: true, httpOnly: false, sameSite: 'none', expires: new Date(Date.now() + 5 * 86,400,000) })
                 .status(200)
                 .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
