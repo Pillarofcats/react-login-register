@@ -51,7 +51,13 @@ useEffect(()=> {
 //STORE USER IN LOCAL STORAGE
 // localStorage.setItem('user', response.data)
 
-const [user, setUser] = useState(initUser)
+const [user, setUser] = useState({ 
+  id: null,
+  name: "",
+  email: "",
+  gender: "",
+  birthday: "",
+})
 const [sessionID, setSessionID] = useState('')
 
   console.log("session", sessionID)
