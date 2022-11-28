@@ -52,7 +52,8 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       //Release client from db connection
       client.release()
       //Server response with user data & expires in 5 days
-      return res.cookie('user', email, { maxAge: 600000, httpOnly: false, sameSite:'None', expires: new Date(Date.now() + 5 * 86,400,000) })
+      //secure: true, sameSite: 'None'
+      return res.cookie('user', email, { maxAge: 600000, httpOnly: false, expires: new Date(Date.now() + 5 * 86,400,000) })
                 .status(200)
                 .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
