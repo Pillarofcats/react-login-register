@@ -1,5 +1,7 @@
 async function postAuthUser(req, res, dbPool, cryptojs) {
 
+  console.log(JSON.stringify(req.headers.cookie))
+
   try {
     //POST data
     const {usid} = req.body

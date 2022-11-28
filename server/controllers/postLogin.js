@@ -13,9 +13,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
     //Query email to see if it exists with login email
     const qev = await client.query(queryEmailValid)
     //Validate email
-    console.log('qev', qev.rows[0]?.email)
     if(uEmail !== qev.rows[0]?.email) {
-      console.log('email NOT valid')
       return res.status(200).send({errMessage: "Email doesn't exist"})
     }
     //Query definition
@@ -23,20 +21,17 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       text: 'SELECT password FROM users WHERE email = $1',
       values: [uEmail]
     }
-    console.log('query hash pass')
     //Query email for hashed password
     const qep = await client.query(queryEmailPassword)
     //Password comapare with bcryptjs
     const passMatch = await bcryptjs.compare(uPassword, qep.rows[0].password)
     //Succesful login
     if(passMatch) {
-      console.log('password match')
       //Query definition
       const queryUser = {
         text: 'SELECT * FROM users WHERE email = $1',
         values: [uEmail]
       }
-      console.log('query user data')
       //Query user data to be sent back to client
       const qe = await client.query(queryUser)
       //Destructure query data
@@ -45,7 +40,6 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
       //Create sessionID and Hash
       const encryptSessionID = await cryptojs.AES.encrypt(uEmail, process.env.ENCRYPT_SECRET).toString()
-      console.log("encrypt", encryptSessionID)
       //Query definition
       const queryUpdateSession = {
         text: `UPDATE users SET sid='${encryptSessionID}' WHERE email = $1`,
@@ -53,7 +47,6 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       }
       //Store sessionID into db
       const qus = await client.query(queryUpdateSession)
-      console.log('queryUpdateSession', qus)
       //Set session ID cookie
       res.cookie('sessionID', encryptSessionID, cookieSessionOptions)
       //Release client from db connection
