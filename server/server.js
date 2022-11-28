@@ -13,8 +13,6 @@ const dotenv = require('dotenv').config()
 const dbPool = require('./db')
 //Cors options
 const corsOptions = require('./corsOptions')
-//Sessions/Cookies
-const session = require('express-session')
 //Session options
 const cookieSessionOptions = require('./cookieSessionOptions')
 
@@ -24,9 +22,6 @@ const app = express()
 //MIDDLEWARE
 //Cross-origin resource sharing config
 app.use(cors(corsOptions))
-//Session cookie options
-app.set('trust proxy', 1)
-app.use(session(sessOptions))
 //Parsing application/json
 app.use(express.json())
 //Parsing application/x-www-form-urlencoded
