@@ -1,4 +1,4 @@
-async function postLogin (req, res, dbPool, bcryptjs) {
+async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
   console.log('session.id', req.session.id)
   console.log('sessionID', req.sessionID)
   //POST - destructed keys
@@ -49,15 +49,23 @@ async function postLogin (req, res, dbPool, bcryptjs) {
       const {uid, name, email, gender, birthday} = qe.rows[0]
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
+      //Create sessionID and Hash
+      const hashSessionID = await bcryptjs.hash(uEmail, 10)
+      //Query definition
+      const queryUpdateSession = {
+        text: `UPDATE users SET sid=${hashSessionID} WHERE email = $1`,
+        values: [uEmail]
+      }
+      //Store sessionID into db
+      const qus = await client.query(queryUpdateSession)
+      console.log('queryUpdateSession', qus)
+      //Set session ID cookie
+      res.cookie('sessionID', hashSessionID, cookieSessionOptions)
       //Release client from db connection
       client.release()
-      //Server response with user data & expires in 5 days
-      //secure: true, sameSite: 'None'
-      return res.cookie('sessionID', email, { domain: '.railway.app', maxAge: 5*86400000, secure: true, httpOnly: false, sameSite: 'strict', expires: new Date(Date.now() + 5 * 86,400,000) })
-                .status(200)
-                .send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
+      //Return response message and data, session id cookie will be set
+      return res.status(200).send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
-    
     //Release client from db connection
     client.release()
     //Unsuccessful login

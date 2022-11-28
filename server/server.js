@@ -16,7 +16,7 @@ const corsOptions = require('./corsOptions')
 //Sessions/Cookies
 const session = require('express-session')
 //Session options
-const sessOptions = require('./sessionOptions')
+const cookieSessionOptions = require('./cookieSessionOptions')
 
 //EXPRESS APP
 const app = express()
@@ -24,7 +24,7 @@ const app = express()
 //MIDDLEWARE
 //Cross-origin resource sharing config
 app.use(cors(corsOptions))
-//Sessions config
+//Session cookie options
 app.set('trust proxy', 1)
 app.use(session(sessOptions))
 //Parsing application/json
@@ -43,7 +43,7 @@ const postEditProfile = require('./controllers/postEditProfile')
 //Register end-point/route
 app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 //Login end-point/route
-app.post('/login', (req, res) => postLogin(req, res, dbPool, bcryptjs))
+app.post('/login', (req, res) => postLogin(req, res, dbPool, bcryptjs, cookieSessionOptions))
 //EditProfile end-point/route
 app.post('/editProfile', (req, res) => postEditProfile(req, res, dbPool))
 
