@@ -67,6 +67,7 @@ function Profile({user, logout, setUser}) {
 
   return(
     <div className="center-page">
+      {console.log("cookie prof", document.cookie)}
     {
       user.email ? 
       ( <div className="profile ">
