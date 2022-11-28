@@ -1,11 +1,6 @@
 async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
-  console.log('session.id', req.session.id)
-  console.log('sessionID', req.sessionID)
   //POST - destructed keys
   const {uEmail, uPassword} = req.body
-  //Get client cookies
-  const cookies = req.cookies
-  console.log(cookies)
   //Add db client for login
   const client = await dbPool.connect()
 
@@ -31,7 +26,6 @@ async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
     console.log('query hash pass')
     //Query email for hashed password
     const qep = await client.query(queryEmailPassword)
-    console.log('pass', qep.rows[0].password)
     //Password comapare with bcryptjs
     const passMatch = await bcryptjs.compare(uPassword, qep.rows[0].password)
     //Succesful login
