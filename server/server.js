@@ -5,6 +5,8 @@ const express = require('express')
 const cors = require('cors')
 //Password encryption
 const bcryptjs = require('bcryptjs')
+//Encrypt/Decrypt session cookies
+const cryptojs = require('crypto-js')
 //Parse Cookies
 const cookieParser = require('cookie-parser')
 //Environment variable config
@@ -35,10 +37,12 @@ const postLogin = require('./controllers/postLogin')
 const postEditProfile = require('./controllers/postEditProfile')
 
 //ENDPOINTS/ROUTES
+//AuthUser end-point/route
+app.post('authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
 //Register end-point/route
 app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 //Login end-point/route
-app.post('/login', (req, res) => postLogin(req, res, dbPool, bcryptjs, cookieSessionOptions))
+app.post('/login', (req, res) => postLogin(req, res, dbPool, bcryptjs, cryptojs, cookieSessionOptions))
 //EditProfile end-point/route
 app.post('/editProfile', (req, res) => postEditProfile(req, res, dbPool))
 

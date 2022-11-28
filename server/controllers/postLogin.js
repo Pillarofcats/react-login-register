@@ -1,4 +1,4 @@
-async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
+async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOptions) {
   //POST - destructed keys
   const {uEmail, uPassword} = req.body
   //Add db client for login
@@ -44,17 +44,18 @@ async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
       //Create sessionID and Hash
-      const hashSessionID = await bcryptjs.hash(uEmail, 10)
+      const encryptSessionID = await cryptojs.AES.encrypt(uEmail, process.env.ENCRYPT_SECRET).toString()
+      console.log("encrypt", encryptSessionID)
       //Query definition
       const queryUpdateSession = {
-        text: `UPDATE users SET sid='${hashSessionID}' WHERE email = $1`,
+        text: `UPDATE users SET sid='${encryptSessionID}' WHERE email = $1`,
         values: [uEmail]
       }
       //Store sessionID into db
       const qus = await client.query(queryUpdateSession)
       console.log('queryUpdateSession', qus)
       //Set session ID cookie
-      res.cookie('sessionID', hashSessionID, cookieSessionOptions)
+      res.cookie('sessionID', encryptSessionID, cookieSessionOptions)
       //Release client from db connection
       client.release()
       //Return response message and data, session id cookie will be set
