@@ -1,7 +1,6 @@
 function Home({name}) {
   return(
     <>
-    {console.log("cookie home", document.cookie)}
     {
       name ? (
         <div className="center-page">

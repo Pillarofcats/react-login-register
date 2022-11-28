@@ -10,7 +10,10 @@ import Profile from "./routes/Profile"
 import { Routes, Route, Navigate} from "react-router-dom"
 
 //Hooks
-import {useState} from "react"
+import {useState, useEffect} from "react"
+
+//Helper Functions
+import getSessionCookie from "./functions/getSessionCookie"
 
 //Main
 function App() {
@@ -24,6 +27,15 @@ function initUser () {
     birthday: "",
   }
 }
+
+//Check for session cookie
+//if found GET request to sever for user associated with session cookie id
+//ON APP LOAD ,[]
+useEffect(()=> {
+  const sID = getSessionCookie()
+  console.log("sID", sID)
+  if(sID) setSessionID(sID)
+}, [])
 
 //LOGUT - CLEAR COOKIE IN SERVERS.JS
 //res.clearCookie('user')
@@ -42,8 +54,9 @@ function initUser () {
 // localStorage.setItem('user', response.data)
 
 const [user, setUser] = useState(() => initUser())
-  console.log("user data:", user)
-  console.log("cookie", document.cookie)
+const [sessionID, setSessionID] = useState('')
+
+  console.log("session", sessionID)
 
   return (
     <div className="app">
