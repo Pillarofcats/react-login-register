@@ -47,7 +47,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cookieSessionOptions) {
       const hashSessionID = await bcryptjs.hash(uEmail, 10)
       //Query definition
       const queryUpdateSession = {
-        text: `UPDATE users SET sid=${hashSessionID} WHERE email = $1`,
+        text: `UPDATE users SET sid='${hashSessionID}' WHERE email = $1`,
         values: [uEmail]
       }
       //Store sessionID into db
