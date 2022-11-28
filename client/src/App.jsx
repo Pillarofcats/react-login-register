@@ -18,14 +18,12 @@ import getSessionCookie from "./functions/getSessionCookie"
 //Main
 function App() {
 
-function initUser () {
-  return { 
-    id: null,
-    name: "",
-    email: "",
-    gender: "",
-    birthday: "",
-  }
+const initUser = { 
+  id: null,
+  name: "",
+  email: "",
+  gender: "",
+  birthday: "",
 }
 
 //Check for session cookie
@@ -53,7 +51,7 @@ useEffect(()=> {
 //STORE USER IN LOCAL STORAGE
 // localStorage.setItem('user', response.data)
 
-const [user, setUser] = useState(() => initUser())
+const [user, setUser] = useState(initUser)
 const [sessionID, setSessionID] = useState('')
 
   console.log("session", sessionID)
