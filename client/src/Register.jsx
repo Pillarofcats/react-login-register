@@ -37,7 +37,6 @@ function Register() {
 
   function registerSubmit(e) {
     e.preventDefault()
-    console.log("submit register")
 
     getUser()
       .then(user => {

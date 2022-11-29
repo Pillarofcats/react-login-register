@@ -52,7 +52,6 @@ function Profile({user, logout, setUser}) {
     const URL = "https://classy-steel-production.up.railway.app/editProfile"
 
     try {
-      console.log("USER EDITS:", userAfterEdit)
       const response = await fetch(URL, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
