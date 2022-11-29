@@ -21,6 +21,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     //Query Session ID
     const qSID = await client.query(querySessionID)
     //Destructure query data
+    console.log('query', qSID)
     const {email, sid} = qSID.rows[0]
     console.log('querySID', email, sid)
 
@@ -35,6 +36,8 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       const qUE = await client.query(queryUserEmail)
       //Destructure query data
       const {uid, name, gender, birthday} = qUE.rows[0]
+      //Release client from db
+      client.release()
       //Successful response
       return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
     }
