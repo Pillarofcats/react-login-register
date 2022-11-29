@@ -53,6 +53,7 @@ useEffect(()=> {
   console.log('USE EFFECT cookie', sID)
   //If session cookie exists, authenticate and get user data
   if(sID) {
+    console.log("sid?", sID )
     //Set session ID
     setSessionID(sID)
     //Fetch auth/user
