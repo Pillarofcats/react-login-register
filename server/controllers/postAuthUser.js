@@ -15,14 +15,14 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
 
     //Query Definition
     const querySessionID = {
-      text: 'SELECT email, sid FROM users WHERE sid = $1',
+      text: 'SELECT email FROM users WHERE sid = $1',
       values: [usid]
     }
     //Query Session ID
-    const qSID = await client.query(querySessionID)
+    const qsid = await client.query(querySessionID)
     //Destructure query data
-    console.log('query', qSID.rows[0])
-    const {email} = qSID.rows[0]
+    console.log('query', qsid)
+    const {email} = qsid.rows[0]
     console.log('querySID', email)
 
     //Query email ===? decrypted sessionID email
@@ -34,9 +34,9 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
         values: [decryptedSessionID]
       }
       //Query user email
-      const qUE = await client.query(queryUserEmail)
+      const que = await client.query(queryUserEmail)
       //Destructure query data
-      const {uid, name, gender, birthday} = qUE.rows[0]
+      const {uid, name, gender, birthday} = que.rows[0]
       //Release client from db
       client.release()
       //Successful response
