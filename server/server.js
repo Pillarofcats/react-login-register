@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 //CONTROLLERS
+const postAuthUser = require('./controllers/postAuthUser')
 const postRegister = require('./controllers/postRegister')
 const postLogin = require('./controllers/postLogin')
 const postEditProfile = require('./controllers/postEditProfile')

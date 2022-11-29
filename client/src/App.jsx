@@ -36,7 +36,7 @@ async function getAuthUser(sID) {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       credentials: 'include',
-      body: JSON.stringify({sid: sID})
+      body: JSON.stringify({usid: sID})
     })
 
     return await response.json()
