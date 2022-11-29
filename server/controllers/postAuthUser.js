@@ -48,7 +48,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
     }
     //Failed auth
-    return res.status(404)
+    return res.status(404).end()
   //Error
   } catch(err) {
     console.error(err)
