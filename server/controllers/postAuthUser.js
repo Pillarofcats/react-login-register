@@ -1,6 +1,6 @@
 async function postAuthUser(req, res, dbPool, cryptojs) {
 
-  // console.log('cookies', JSON.stringify(req.headers.cookie))
+  console.log('cookies', JSON.stringify(req.headers.cookie))
 
   //Add db client for profile edit
   const client = await dbPool.connect()
@@ -9,6 +9,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
 
   try {
     console.log('sid', usid)
+    console.log('decsid', decodeURI(usid))
     //DECRYPT usid
     let startDecrypt = cryptojs.AES.decrypt(`${usid}`, `${process.env.ENCRYPT_SECRET}`);
     let decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
@@ -17,8 +18,8 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
 
     //Query Definition
     const querySessionID = {
-      text: 'SELECT * FROM users WHERE sid = $1',
-      values: [usid]
+      text: 'SELECT email FROM users WHERE sid = $1',
+      values: [decodeURI(usid)]
     }
     //Query Session ID
     const qsid = await client.query(querySessionID);
