@@ -39,7 +39,7 @@ const postEditProfile = require('./controllers/postEditProfile')
 
 //ENDPOINTS/ROUTES
 //AuthUser end-point/route
-app.post('authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
+app.post('/authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
 //Register end-point/route
 app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 //Login end-point/route
