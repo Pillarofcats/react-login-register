@@ -1,4 +1,5 @@
 function getSessionCookie () {
+  console.log('cookies', document.cookie)
   const cPattern = new RegExp('sessionID=.[^;]*')
   const cMatch = document.cookie.match(cPattern)
   if(cMatch) {
