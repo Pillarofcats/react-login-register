@@ -2,16 +2,19 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
 
   console.log('cookies', JSON.stringify(req.headers.cookie))
 
+  //Add db client for profile edit
+  const client = await dbPool.connect()
+  //POST data
+  const {usid} = req.body
+
   try {
-    //POST data
-    const {usid} = req.body
-    console.log("sid", typeof usid, usid)
-    //Connect client to db
-    const client = await dbPool.connect()
+
+    console.log("sid type", typeof usid)
+    console.log('sid', usid)
     //DECRYPT usid
-    // const startDecrypt = cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
-    // const decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
-    // console.log('decrypted', decryptedSessionID)
+    const startDecrypt = await cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
+    const decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
+    console.log('decrypted', decryptedSessionID)
 
     //Query Definition
     const querySessionID = {
@@ -19,7 +22,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       values: [usid]
     }
     //Query Session ID
-    const qsid = await client.query(querySessionID)
+    const qsid = await client.query(querySessionID);
     //Destructure query data
     console.log('query', qsid)
     const {email} = qsid.rows[0]
