@@ -6,7 +6,7 @@ const cors = require('cors')
 //Password encryption
 const bcryptjs = require('bcryptjs')
 //Encrypt/Decrypt session cookies
-const cryptojs = require('crypto-js/aes')
+const cryptojs = require('crypto-js')
 //Parse Cookies
 const cookieParser = require('cookie-parser')
 //Environment variable config
