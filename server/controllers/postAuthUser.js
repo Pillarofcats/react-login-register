@@ -15,7 +15,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
 
     //Query Definition
     const querySessionID = {
-      text: 'SELECT email, sid FROM users WHERE sid = $1 RETURNING email',
+      text: 'SELECT email, sid FROM users WHERE sid = $1',
       values: [usid]
     }
     //Query Session ID
