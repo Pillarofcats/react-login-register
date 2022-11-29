@@ -12,8 +12,10 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     console.log("sid type", typeof usid)
     console.log('sid', usid)
     //DECRYPT usid
-    const startDecrypt = await cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
-    const decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
+    console.log('enc-secret', process.env.ENCRYPT_SECRET)
+    let startDecrypt = cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
+    console.log('start decrypt', startDecrypt)
+    let decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
     console.log('decrypted', decryptedSessionID)
 
     //Query Definition
