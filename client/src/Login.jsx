@@ -30,13 +30,12 @@ function Login({setUser}) {
 
       return await response.json()
     } catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
   function loginSubmit(e) {
     e.preventDefault()
-    console.log("submit login")
 
     getUser()
       .then(user => {
@@ -59,7 +58,6 @@ function Login({setUser}) {
 
   return(
     <div>
-      {console.log("cookie login", document.cookie)}
       <form onSubmit={loginSubmit} className="log-form d-flex flex-column gap-2">
         <p className="h2">Login</p>
         <label htmlFor="email">Email</label>

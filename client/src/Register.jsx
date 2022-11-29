@@ -31,7 +31,7 @@ function Register() {
 
       return await response.json()
     } catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -59,7 +59,6 @@ function Register() {
 
   return(
     <div>
-      {console.log("cookie reg", document.cookie)}
       <form onSubmit={registerSubmit} className='reg-form d-flex flex-column gap-2'>
         <p className="h2">Register</p>
         <label htmlFor="reg-name">Name</label>

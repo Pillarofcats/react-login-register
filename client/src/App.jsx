@@ -26,14 +26,46 @@ const initUser = {
   birthday: "",
 }
 
+async function getAuthUser() {
+  //Route/End-point
+  const URL = 'https://classy-steel-production.up.railway.app/authUser'
+  //Fetch auth/user
+  try{
+    //Include credentials to send session cookie
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({sid: sID})
+    })
+
+    return await response.json()
+  } catch(err) {
+    console.error(err)
+  }
+}
 //Check for session cookie
 //if found GET request to sever for user associated with session cookie id
 //ON APP LOAD ,[]
 useEffect(()=> {
+  //Get session cookie
   const sID = getSessionCookie()
-  console.log("sID", sID)
-  if(sID) setSessionID(sID)
-}, [])
+  console.log('USE EFFECT cookie', sID)
+  //If session cookie exists, authenticate and get user data
+  if(sID) {
+    //Set session ID
+    setSessionID(sID)
+    //Fetch auth/user
+    getAuthUser()
+      .then(user => {
+        if(user) {
+          const {id, name, email, gender, birthday} = user
+          setUser({id: id, name: name, email: email, gender: gender, birthday: birthday})
+        }
+      })
+      .catch((err) => console.error(err))
+  }
+})
 
 //LOGUT - CLEAR COOKIE IN SERVERS.JS
 //res.clearCookie('user')
@@ -51,16 +83,8 @@ useEffect(()=> {
 //STORE USER IN LOCAL STORAGE
 // localStorage.setItem('user', response.data)
 
-const [user, setUser] = useState({ 
-  id: null,
-  name: "",
-  email: "",
-  gender: "",
-  birthday: "",
-})
+const [user, setUser] = useState(initUser)
 const [sessionID, setSessionID] = useState('')
-
-  console.log("session", sessionID)
 
   return (
     <div className="app">
