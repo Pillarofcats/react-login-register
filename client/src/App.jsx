@@ -71,7 +71,7 @@ useEffect(()=> {
         console.error(err)
       })
   }
-})
+}, [])
 
 //LOGUT - CLEAR COOKIE IN SERVERS.JS
 //res.clearCookie('user')

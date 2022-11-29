@@ -38,14 +38,14 @@ const postLogin = require('./controllers/postLogin')
 const postEditProfile = require('./controllers/postEditProfile')
 
 //ENDPOINTS/ROUTES
-//AuthUser end-point/route
-app.post('/authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
 //Register end-point/route
 app.post('/register', (req, res) => postRegister(req, res, dbPool, bcryptjs))
 //Login end-point/route
 app.post('/login', (req, res) => postLogin(req, res, dbPool, bcryptjs, cryptojs, cookieSessionOptions))
 //EditProfile end-point/route
 app.post('/editProfile', (req, res) => postEditProfile(req, res, dbPool))
+//AuthUser end-point/route
+app.post('/authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
 
 //Set port production/local
 const PORT = process.env.PORT || 3000

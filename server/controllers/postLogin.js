@@ -39,7 +39,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
       //Create sessionID and Hash
-      const encryptSessionID = cryptojs.AES.encrypt(uEmail, process.env.ENCRYPT_SECRET).toString()
+      const encryptSessionID = cryptojs.AES.encrypt(uEmail, `${process.env.ENCRYPT_SECRET}`).toString()
       //Query definition
       const queryUpdateSession = {
         text: `UPDATE users SET sid='${encryptSessionID}' WHERE email = $1`,
