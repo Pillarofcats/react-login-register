@@ -6,17 +6,13 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
   const client = await dbPool.connect()
   //POST data
   const {usid} = req.body
-  //The usid from "POST" is URL ENCODEDED, so "/" -> %20, the database stores the sid URL DECODED
+  //DECODEURI usid from "POST" is URL ENCODEDED, so "/" -> %20, the database stores the sid URL DECODED
   const decUsid = decodeURIComponent(usid)
-  try {
 
-    console.log('deccomp', decUsid)
+  try {
     //DECRYPT usid
     let startDecrypt = cryptojs.AES.decrypt(`${decUsid}`, `${process.env.ENCRYPT_SECRET}`);
     let decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
-
-    console.log('decrypted', decryptedSessionID)
-
     //Query Definition
     const querySessionID = {
       text: 'SELECT email FROM users WHERE sid = $1',
@@ -25,13 +21,9 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     //Query Session ID
     const qsid = await client.query(querySessionID);
     //Destructure query data
-    console.log('query', qsid)
     const {email} = qsid.rows[0]
-    // console.log('querySID', email)
-
     //Query email ===? decrypted sessionID email
     if(email === decryptedSessionID) {
-      console.log('email = decrypt')
       //Query Definition
       const queryUserEmail = {
         text: 'SELECT * FROM users WHERE email = $1', 
