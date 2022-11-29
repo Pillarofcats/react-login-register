@@ -5,7 +5,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
   try {
     //POST data
     const {usid} = req.body
-    console.log("sid", usid)
+    console.log("sid", typeof usid, usid)
     //Connect client to db
     const client = await dbPool.connect()
     //DECRYPT usid
