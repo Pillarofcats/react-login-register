@@ -34,7 +34,7 @@ async function getAuthUser(sID) {
     //Include credentials to send session cookie
     const response = await fetch(URL, {
       method: "POST",
-      headers: {'Content-Type':'application/json'},
+      headers: {"Content-Type":"application/json"},
       credentials: 'include',
       body: JSON.stringify({sid: sID})
     })
@@ -55,7 +55,7 @@ useEffect(()=> {
   if(sID) {
     console.log("sid?", sID )
     //Set session ID
-    setSessionID(() => sID)
+    setSessionID(sID)
     //Fetch auth/user
     getAuthUser(sID)
       .then(user => {
