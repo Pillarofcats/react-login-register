@@ -26,11 +26,11 @@ const initUser = {
   birthday: "",
 }
 
-async function getAuthUser() {
+async function getAuthUser(sID) {
   //Route/End-point
   const URL = 'https://classy-steel-production.up.railway.app/authUser'
   //Fetch auth/user
-  try{
+  try {
     //Include credentials to send session cookie
     const response = await fetch(URL, {
       method: "POST",
@@ -55,9 +55,9 @@ useEffect(()=> {
   if(sID) {
     console.log("sid?", sID )
     //Set session ID
-    setSessionID(sID)
+    setSessionID(() => sID)
     //Fetch auth/user
-    getAuthUser()
+    getAuthUser(sID)
       .then(user => {
         if(user) {
           const {id, name, email, gender, birthday} = user
@@ -66,7 +66,7 @@ useEffect(()=> {
       })
       .catch((err) => console.error(err))
   }
-})
+},[])
 
 //LOGUT - CLEAR COOKIE IN SERVERS.JS
 //res.clearCookie('user')
