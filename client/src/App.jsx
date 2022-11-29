@@ -57,14 +57,19 @@ useEffect(()=> {
     //Set session ID
     setSessionID(sID)
     //Fetch auth/user
+    console.log('set session id')
     getAuthUser(sID)
       .then(user => {
         if(user) {
+          console.log('got user')
           const {id, name, email, gender, birthday} = user
           setUser({id: id, name: name, email: email, gender: gender, birthday: birthday})
         }
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.log("What?")
+        console.error(err)
+      })
   }
 },[])
 
