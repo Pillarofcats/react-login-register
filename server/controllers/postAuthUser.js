@@ -1,6 +1,6 @@
 async function postAuthUser(req, res, dbPool, cryptojs) {
 
-  console.log('what', JSON.stringify(req.headers.cookie))
+  console.log('cookies', JSON.stringify(req.headers.cookie))
 
   try {
     //POST data
@@ -9,24 +9,25 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     //Connect client to db
     const client = await dbPool.connect()
     //DECRYPT usid
-    const startDecrypt = await cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
-    const decryptedSessionID = await startDecrypt.toString(cryptojs.enc.Utf8)
+    const startDecrypt = cryptojs.AES.decrypt(usid, process.env.ENCRYPT_SECRET);
+    const decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
     console.log('decrypted', decryptedSessionID)
 
     //Query Definition
     const querySessionID = {
-      text: 'SELECT email, sid FROM users WHERE sid = $1',
+      text: 'SELECT email, sid FROM users WHERE sid = $1 RETURNING email',
       values: [usid]
     }
     //Query Session ID
     const qSID = await client.query(querySessionID)
     //Destructure query data
-    console.log('query', qSID)
-    const {email, sid} = qSID.rows[0]
-    console.log('querySID', email, sid)
+    console.log('query', qSID.rows[0])
+    const {email} = qSID.rows[0]
+    console.log('querySID', email)
 
     //Query email ===? decrypted sessionID email
     if(email === decryptedSessionID) {
+      console.log('email = decrypt')
       //Query Definition
       const queryUserEmail = {
         text: 'SELECT * FROM users WHERE email = $1', 
