@@ -16,7 +16,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     let decryptedSessionID = startDecrypt.toString(cryptojs.enc.Utf8)
     //Query Definition
     const querySessionID = {
-      text: 'SELECT email FROM users WHERE sid = $1 AND uid = $2',
+      text: 'SELECT email, uid FROM users WHERE sid = $1 AND uid = $2',
       values: [decUsid, id]
     }
     //Query Session ID
