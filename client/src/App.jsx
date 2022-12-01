@@ -63,7 +63,7 @@ useEffect(()=> {
     //Set session ID
     setSessionID(usid)
     //Get user id from local storage
-    const uid = localStorage.getItem(rrl_uid)
+    const uid = document.localStorage.getItem('rrl_uid')
     console.log("UID LOCAL STORAGE", uid)
     //Fetch auth/user
     console.log('set session id')

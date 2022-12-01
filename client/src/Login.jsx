@@ -49,7 +49,7 @@ function Login({setUser}) {
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
           //Set user id to local storage
-          localStorage.setItem('rrl_uid', user.id);
+          document.localStorage.setItem('rrl_uid', user.id);
           //Reset form inputs after successful form submission
           loginEmailRef.current.value = ""
           loginPasswordRef.current.value = ""
