@@ -32,7 +32,7 @@ const initUser = {
 
 // }
 
-async function getAuthUser(usid) {
+async function getAuthUser(usid, id) {
   //Route/End-point
   const URL = 'https://classy-steel-production.up.railway.app/authUser'
   //Fetch auth/user
@@ -41,7 +41,7 @@ async function getAuthUser(usid) {
     const response = await fetch(URL, {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({usid: usid})
+      body: JSON.stringify({usid: usid, id: id})
     })
 
     return await response.json()
@@ -63,11 +63,11 @@ useEffect(()=> {
     //Set session ID
     setSessionID(usid)
     //Get user id from local storage
-    const uid = localStorage.getItem('rrl_uid')
-    console.log("UID LOCAL STORAGE", uid)
+    const id = localStorage.getItem('rrl_uid')
+    console.log("UID LOCAL STORAGE", id)
     //Fetch auth/user
     console.log('set session id')
-    getAuthUser(usid)
+    getAuthUser(usid, id)
       .then(user => {
         if(user) {
           console.log('got user')
