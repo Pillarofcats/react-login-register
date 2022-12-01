@@ -32,10 +32,12 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       const que = await client.query(queryUserEmail)
       //Destructure query data
       const {uid, name, gender, birthday} = que.rows[0]
+      //Format birthday
+      const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : ""
       //Release client from db
       client.release()
       //Successful response
-      return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: birthday})
+      return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
     }
     //Failed auth
     return res.status(404).end()

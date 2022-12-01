@@ -37,7 +37,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       //Destructure query data
       const {uid, name, email, gender, birthday} = qe.rows[0]
       //Format birthday
-      const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
+      const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : ""
       //Create sessionID and Hash
       const encryptSessionID = cryptojs.AES.encrypt(uEmail, `${process.env.ENCRYPT_SECRET}`).toString()
       //Query definition

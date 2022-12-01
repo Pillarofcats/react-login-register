@@ -49,6 +49,7 @@ async function getAuthUser(usid) {
     console.error(err)
   }
 }
+
 //Check for session cookie
 //if found GET request to sever for user associated with session cookie id
 //ON APP LOAD ,[]
@@ -61,6 +62,9 @@ useEffect(()=> {
     console.log("sid?", usid )
     //Set session ID
     setSessionID(usid)
+    //Get user id from local storage
+    const uid = localStorage.getItem(rrl_uid)
+    console.log("UID LOCAL STORAGE", uid)
     //Fetch auth/user
     console.log('set session id')
     getAuthUser(usid)
