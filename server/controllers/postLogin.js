@@ -1,10 +1,10 @@
 async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOptions) {
-  //POST - destructed keys
-  const {uEmail, uPassword} = req.body
-  //Add db client for login
-  const client = await dbPool.connect()
 
   try {
+    //POST - destructed keys
+    const {uEmail, uPassword} = req.body
+    //Add db client for login
+    const client = await dbPool.connect()
     //Query definition
     const queryEmailValid = {
       text: 'SELECT email FROM users WHERE email = $1',

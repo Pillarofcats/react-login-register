@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react'
 
-function Profile({user, logout, setUser}) {
+function Profile({logout, sessionID, user, setUser}) {
 
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
@@ -67,7 +67,7 @@ function Profile({user, logout, setUser}) {
   return(
     <div className="center-page">
     {
-      user.email ? 
+      sessionID ? 
       ( <div className="profile ">
           <div className="profile-grid-container">
             <div className="profile-keys">

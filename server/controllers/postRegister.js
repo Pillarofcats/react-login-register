@@ -4,7 +4,6 @@ async function postRegister(req, res, dbPool, bcryptjs) {
   //Add db client for register
   const client = await dbPool.connect()
 
-  //Queries
   try {
     //Query definition, check email
     const queryCheckEmail = {

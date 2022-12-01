@@ -26,7 +26,13 @@ const initUser = {
   birthday: "",
 }
 
-async function getAuthUser(sID) {
+// async function logoutAuthUser {sID} {
+//   if(id === null) return
+
+
+// }
+
+async function getAuthUser(usid) {
   //Route/End-point
   const URL = 'https://classy-steel-production.up.railway.app/authUser'
   //Fetch auth/user
@@ -35,8 +41,7 @@ async function getAuthUser(sID) {
     const response = await fetch(URL, {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      credentials: 'include',
-      body: JSON.stringify({usid: sID})
+      body: JSON.stringify({usid: usid})
     })
 
     return await response.json()
@@ -49,16 +54,16 @@ async function getAuthUser(sID) {
 //ON APP LOAD ,[]
 useEffect(()=> {
   //Get session cookie
-  const sID = getSessionCookie()
-  console.log('USE EFFECT cookie', sID)
+  const usid = getSessionCookie()
+  console.log('USE EFFECT cookie', usid)
   //If session cookie exists, authenticate and get user data
-  if(sID) {
-    console.log("sid?", sID )
+  if(usid) {
+    console.log("sid?", usid )
     //Set session ID
-    setSessionID(sID)
+    setSessionID(usid)
     //Fetch auth/user
     console.log('set session id')
-    getAuthUser(sID)
+    getAuthUser(usid)
       .then(user => {
         if(user) {
           console.log('got user')
@@ -67,7 +72,6 @@ useEffect(()=> {
         }
       })
       .catch((err) => {
-        console.log("What?")
         console.error(err)
       })
   }
@@ -97,10 +101,10 @@ const [sessionID, setSessionID] = useState('')
       <Navbar />
     
       <Routes>
-        <Route path="/" element={<Home name={user.name} />} />
+        <Route path="/" element={<Home sessionID={sessionID} user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
-        <Route path="/LoginRegister" element={<LoginRegister setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile user={user} logout={() => setUser(initUser)} setUser={setUser}/>} />
+        <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
+        <Route path="/Profile" element={<Profile logout={() => setUser(initUser)} sessionID={sessionID} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
