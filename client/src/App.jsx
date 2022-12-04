@@ -14,6 +14,7 @@ import {useState, useEffect} from "react"
 
 //Helper Functions
 import getSessionCookie from "./functions/getSessionCookie"
+import deleteSessionCookie from "./functions/deleteSessionCookie"
 
 //Main
 function App() {
@@ -25,12 +26,6 @@ const initUser = {
   gender: "",
   birthday: "",
 }
-
-// async function logoutAuthUser {sID} {
-//   if(id === null) return
-
-
-// }
 
 async function getAuthUser(usid, id) {
   //Route/End-point
@@ -81,6 +76,15 @@ useEffect(()=> {
   }
 }, [])
 
+function logout() {
+  //Delete Cookie
+  deleteSessionCookie()
+  //Delete local storage item 'rll_uid'
+  localStorage.removeItem('rrl_uid')
+  //Set sessionID to null
+  setSessionID('')
+}
+
 //LOGUT - CLEAR COOKIE IN SERVERS.JS
 //res.clearCookie('user')
 //redirect to login/register page
@@ -108,7 +112,7 @@ const [sessionID, setSessionID] = useState('')
         <Route path="/" element={<Home sessionID={sessionID} user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
         <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={() => setUser(initUser)} sessionID={sessionID} user={user} setUser={setUser}/>} />
+        <Route path="/Profile" element={<Profile logout={() => logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
