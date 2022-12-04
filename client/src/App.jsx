@@ -77,10 +77,13 @@ useEffect(()=> {
 }, [])
 
 function logout() {
+  console.log('did this happen')
   //Delete Cookie
   deleteSessionCookie()
+  console.log('cookies', document.cookie)
   //Delete local storage item 'rll_uid'
   localStorage.removeItem('rrl_uid')
+  console.log(localStorage.getItem('rrl_uid'))
   //Set sessionID to null
   setSessionID('')
 }
