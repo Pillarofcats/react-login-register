@@ -124,6 +124,10 @@
   min-width: 7rem;
 }
 
+.profile-values > select {
+  margin: 0;
+}
+
 .profile-values>p {
   margin: 0;
   padding-left: 7px;
