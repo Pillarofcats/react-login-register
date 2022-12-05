@@ -4,7 +4,7 @@ import React, {useState, useRef} from 'react'
 import blankProfile from '../images/blankProfile.png'
 
 //Profile component
-function Profile({logout, sessionID, user, setUser}) {
+function Profile({logout, user, setUser}) {
 
   //State hooks
   const [isEditName, setEditName] = useState(false)
@@ -97,7 +97,7 @@ function Profile({logout, sessionID, user, setUser}) {
   return(
     <div className="center-page">
     {
-      sessionID ? 
+      user.id ? 
       ( <div className="profile ">
           <div className="profile-image" style={profileImageStyle}></div>
           <div className="profile-grid-container">

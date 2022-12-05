@@ -1,7 +1,7 @@
 //Blank profile image
 import blankProfile from '../images/blankProfile.png'
 
-function Home({sessionID, user}) {
+function Home({user}) {
 
   //Profile image logic
   const profileImage = user.image ? user.image : blankProfile
@@ -12,7 +12,7 @@ function Home({sessionID, user}) {
   return(
     <>
     {
-      sessionID ? (
+      user.id ? (
         <div className="center-page">
           <div className="profile-image" style={profileImageStyle}></div>
           <h1 className="home">Welcome {user.name.length > 15 ? user.name.slice(0,15)+".." : user.name}!</h1> 

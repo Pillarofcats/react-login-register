@@ -69,10 +69,10 @@ const [sessionID, setSessionID] = useState("")
       <Navbar />
     
       <Routes>
-        <Route path="/" element={<Home sessionID={sessionID} user={user} />} />
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
         <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={() => logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
+        <Route path="/Profile" element={<Profile logout={() => logout} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
