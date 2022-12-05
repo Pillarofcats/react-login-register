@@ -38,8 +38,8 @@ function Profile({logout, sessionID, user, setUser}) {
 
     if(!(isEditName || isEditEmail || isEditGender || isEditBirthday)) return console.log("no edits")
 
-    if(isEditName && nameRef.current.value === undefined || isEditEmail && emailRef.current.value === undefined ||
-      isEditGender && genderRef.current.value === undefined || isEditBirthday && birthdayRef.current.value === undefined) return console.log("not all values set for edits")
+    if((isEditName && nameRef.current.value === undefined) || (isEditEmail && emailRef.current.value === undefined) ||
+      (isEditGender && genderRef.current.value === undefined) || (isEditBirthday && birthdayRef.current.value === undefined)) return console.log("not all values set for edits")
 
     console.log("edits passed..")
 
