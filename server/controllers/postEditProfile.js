@@ -27,13 +27,13 @@ async function postEditProfile (req, res, dbPool) {
     //Query update user data
     const quu = await client.query(queryUserUpdate)
     //Destructure query data
-    const {uid, name, email, gender, birthday} = quu.rows[0]
+    const {uid, name, email, image, gender, birthday} = quu.rows[0]
     //Format birthday
     const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : birthday
     //Release client from db connection
     client.release()
     //Return user data after updating db
-    return res.status(200).send({id: uid, name: name, email: email, gender: gender, birthday: bDay})
+    return res.status(200).send({id: uid, name: name, email: email, image: image, gender: gender, birthday: bDay})
   } catch(err) {
     console.error(err)
   }
