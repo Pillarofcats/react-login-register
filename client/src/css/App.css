@@ -92,8 +92,8 @@
 }
 
 .profile-image {
-  flex: 1 auto;
-  object-fit: contain;
+  /* flex: 1 auto;
+  object-fit: contain; */
   align-self: center;
   border: .3rem solid rgb(37, 37, 37);
   border-radius: 50%;
