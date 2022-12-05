@@ -37,10 +37,10 @@ function Profile({logout, sessionID, user, setUser}) {
 
     let edits = {}
 
-    if(isEditName && nameRef.current.value !== user.name) edits.name = nameRef.current.value
-    if(isEditEmail && emailRef.current.value !== user.email) edits.email = emailRef.current.value
-    if(isEditGender && genderRef.current.value !== user.gender) edits.gender = genderRef.current.value
-    if(isEditBirthday && birthdayRef.current.value !== user.birthday) edits.birthday = birthdayRef.current.value
+    if(isEditName && nameRef.current.value !== user.name && nameRef.current.value !== "") edits.name = nameRef.current.value
+    if(isEditEmail && emailRef.current.value !== user.email && emailRef.current.value !== "") edits.email = emailRef.current.value
+    if(isEditGender && genderRef.current.value !== user.gender && genderRef.current.value !== "") edits.gender = genderRef.current.value
+    if(isEditBirthday && birthdayRef.current.value !== user.birthday && birthdayRef.current.value !== "") edits.birthday = birthdayRef.current.value
 
     //User edited data
     let userAfterEdit = {
