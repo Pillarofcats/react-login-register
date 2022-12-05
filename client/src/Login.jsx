@@ -4,7 +4,7 @@ import React, {useRef, useState} from "react"
 
 import getSessionCookie from "./functions/getSessionCookie"
 
-function Login({setUser}) {
+function Login({setSessionID, setUser}) {
 
   const loginEmailRef = useRef()
   const loginPasswordRef = useRef()
