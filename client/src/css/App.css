@@ -87,11 +87,18 @@
   /* height: fit-content; */
 }
 
+.profile-image-frame {
+  width: 5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid blue;
+}
+
 img.profile-image {
   object-fit: contain;
   width: 100%;
   border: .5rem solid rgb(24, 24, 24);
-  border-radius: 100%;
 }
 
 .profile-grid-container {
