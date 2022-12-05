@@ -92,7 +92,7 @@ function Profile({logout, sessionID, user, setUser}) {
   return(
     <div className="center-page">
     {
-      true ? 
+      sessionID ? 
       ( <div className="profile ">
           <div className="profile-image" style={profileImageStyle}></div>
           <div className="profile-grid-container">
@@ -127,7 +127,7 @@ function Profile({logout, sessionID, user, setUser}) {
             </div>
           </div>
           <div className="profile-logout-save-btns">
-            <button className="btn btn-primary me-auto" onClick={() => logout()}>Logout</button>
+            <button className="btn btn-primary me-auto" onClick={logout()}>Logout</button>
             <button className="btn btn-primary ms-auto" onClick={() => editSubmit()}>Save Edits</button>
           </div>
         </div>

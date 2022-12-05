@@ -57,6 +57,8 @@ function logout() {
   localStorage.removeItem('rrl_uid')
   //Set sessionID to null
   setSessionID("")
+  //Set user
+  // setUser(initUser)
 }
 
 const [user, setUser] = useState(() => initUser)
@@ -70,7 +72,7 @@ const [sessionID, setSessionID] = useState("")
         <Route path="/" element={<Home sessionID={sessionID} user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
         <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
+        <Route path="/Profile" element={<Profile logout={() => logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
