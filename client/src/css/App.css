@@ -87,7 +87,7 @@
   /* height: fit-content; */
 }
 
-.profile-image img {
+img.profile-image {
   height: 3rem;
   width: 100%;
   border: .5rem solid rgb(24, 24, 24);
