@@ -85,27 +85,11 @@ function logout() {
   localStorage.removeItem('rrl_uid')
   console.log(localStorage.getItem('rrl_uid'))
   //Set sessionID to null
-  setSessionID('')
+  setSessionID("")
 }
 
-//LOGUT - CLEAR COOKIE IN SERVERS.JS
-//res.clearCookie('user')
-//redirect to login/register page
-
-//USER ALREADY LOGGED IN?
-//  useEffect(() => {
-//     const loggedInUser = localStorage.getItem("user");
-//     if (loggedInUser) {
-//       const foundUser = JSON.parse(loggedInUser);
-//       setUser(foundUser);
-//     }
-//   }, []);
-
-//STORE USER IN LOCAL STORAGE
-// localStorage.setItem('user', response.data)
-
 const [user, setUser] = useState(initUser)
-const [sessionID, setSessionID] = useState('')
+const [sessionID, setSessionID] = useState("")
 
   return (
     <div className="app">

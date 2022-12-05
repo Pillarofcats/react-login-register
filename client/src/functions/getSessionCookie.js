@@ -6,7 +6,7 @@ function getSessionCookie () {
     const cData = cMatch[0].split('=')
     return cData[1]
   }
-  return false
+  return ""
 }
 
 export default getSessionCookie

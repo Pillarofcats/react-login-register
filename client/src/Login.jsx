@@ -2,6 +2,8 @@ import ServerMessage from "./ServerMessage"
 
 import React, {useRef, useState} from "react"
 
+import getSessionCookie from "./functions/getSessionCookie"
+
 function Login({setUser}) {
 
   const loginEmailRef = useRef()
@@ -48,6 +50,8 @@ function Login({setUser}) {
           setIsMessage(true)
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
+          //Set sessionID from cookie
+          setSessionID(getSessionCookie())
           //Set user id to local storage
           localStorage.setItem('rrl_uid', user.id);
           //Reset form inputs after successful form submission
