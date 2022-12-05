@@ -125,7 +125,8 @@
 }
 
 .profile-values > select {
-  margin: 0;
+  padding-bottom: 2px;
+  padding-left: 2px;
 }
 
 .profile-values>p {
