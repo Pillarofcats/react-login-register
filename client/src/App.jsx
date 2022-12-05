@@ -109,6 +109,8 @@ const [sessionID, setSessionID] = useState('')
 
   return (
     <div className="app">
+      {console.log(user)}
+      {console.log(sessionID)}
       <Navbar />
     
       <Routes>
