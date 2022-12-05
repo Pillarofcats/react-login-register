@@ -53,7 +53,7 @@ function Profile({logout, sessionID, user, setUser}) {
     //Create object with edits specified by user
     if(isEditName && nameRef.current.value !== user.name) edits.name = nameRef.current.value
     if(isEditEmail && emailRef.current.value !== user.email) edits.email = emailRef.current.value
-    if(isEditImage && imageRef.current.value !== user.email) edits.image = imageRef.current.value
+    if(isEditImage && imageRef.current.value !== user.image) edits.image = imageRef.current.value
     if(isEditGender && genderRef.current.value !== user.gender) edits.gender = genderRef.current.value
     if(isEditBirthday && birthdayRef.current.value !== user.birthday) edits.birthday = birthdayRef.current.value
 

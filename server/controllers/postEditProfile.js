@@ -1,11 +1,6 @@
 async function postEditProfile (req, res, dbPool) {
 
-  console.log(JSON.stringify(req.headers.cookie))
-
-
-
   try {
-
     //Destructure object data
     const {id, edits} = req.body
     //Add db client for profile edit
@@ -18,7 +13,7 @@ async function postEditProfile (req, res, dbPool) {
     }
 
     //Create query definition from edits in the form: column=value
-    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid, name, email, gender, birthday`
+    const qs = `UPDATE users SET ${[...qsEdits]} WHERE uid = $1 RETURNING uid, name, email, image, gender, birthday`
     //Query definition, change user properties based on what properties changed in database
     const queryUserUpdate = {
       text: qs,
