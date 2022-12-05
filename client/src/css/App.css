@@ -87,6 +87,11 @@
   /* height: fit-content; */
 }
 
+.profile-image img {
+  height: 5rem;
+  width: 100%;
+}
+
 .profile-grid-container {
   flex: 1;
   display: grid;

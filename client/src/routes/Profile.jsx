@@ -75,6 +75,7 @@ function Profile({logout, sessionID, user, setUser}) {
     {
       sessionID ? 
       ( <div className="profile ">
+        <img className="profile-image" src="https://marvel-b1-cdn.bc0a.com/f00000000209359/news.uoguelph.ca/wp-content/uploads/2019/11/cat-2483826_1280-500x321.jpg" alt="profile-img" />
           <div className="profile-grid-container">
             <div className="profile-keys">
               <label>Name:</label>
