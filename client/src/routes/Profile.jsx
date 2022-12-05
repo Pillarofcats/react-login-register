@@ -47,6 +47,11 @@ function Profile({logout, sessionID, user, setUser}) {
 
   //Component method
   async function getEdits() {
+    
+    const urlPattern = new RegExp('^(http|https)://')
+    const validImage = imageRef.current.value.match(urlPattern)
+    if(!validImage) return
+
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
     //Edits with no changes made RETURN
@@ -106,7 +111,7 @@ function Profile({logout, sessionID, user, setUser}) {
             <div className="profile-values">
               {isEditName ? <input ref={nameRef} placeholder={user.name} type="text"/> : <p>{user.name}</p> }
               {isEditEmail ? <input ref={emailRef} placeholder={user.email} type="text" /> : <p>{user.email}</p>}
-              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" pattern="https?://.+" /> :
+              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" /> :
                 user.image?.length > 15 ? <p>{user.image.slice(0,15)+'..'}</p> : <p>{user.image}</p>}
               {isEditGender ?
                 <select ref={genderRef} placeholder={user.gender}>
