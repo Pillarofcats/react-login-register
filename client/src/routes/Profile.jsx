@@ -53,7 +53,7 @@ function Profile({logout, sessionID, user, setUser}) {
     if((isEditName && (nameRef.current.value === null || nameRef.current.value === "")) ||
       (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
       (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
-      (isEditGender && (genderRef.current.value === null || genderRef.current.value === user.gender)) ||
+      (isEditGender && (genderRef.current.value === null || genderRef.current.value === "" || genderRef.current.value === user.gender)) ||
       (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return
 
     console.log("edits passed..")
@@ -106,7 +106,7 @@ function Profile({logout, sessionID, user, setUser}) {
             <div className="profile-values">
               {isEditName ? <input ref={nameRef} placeholder={user.name} type="text"/> : <p>{user.name}</p> }
               {isEditEmail ? <input ref={emailRef} placeholder={user.email} type="text" /> : <p>{user.email}</p>}
-              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" /> :
+              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" pattern="https?://.+" /> :
                 user.image?.length > 15 ? <p>{user.image.slice(0,15)+'..'}</p> : <p>{user.image}</p>}
               {isEditGender ?
                 <select ref={genderRef} placeholder={user.gender}>
