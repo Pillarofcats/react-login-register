@@ -31,6 +31,11 @@ function Profile({logout, sessionID, user, setUser}) {
 
   async function getEdits() {
 
+    console.log('name', nameRef.current.value)
+    console.log('email', emailRef.current.value)
+    console.log('gender', genderRef.current.value)
+    console.log('bday', birthdayRef.current.value)
+
     if(!(isEditName || isEditEmail || isEditGender || isEditBirthday)) return console.log("no edits")
 
     console.log("saving edits..")
