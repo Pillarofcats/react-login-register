@@ -91,7 +91,7 @@ img.profile-image {
   object-fit: contain;
   width: 100%;
   border: .5rem solid rgb(24, 24, 24);
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 .profile-grid-container {
