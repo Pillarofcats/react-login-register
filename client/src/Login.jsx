@@ -49,7 +49,7 @@ function Login({setSessionID, setUser}) {
           setServerMessage(["text-success", user.resMessage])
           setIsMessage(true)
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
+          setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
           //Set sessionID from cookie
           setSessionID(getSessionCookie())
           //Set user id to local storage

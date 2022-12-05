@@ -4,20 +4,26 @@ function Profile({logout, sessionID, user, setUser}) {
 
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
+  const [isEditImage, setEditImage] = useState(false)
   const [isEditGender, setEditGender] = useState(false)
   const [isEditBirthday, setEditBirthday] = useState(false)
 
   const nameRef = useRef()
   const emailRef = useRef()
+  const imageRef = useRef()
   const genderRef = useRef()
   const birthdayRef = useRef()
+
+  const profileImageStyle = {
+    backgroundImage: `url('${user.image}')`
+  }
 
   function editSubmit() {
     //Submit profile data for update
     getEdits()
       .then((user) => {
         if(user) {
-          setUser({id: user.id, name: user.name, email: user.email, gender: user.gender, birthday: user.birthday})
+          setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
         }
       })
       .catch((err) => console.log(err))
@@ -25,16 +31,18 @@ function Profile({logout, sessionID, user, setUser}) {
     //Reset edited fields after submit
     if(isEditName) setEditName(false)
     if(isEditEmail) setEditEmail(false)
+    if(isEditImage) setEditEmail(false)
     if(isEditGender) setEditGender(false)
     if(isEditBirthday) setEditBirthday(false)
   }
 
   async function getEdits() {
 
-    if(!(isEditName || isEditEmail || isEditGender || isEditBirthday)) return console.log("no edits")
+    if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return console.log("no edits")
 
     if((isEditName && (nameRef.current.value === null || nameRef.current.value === "")) ||
       (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
+      (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
       (isEditGender && (genderRef.current.value === null || genderRef.current.value === user.gender)) ||
       (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return console.log("not all values set for edits")
 
@@ -45,6 +53,7 @@ function Profile({logout, sessionID, user, setUser}) {
     //Create object with edits specified by user
     if(isEditName && nameRef.current.value !== user.name) edits.name = nameRef.current.value
     if(isEditEmail && emailRef.current.value !== user.email) edits.email = emailRef.current.value
+    if(isEditImage && imageRef.current.value !== user.email) edits.image = imageRef.current.value
     if(isEditGender && genderRef.current.value !== user.gender) edits.gender = genderRef.current.value
     if(isEditBirthday && birthdayRef.current.value !== user.birthday) edits.birthday = birthdayRef.current.value
 
@@ -73,23 +82,27 @@ function Profile({logout, sessionID, user, setUser}) {
   return(
     <div className="center-page">
     {
-      sessionID ? 
+      true ? 
       ( <div className="profile ">
-          <img className="profile-image" src="https://marvel-b1-cdn.bc0a.com/f00000000209359/news.uoguelph.ca/wp-content/uploads/2019/11/cat-2483826_1280-500x321.jpg" alt="profile-img" />
+          <div className="profile-image" style={profileImageStyle}></div>
           <div className="profile-grid-container">
             <div className="profile-keys">
               <label>Name:</label>
               <label>Email:</label>
+              <label>Image:</label>
               <label>Gender:</label>
               <label>Birthday:</label>
             </div>
             <div className="profile-values">
               {isEditName ? <input ref={nameRef} placeholder={user.name} type="text"/> : <p>{user.name}</p> }
               {isEditEmail ? <input ref={emailRef} placeholder={user.email} type="text" /> : <p>{user.email}</p>}
+              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" /> : <p>{user.image}</p>}
               {isEditGender ?
                 <select ref={genderRef} placeholder={user.gender}>
+                  <option value="">Empty</option>
                   <option value="Female">Female</option>
                   <option value="Male">Male</option>
+                  <option value="Variant">Variant</option>
                 </select>
                 : <p>{user.gender}</p>}
               {isEditBirthday ? <input ref={birthdayRef} placeholder={user.birthday} type="date" /> : <p>{user.birthday}</p>} 
@@ -97,6 +110,7 @@ function Profile({logout, sessionID, user, setUser}) {
             <div className="profile-edits">
               <button className="btn btn-primary" onClick={() => setEditName(prev => !prev)}>edit</button>
               <button className="btn btn-primary" onClick={() => setEditEmail(prev => !prev)}>edit</button>
+              <button className="btn btn-primary" onClick={() => setEditImage(prev => !prev)}>edit</button>
               <button className="btn btn-primary" onClick={() => setEditGender(prev => !prev)}>edit</button>
               <button className="btn btn-primary" onClick={() => setEditBirthday(prev => !prev)}>edit</button>
             </div>

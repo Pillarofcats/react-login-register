@@ -87,12 +87,23 @@
   /* height: fit-content; */
 }
 
-img.profile-image {
-  width: 15rem;
-  height: 15rem;
-  object-fit: cover;
+.profile > * {
+  /* border: .3rem solid orange; */
+}
+
+.profile-image {
+  flex: 1 auto;
+  object-fit: contain;
+  align-self: center;
+  border: .3rem solid rgb(37, 37, 37);
   border-radius: 50%;
-  border: .1rem solid rgb(24, 24, 24);
+  background-size: cover;
+  /* background-image: url('https://marvel-b1-cdn.bc0a.com/f00000000209359/news.uoguelph.ca/wp-content/uploads/2019/11/cat-2483826_1280-500x321.jpg'); */
+  background-position: center;
+  height: 15vw;
+  width: 15vw;
+  min-width: 10rem;
+  min-height: 10rem;
 }
 
 .profile-grid-container {

@@ -35,7 +35,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       //Query user data to be sent back to client
       const qe = await client.query(queryUser)
       //Destructure query data
-      const {uid, name, email, gender, birthday} = qe.rows[0]
+      const {uid, name, email, image, gender, birthday} = qe.rows[0]
       //Format birthday
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : ""
       //Create sessionID and Hash
@@ -52,7 +52,7 @@ async function postLogin (req, res, dbPool, bcryptjs, cryptojs, cookieSessionOpt
       //Release client from db connection
       client.release()
       //Return response message and data, session id cookie will be set
-      return res.status(200).send({resMessage: 'Login Successful', id: uid, name: name, email: email, gender: gender, birthday: bDay})
+      return res.status(200).send({resMessage: 'Login Successful', id: uid, name: name, email: email, image: image, gender: gender, birthday: bDay})
     }
     //Release client from db connection
     client.release()

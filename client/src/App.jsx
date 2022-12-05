@@ -39,8 +39,8 @@ useEffect(()=> {
       .then(user => {
         if(user) {
           //Destructure user data
-          const {id, name, email, gender, birthday} = user
-          setUser({id: id, name: name, email: email, gender: gender, birthday: birthday})
+          const {id, name, email, image, gender, birthday} = user
+          setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
         }
       })
       .catch((err) => {
