@@ -88,11 +88,11 @@
 }
 
 img.profile-image {
-  width: 5rem;
-  height: 5rem;
+  width: 15rem;
+  height: 15rem;
   object-fit: cover;
   border-radius: 50%;
-  border: .5rem solid rgb(24, 24, 24);
+  border: .1rem solid rgb(24, 24, 24);
 }
 
 .profile-grid-container {
