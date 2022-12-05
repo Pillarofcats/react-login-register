@@ -117,6 +117,10 @@ img.profile-image {
   padding: 0 .3rem;
 }
 
+.profile-edits {
+  align-items: flex-end;
+}
+
 .profile-keys {
   font-weight: bold;
 }
