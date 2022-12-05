@@ -50,6 +50,7 @@ useEffect(()=> {
 }, [])
 
 function logout() {
+  console.log('logout')
   //Delete Cookie
   deleteSessionCookie()
   //Delete local storage item 'rll_uid'
@@ -69,7 +70,7 @@ const [sessionID, setSessionID] = useState("")
         <Route path="/" element={<Home sessionID={sessionID} user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
         <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={() => logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
+        <Route path="/Profile" element={<Profile logout={logout} sessionID={sessionID} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
