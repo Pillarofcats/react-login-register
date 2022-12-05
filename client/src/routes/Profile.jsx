@@ -1,23 +1,32 @@
 import React, {useState, useRef} from 'react'
 
+//Blank profile image
+import blankProfile from '../images/blankProfile.png'
+
+//Profile component
 function Profile({logout, sessionID, user, setUser}) {
 
+  //State hooks
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
   const [isEditImage, setEditImage] = useState(false)
   const [isEditGender, setEditGender] = useState(false)
   const [isEditBirthday, setEditBirthday] = useState(false)
 
+  //Ref hooks
   const nameRef = useRef()
   const emailRef = useRef()
   const imageRef = useRef()
   const genderRef = useRef()
   const birthdayRef = useRef()
 
+  //Profile image logic
+  const profileImage = user.image ? user.image : blankProfile
   const profileImageStyle = {
-    backgroundImage: `url('${user.image}')`
+    backgroundImage: `url('${profileImage}')`
   }
 
+  //Component method
   function editSubmit() {
     //Submit profile data for update
     getEdits()
@@ -31,20 +40,21 @@ function Profile({logout, sessionID, user, setUser}) {
     //Reset edited fields after submit
     if(isEditName) setEditName(false)
     if(isEditEmail) setEditEmail(false)
-    if(isEditImage) setEditEmail(false)
+    if(isEditImage) setEditImage(false)
     if(isEditGender) setEditGender(false)
     if(isEditBirthday) setEditBirthday(false)
   }
 
+  //Component method
   async function getEdits() {
-
-    if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return console.log("no edits")
-
+    //No edits made RETURN
+    if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
+    //Edits with no changes made RETURN
     if((isEditName && (nameRef.current.value === null || nameRef.current.value === "")) ||
       (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
       (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
       (isEditGender && (genderRef.current.value === null || genderRef.current.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return console.log("not all values set for edits")
+      (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return
 
     console.log("edits passed..")
 

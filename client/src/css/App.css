@@ -87,9 +87,9 @@
   /* height: fit-content; */
 }
 
-.profile > * {
-  /* border: .3rem solid orange; */
-}
+/* .profile > * {
+  border: .3rem solid orange;
+} */
 
 .profile-image {
   /* flex: 1 auto;
