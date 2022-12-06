@@ -65,7 +65,7 @@ function Profile({logout, user, setUser}) {
     if((isEditName && (nameRef?.current?.value === undefined || nameRef?.current?.value === "")) ||
       (isEditEmail && (emailRef?.current?.value === undefined || emailRef?.current?.value === "")) ||
       (isEditImage && (imageRef?.current?.value === undefined || imageRef?.current?.value === "")) ||
-      (isEditGender && (genderRef?.current?.value === undefined || genderRef?.current?.value === "" || genderRef?.current?.value === user.gender)) ||
+      (isEditGender && (genderRef?.current?.value === undefined || genderRef?.current?.value === user.gender)) ||
       (isEditBirthday && (birthdayRef?.current?.value === undefined || birthdayRef?.current?.value === ""))) return console.log('check failed')
 
     console.log("edits passed..")
