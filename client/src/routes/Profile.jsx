@@ -54,8 +54,7 @@ function Profile({logout, user, setUser}) {
 
     console.log('gender', genderRef)
     console.log('bday', birthdayRef)
-    console.log('gender curr', genderRef?.current)
-    console.log('bday curr', birthdayRef?.current)
+
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
