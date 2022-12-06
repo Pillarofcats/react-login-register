@@ -69,7 +69,7 @@ function Profile({logout, user, setUser}) {
       (isEditBirthday && (birthdayRef?.current?.value === undefined || birthdayRef?.current?.value === ""))) return console.log('check failed')
 
     console.log("edits passed..")
-?
+
     //Edits object
     let edits = {}
     //Create object with edits specified by user
