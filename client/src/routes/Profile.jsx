@@ -139,7 +139,7 @@ function Profile({logout, user, setUser}) {
             </div>
           </div>
           <div className="profile-logout-save-btns">
-            <button className="btn btn-primary me-auto" onClick={logout()}>Logout</button>
+            <button className="btn btn-primary me-auto" onClick={() => logout()}>Logout</button>
             <button className="btn btn-primary ms-auto" onClick={() => editSubmit()}>Save Edits</button>
           </div>
         </div>

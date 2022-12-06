@@ -30,8 +30,8 @@ useEffect(()=> {
   const usid = getSessionCookie()
   //If session cookie exists, authenticate and get user data
   if(usid) {
-    //Set session ID
-    setSessionID(usid)
+    // //Set session ID
+    // setSessionID(usid)
     //Get user id from local storage
     const id = localStorage.getItem('rrl_uid')
     //Fetch auth/user
@@ -55,14 +55,14 @@ function logout() {
   deleteSessionCookie()
   //Delete local storage item 'rll_uid'
   localStorage.removeItem('rrl_uid')
-  //Set sessionID to null
-  setSessionID("")
+  // //Set sessionID to null
+  // setSessionID("")
   //Set user
-  // setUser(initUser)
+  setUser(initUser)
 }
 
 const [user, setUser] = useState(() => initUser)
-const [sessionID, setSessionID] = useState("")
+// const [sessionID, setSessionID] = useState("")
 
   return (
     <div className="app">
@@ -72,7 +72,7 @@ const [sessionID, setSessionID] = useState("")
         <Route path="/" element={<Home user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
         <Route path="/LoginRegister" element={<LoginRegister setSessionID={setSessionID} setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={() => logout} user={user} setUser={setUser}/>} />
+        <Route path="/Profile" element={<Profile logout={logout} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
       
