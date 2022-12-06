@@ -14,11 +14,11 @@ function Profile({logout, user, setUser}) {
   const [isEditBirthday, setEditBirthday] = useState(false)
 
   //Ref hooks
-  const nameRef = useRef(null)
-  const emailRef = useRef(null)
-  const imageRef = useRef(null)
-  const genderRef = useRef(null)
-  const birthdayRef = useRef(null)
+  const nameRef = useRef("")
+  const emailRef = useRef("")
+  const imageRef = useRef("")
+  const genderRef = useRef("")
+  const birthdayRef = useRef("")
 
   //Profile image logic
   const profileImage = user.image ? user.image : blankProfile
@@ -48,8 +48,12 @@ function Profile({logout, user, setUser}) {
   //Component method
   async function getEdits() {
     console.log('hi')
+    console.log('gender', genderRef)
+    console.log('bday', birthdayRef)
+
+  
     const urlPattern = new RegExp('^(http|https)://')
-    const validImage = imageRef.current.value.match(urlPattern)
+    const validImage = imageRef.current.match(urlPattern)
     if(!validImage) return
 
     console.log('gender', genderRef)
@@ -62,8 +66,8 @@ function Profile({logout, user, setUser}) {
     if((isEditName && (nameRef.current.value === null || nameRef.current.value === "")) ||
       (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
       (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
-      (isEditGender && (genderRef.current?.value === null || genderRef.current?.value === undefined || genderRef.current?.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current?.value === null || birthdayRef.current?.value === ""))) return
+      (isEditGender && (genderRef.current.value === null || genderRef.current.value === undefined || genderRef.current.value === user.gender)) ||
+      (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return
 
     console.log("edits passed..")
 
