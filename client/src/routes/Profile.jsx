@@ -47,12 +47,12 @@ function Profile({logout, user, setUser}) {
 
   //Component method
   async function getEdits() {
-    console.log('name valof', nameRef.current.valueOf)
-    console.log('name val', nameRef.current.value)
-    console.log('email', emailRef.current)
-    console.log('image', imageRef.current)
-    console.log('gender', genderRef.current)
-    console.log('bday', birthdayRef.current)
+
+    console.log('name', nameRef.current.value)
+    console.log('email', emailRef.current.value)
+    console.log('image', imageRef.current.value)
+    console.log('gender', genderRef.current.value)
+    console.log('bday', birthdayRef.current.value)
 
   
     const urlPattern = new RegExp('^(http|https)://')
