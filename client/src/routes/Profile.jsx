@@ -56,8 +56,8 @@ function Profile({logout, user, setUser}) {
 
   
     const urlPattern = new RegExp('^(http|https)://')
-    const validImage = imageRef.current.match(urlPattern)
-    if(!validImage) return
+    const validImage = imageRef.current.value.match(urlPattern)
+    if(!validImage) return console.log('not valid address')
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
