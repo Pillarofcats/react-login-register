@@ -47,7 +47,7 @@ function Profile({logout, user, setUser}) {
 
   //Component method
   async function getEdits() {
-    
+    console.log('hi')
     const urlPattern = new RegExp('^(http|https)://')
     const validImage = imageRef.current.value.match(urlPattern)
     if(!validImage) return
