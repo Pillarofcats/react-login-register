@@ -55,29 +55,39 @@ function Profile({logout, user, setUser}) {
     console.log('bday', birthdayRef?.current?.value)
 
 
-    const urlPattern = new RegExp('^(http|https)://')
-    const isValidImage = imageRef?.current?.value ? imageRef?.current?.value.match(urlPattern) : false
-    if(!isValidImage && isEditImage) return console.log('not valid imag url')
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
+
+    //short hand ref names
+    let nr = nameRef?.current?.value
+    let er = emailRef?.current?.value
+    let ir = imageRef?.current?.value
+    let gr = genderRef?.current?.value
+    let br = birthdayRef?.current?.value
+
+    //Image url pattern check
+    const urlPattern = new RegExp('^(http|https)://')
+    const isValidImage = ir ? ir.match(urlPattern) : false
+    // if(!isValidImage && isEditImage) return console.log('not valid imag url')
+
     //Edits with no changes made RETURN
-    if((isEditName && (nameRef?.current?.value === undefined || nameRef?.current?.value === "")) ||
-      (isEditEmail && (emailRef?.current?.value === undefined || emailRef?.current?.value === "")) ||
-      (isEditImage && (imageRef?.current?.value === undefined || imageRef?.current?.value === "")) ||
-      (isEditGender && (genderRef?.current?.value === undefined || genderRef?.current?.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef?.current?.value === undefined || birthdayRef?.current?.value === ""))) return console.log('check failed')
+    if((isEditName && (nr === undefined || nr === "" || nr === user.name)) ||
+      (isEditEmail && (er === undefined || er === "" || er === user.email)) ||
+      (isEditImage && (ir === undefined || ir === "" || ir === user.image || !isValidImage)) ||
+      (isEditGender && (gr === undefined || gr === user.gender)) ||
+      (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) return console.log('edit check failed')
 
     console.log("edits passed..")
 
     //Edits object
     let edits = {}
     //Create object with edits specified by user
-    if(isEditName && nameRef?.current?.value !== user.name) edits.name = nameRef?.current?.value
-    if(isEditEmail && emailRef?.current?.value !== user.email) edits.email = emailRef?.current?.value
-    if(isEditImage && imageRef?.current?.value !== user.image) edits.image = imageRef?.current?.value
-    if(isEditGender && genderRef?.current?.value !== user.gender) edits.gender = genderRef?.current?.value
-    if(isEditBirthday && birthdayRef?.current?.value !== user.birthday) edits.birthday = birthdayRef?.current?.value
+    if(isEditName) edits.name = nr
+    if(isEditEmail) edits.email = er
+    if(isEditImage) edits.image = ir
+    if(isEditGender) edits.gender = gr
+    if(isEditBirthday) edits.birthday = br
 
     //User edited data
     let userAfterEdit = {
