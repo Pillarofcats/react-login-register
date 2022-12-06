@@ -54,30 +54,29 @@ function Profile({logout, user, setUser}) {
     console.log('gender', genderRef.current.value)
     console.log('bday', birthdayRef.current.value)
 
-  
     const urlPattern = new RegExp('^(http|https)://')
-    const validImage = imageRef.current.value.match(urlPattern)
-    if(!validImage) return console.log('not valid address')
+    const isValidImage = imageRef.current.value ? imageRef.current.value.match(urlPattern) : false
+    if(!isValidImage) return console.log('not valid imag url')
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
     //Edits with no changes made RETURN
-    if((isEditName && (nameRef.current === null || nameRef.current === "")) ||
-      (isEditEmail && (emailRef.current === null || emailRef.current === "")) ||
-      (isEditImage && (imageRef.current === null || imageRef.current === "")) ||
-      (isEditGender && (genderRef.current === null || genderRef.current === undefined || genderRef.current === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current === null || birthdayRef.current === ""))) return
+    if((isEditName && (nameRef.current.value === undefined || nameRef.current.value === "")) ||
+      (isEditEmail && (emailRef.current.value === undefined || emailRef.current.value === "")) ||
+      (isEditImage && (imageRef.current.value === undefined || imageRef.current.value === "")) ||
+      (isEditGender && (genderRef.current.value === undefined || genderRef.current.value === "" || genderRef.current.value === user.gender)) ||
+      (isEditBirthday && (birthdayRef.current.value === undefined || birthdayRef.current.value === ""))) return
 
     console.log("edits passed..")
 
     //Edits object
     let edits = {}
     //Create object with edits specified by user
-    if(isEditName && nameRef.current !== user.name) edits.name = nameRef.current
-    if(isEditEmail && emailRef.current !== user.email) edits.email = emailRef.current
-    if(isEditImage && imageRef.current !== user.image) edits.image = imageRef.current
-    if(isEditGender && genderRef.current !== user.gender) edits.gender = genderRef.current
-    if(isEditBirthday && birthdayRef.current !== user.birthday) edits.birthday = birthdayRef.current
+    if(isEditName && nameRef.current.value !== user.name) edits.name = nameRef.current.value
+    if(isEditEmail && emailRef.current.value !== user.email) edits.email = emailRef.current.value
+    if(isEditImage && imageRef.current.value !== user.image) edits.image = imageRef.current.value
+    if(isEditGender && genderRef.current.value !== user.gender) edits.gender = genderRef.current.value
+    if(isEditBirthday && birthdayRef.current.value !== user.birthday) edits.birthday = birthdayRef.current.value
 
     //User edited data
     let userAfterEdit = {
