@@ -14,11 +14,11 @@ function Profile({logout, user, setUser}) {
   const [isEditBirthday, setEditBirthday] = useState(false)
 
   //Ref hooks
-  const nameRef = useRef()
-  const emailRef = useRef()
-  const imageRef = useRef()
-  const genderRef = useRef()
-  const birthdayRef = useRef()
+  const nameRef = useRef(null)
+  const emailRef = useRef(null)
+  const imageRef = useRef(null)
+  const genderRef = useRef(null)
+  const birthdayRef = useRef(null)
 
   //Profile image logic
   const profileImage = user.image ? user.image : blankProfile
