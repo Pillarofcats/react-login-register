@@ -37,13 +37,6 @@ function Profile({logout, user, setUser}) {
       })
       .catch((err) => console.log(err))
 
-    //Reset refs
-    nameRef.current.value = ""
-    emailRef.current.value = ""
-    imageRef.current.value = ""
-    genderRef.current.value = ""
-    birthdayRef.current.value = ""
-
     //Reset edited fields after submit
     if(isEditName) setEditName(false)
     if(isEditEmail) setEditEmail(false)
@@ -55,25 +48,25 @@ function Profile({logout, user, setUser}) {
   //Component method
   async function getEdits() {
 
-    console.log('name', nameRef.current.value)
-    console.log('email', emailRef.current.value)
-    console.log('image', imageRef.current.value)
-    console.log('gender', genderRef.current.value)
-    console.log('bday', birthdayRef.current.value)
+    console.log('name', nameRef?.current.value)
+    console.log('email', emailRef?.current.value)
+    console.log('image', imageRef?.current.value)
+    console.log('gender', genderRef?.current.value)
+    console.log('bday', birthdayRef?.current.value)
 
 
     const urlPattern = new RegExp('^(http|https)://')
-    const isValidImage = imageRef.current.value ? imageRef.current.value.match(urlPattern) : false
+    const isValidImage = imageRef?.current.value ? imageRef?.current.value.match(urlPattern) : false
     if(!isValidImage && isEditImage) return console.log('not valid imag url')
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
     //Edits with no changes made RETURN
-    if((isEditName && (nameRef.current.value === undefined || nameRef.current.value === "")) ||
-      (isEditEmail && (emailRef.current.value === undefined || emailRef.current.value === "")) ||
-      (isEditImage && (imageRef.current.value === undefined || imageRef.current.value === "")) ||
-      (isEditGender && (genderRef.current.value === undefined || genderRef.current.value === "" || genderRef.current.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current.value === undefined || birthdayRef.current.value === ""))) return
+    if((isEditName && (nameRef?.current.value === undefined || nameRef?.current.value === "")) ||
+      (isEditEmail && (emailRef?.current.value === undefined || emailRef?.current.value === "")) ||
+      (isEditImage && (imageRef?.current.value === undefined || imageRef?.current.value === "")) ||
+      (isEditGender && (genderRef?.current.value === undefined || genderRef?.current.value === "" || genderRef?.current.value === user.gender)) ||
+      (isEditBirthday && (birthdayRef?.current.value === undefined || birthdayRef?.current.value === ""))) return console.log('check failed')
 
     console.log("edits passed..")
 
