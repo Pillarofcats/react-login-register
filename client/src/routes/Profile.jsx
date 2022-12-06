@@ -37,6 +37,13 @@ function Profile({logout, user, setUser}) {
       })
       .catch((err) => console.log(err))
 
+    //Reset refs
+    nameRef.current.value = ""
+    emailRef.current.value = ""
+    imageRef.current.value = ""
+    genderRef.current.value = ""
+    birthdayRef.current.value = ""
+
     //Reset edited fields after submit
     if(isEditName) setEditName(false)
     if(isEditEmail) setEditEmail(false)
