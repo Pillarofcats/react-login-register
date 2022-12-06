@@ -1,10 +1,10 @@
 import Register from "../Register"
 import Login from "../Login"
 
-function LoginRegister({setSessionID, setUser}) {
+function LoginRegister({ setUser}) {
   return (
     <div className="reg-log-forms">
-      <Login setSessionID={setSessionID} setUser={setUser} />
+      <Login setUser={setUser} />
       <Register/>
     </div>
   )
