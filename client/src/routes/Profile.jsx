@@ -54,9 +54,10 @@ function Profile({logout, user, setUser}) {
     console.log('gender', genderRef.current.value)
     console.log('bday', birthdayRef.current.value)
 
+
     const urlPattern = new RegExp('^(http|https)://')
     const isValidImage = imageRef.current.value ? imageRef.current.value.match(urlPattern) : false
-    if(!isValidImage) return console.log('not valid imag url')
+    if(!isValidImage && isEditImage) return console.log('not valid imag url')
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
