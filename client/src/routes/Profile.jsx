@@ -47,38 +47,36 @@ function Profile({logout, user, setUser}) {
 
   //Component method
   async function getEdits() {
-    console.log('hi')
-    console.log('gender', genderRef)
-    console.log('bday', birthdayRef)
+    console.log('name', nameRef.current)
+    console.log('email', emailRef.current)
+    console.log('image', imageRef.current)
+    console.log('gender', genderRef.current)
+    console.log('bday', birthdayRef.current)
 
   
     const urlPattern = new RegExp('^(http|https)://')
     const validImage = imageRef.current.match(urlPattern)
     if(!validImage) return
 
-    console.log('gender', genderRef)
-    console.log('bday', birthdayRef)
-
-
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
     //Edits with no changes made RETURN
-    if((isEditName && (nameRef.current.value === null || nameRef.current.value === "")) ||
-      (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
-      (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
-      (isEditGender && (genderRef.current.value === null || genderRef.current.value === undefined || genderRef.current.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return
+    if((isEditName && (nameRef.current === null || nameRef.current === "")) ||
+      (isEditEmail && (emailRef.current === null || emailRef.current === "")) ||
+      (isEditImage && (imageRef.current === null || imageRef.current === "")) ||
+      (isEditGender && (genderRef.current === null || genderRef.current === undefined || genderRef.current === user.gender)) ||
+      (isEditBirthday && (birthdayRef.current === null || birthdayRef.current === ""))) return
 
     console.log("edits passed..")
 
     //Edits object
     let edits = {}
     //Create object with edits specified by user
-    if(isEditName && nameRef.current.value !== user.name) edits.name = nameRef.current.value
-    if(isEditEmail && emailRef.current.value !== user.email) edits.email = emailRef.current.value
-    if(isEditImage && imageRef.current.value !== user.image) edits.image = imageRef.current.value
-    if(isEditGender && genderRef.current.value !== user.gender) edits.gender = genderRef.current.value
-    if(isEditBirthday && birthdayRef.current.value !== user.birthday) edits.birthday = birthdayRef.current.value
+    if(isEditName && nameRef.current !== user.name) edits.name = nameRef.current
+    if(isEditEmail && emailRef.current !== user.email) edits.email = emailRef.current
+    if(isEditImage && imageRef.current !== user.image) edits.image = imageRef.current
+    if(isEditGender && genderRef.current !== user.gender) edits.gender = genderRef.current
+    if(isEditBirthday && birthdayRef.current !== user.birthday) edits.birthday = birthdayRef.current
 
     //User edited data
     let userAfterEdit = {
