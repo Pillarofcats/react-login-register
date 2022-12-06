@@ -52,6 +52,9 @@ function Profile({logout, user, setUser}) {
     const validImage = imageRef.current.value.match(urlPattern)
     if(!validImage) return
 
+    console.log('gender', genderRef, genderRef.current)
+    console.log('bday', birthdayRef, birthdayRef.current)
+
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
     //Edits with no changes made RETURN
