@@ -52,8 +52,10 @@ function Profile({logout, user, setUser}) {
     const validImage = imageRef.current.value.match(urlPattern)
     if(!validImage) return
 
-    console.log('gender', genderRef, genderRef.current)
-    console.log('bday', birthdayRef, birthdayRef.current)
+    console.log('gender', genderRef)
+    console.log('bday', birthdayRef)
+    console.log('gender curr', genderRef?.current)
+    console.log('bday curr', birthdayRef?.current)
 
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
@@ -62,7 +64,7 @@ function Profile({logout, user, setUser}) {
       (isEditEmail && (emailRef.current.value === null || emailRef.current.value === "")) ||
       (isEditImage && (imageRef.current.value === null || imageRef.current.value === "")) ||
       (isEditGender && (genderRef.current?.value === null || genderRef.current?.value === undefined || genderRef.current?.value === user.gender)) ||
-      (isEditBirthday && (birthdayRef.current.value === null || birthdayRef.current.value === ""))) return
+      (isEditBirthday && (birthdayRef.current?.value === null || birthdayRef.current?.value === ""))) return
 
     console.log("edits passed..")
 
