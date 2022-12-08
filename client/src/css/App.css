@@ -1,4 +1,8 @@
 
+.home-textarea textarea {
+  resize: none;
+}
+
 .app {
   height: 100vh;
   display: flex;
@@ -38,6 +42,7 @@
   flex-direction: column;
   text-align: center;
   flex: 1 1 auto;
+  gap: 1rem;
   /* border: 1px solid blue; */
 }
 
@@ -46,12 +51,14 @@
 }
 
 .reg-log-forms {
+  margin: 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
   flex: 1 1 auto;
+  gap: 1rem;
   /* border: 1px solid blue; */
 }
 

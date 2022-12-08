@@ -9,7 +9,7 @@ import Profile from "./routes/Profile"
 //React Router Library
 import { Routes, Route, Navigate} from "react-router-dom"
 
-//Hooks
+//Import react hooks
 import {useState, useEffect} from "react"
 
 //Helper Functions
@@ -21,53 +21,47 @@ import initUser from "./initialData/initUser"
 
 //Main
 function App() {
+  //State
+  const [user, setUser] = useState(() => initUser)
+  //Check for session cookie
+  //if found GET request to sever for user associated with session cookie id
+  //ON APP LOAD ,[]
+  useEffect(()=> {
+    //Get session cookie
+    const usid = getSessionCookie()
+    //If session cookie exists, authenticate and get user data
+    if(usid) {
+      //Get user id from local storage
+      const id = localStorage.getItem('rrl_uid')
+      //Fetch auth/user
+      getAuthUser(usid, id)
+        .then(user => {
+          if(user) {
+            //Destructure user data
+            const {id, name, email, image, gender, birthday} = user
+            setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    }
+  }, [])
 
-//Check for session cookie
-//if found GET request to sever for user associated with session cookie id
-//ON APP LOAD ,[]
-useEffect(()=> {
-  //Get session cookie
-  const usid = getSessionCookie()
-  //If session cookie exists, authenticate and get user data
-  if(usid) {
-    // //Set session ID
-    // setSessionID(usid)
-    //Get user id from local storage
-    const id = localStorage.getItem('rrl_uid')
-    //Fetch auth/user
-    getAuthUser(usid, id)
-      .then(user => {
-        if(user) {
-          //Destructure user data
-          const {id, name, email, image, gender, birthday} = user
-          setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
-        }
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+  //Method
+  function logout() {
+    //Delete Cookie
+    deleteSessionCookie()
+    //Delete local storage item 'rll_uid'
+    localStorage.removeItem('rrl_uid')
+    //Set user
+    setUser(initUser)
   }
-}, [])
 
-function logout() {
-  console.log('logout')
-  //Delete Cookie
-  deleteSessionCookie()
-  //Delete local storage item 'rll_uid'
-  localStorage.removeItem('rrl_uid')
-  // //Set sessionID to null
-  // setSessionID("")
-  //Set user
-  setUser(initUser)
-}
-
-const [user, setUser] = useState(() => initUser)
-// const [sessionID, setSessionID] = useState("")
-
+  //Render
   return (
     <div className="app">
       <Navbar />
-    
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/Home" element={<Navigate to="/" />} />
@@ -75,7 +69,6 @@ const [user, setUser] = useState(() => initUser)
         <Route path="/Profile" element={<Profile logout={logout} user={user} setUser={setUser}/>} />
         <Route path ="*" element={<Navigate to="/" />} />
       </Routes>
-      
     </div>
   )
 }

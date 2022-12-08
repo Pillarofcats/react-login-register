@@ -1,3 +1,4 @@
+//React hooks
 import React, {useState, useRef} from 'react'
 
 //Blank profile image
@@ -5,27 +6,21 @@ import blankProfile from '../images/blankProfile.png'
 
 //Profile component
 function Profile({logout, user, setUser}) {
-
-  //State hooks
+  //State
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
   const [isEditImage, setEditImage] = useState(false)
   const [isEditGender, setEditGender] = useState(false)
   const [isEditBirthday, setEditBirthday] = useState(false)
-
-  //Ref hooks
+  //Refs
   const nameRef = useRef("")
   const emailRef = useRef("")
   const imageRef = useRef("")
   const genderRef = useRef("")
   const birthdayRef = useRef("")
-
-  //Profile image logic
+  //Profile image style logic
   const profileImage = user.image ? user.image : blankProfile
-  const profileImageStyle = {
-    backgroundImage: `url('${profileImage}')`
-  }
-
+  const profileImageStyle = {backgroundImage: `url('${profileImage}')`}
   //Component method
   function editSubmit() {
     //Submit profile data for update
@@ -48,18 +43,10 @@ function Profile({logout, user, setUser}) {
   //Component method
   async function getEdits() {
 
-    console.log('name', nameRef?.current?.value)
-    console.log('email', emailRef?.current?.value)
-    console.log('image', imageRef?.current?.value)
-    console.log('gender', genderRef?.current?.value)
-    console.log('bday', birthdayRef?.current?.value)
-
-
-
     //No edits made RETURN
     if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
 
-    //short hand ref names
+    //Shorthand ref names
     let nr = nameRef?.current?.value
     let er = emailRef?.current?.value
     let ir = imageRef?.current?.value
@@ -69,7 +56,6 @@ function Profile({logout, user, setUser}) {
     //Image url pattern check
     const urlPattern = new RegExp('^(http|https)://')
     const isValidImage = ir ? ir.match(urlPattern) : false
-    // if(!isValidImage && isEditImage) return console.log('not valid imag url')
 
     //Edits with no changes made RETURN
     if((isEditName && (nr === undefined || nr === "" || nr === user.name)) ||
@@ -77,8 +63,6 @@ function Profile({logout, user, setUser}) {
       (isEditImage && (ir === undefined || ir === "" || ir === user.image || !isValidImage)) ||
       (isEditGender && (gr === undefined || gr === user.gender)) ||
       (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) return console.log('edit check failed')
-
-    console.log("edits passed..")
 
     //Edits object
     let edits = {}

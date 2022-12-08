@@ -18,6 +18,7 @@ function Home({user}) {
           <h1 className="home">Welcome {user.name.length > 15 ? user.name.slice(0,15)+".." : user.name}!</h1> 
           <p>Feed</p>
           <p>Targeted Articles</p>
+          {/* <div className='home-textarea' dangerouslySetInnerHTML={{__html: "<textarea placeholder='Notes..' rows='5' cols='40' />"}} /> */}
         </div>  
       ) : (
       <h1 className="center-page">Welcome Stranger!</h1>

@@ -2,13 +2,11 @@ import ServerMessage from "./ServerMessage"
 
 import React, {useRef, useState} from "react"
 
-// import getSessionCookie from "./functions/getSessionCookie"
-
 function Login({setUser}) {
-
+  //Refs
   const loginEmailRef = useRef()
   const loginPasswordRef = useRef()
-
+  //State
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
 
