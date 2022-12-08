@@ -4,7 +4,7 @@ import React, {useState, useRef} from 'react'
 //Blank profile image
 import blankProfile from '../images/blankProfile.png'
 
-//Profile component
+//Page component route
 function Profile({logout, user, setUser}) {
   //State
   const [isEditName, setEditName] = useState(false)
@@ -24,6 +24,7 @@ function Profile({logout, user, setUser}) {
   //Component method
   function editSubmit() {
     //Submit profile data for update
+    //Server Response
     getEdits()
       .then((user) => {
         if(user) {

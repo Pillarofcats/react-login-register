@@ -1,9 +1,10 @@
+//Libraries
 import React from 'react'
-
 import {Link} from "react-router-dom"
 
+//Component
 function Navbar() {
-//navbar-expand-sm 
+  //Render
   return (
     <>
       <nav className="navbar navbar-dark bg-dark">

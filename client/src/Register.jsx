@@ -1,27 +1,28 @@
-
+//Components
 import ServerMessage from "./ServerMessage"
-
+//Libraries
 import React, {useState, useRef} from 'react'
 
+//Component
 function Register() {
-
+  //Refs
   const registerNameRef = useRef()
   const registerEmailRef = useRef()
   const registerPasswordRef = useRef()
-
+  //State
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
 
+  //Method
   async function getUser() {
-    
+    //Refs
     const name = registerNameRef.current.value
     const email = registerEmailRef.current.value
     const password = registerPasswordRef.current.value
-
+    //Form data
     const registerFormData = {uName: name, uEmail: email, uPassword: password}
-    // const URL = "http://localhost:3000/register"
+    //Fetch
     const URL = "https://classy-steel-production.up.railway.app/register"
-
     try {
       let response = await fetch(URL, {
         method: "POST",
@@ -35,9 +36,10 @@ function Register() {
     }
   }
 
+  //Method
   function registerSubmit(e) {
     e.preventDefault()
-
+    //Server Response
     getUser()
       .then(user => {
         //If user response has .errMessage property set error message
@@ -55,7 +57,7 @@ function Register() {
       })
       .catch((err) => console.log(err))
   }
-
+  //Render
   return(
     <div>
       <form onSubmit={registerSubmit} className='reg-form d-flex flex-column gap-2'>

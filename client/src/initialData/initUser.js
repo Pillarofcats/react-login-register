@@ -1,3 +1,4 @@
+//Initial user state for app
 const initUser = { 
   id: null,
   name: "",

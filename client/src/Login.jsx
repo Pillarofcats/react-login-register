@@ -1,7 +1,9 @@
+//Components
 import ServerMessage from "./ServerMessage"
-
+//Libraries
 import React, {useRef, useState} from "react"
 
+//Component
 function Login({setUser}) {
   //Refs
   const loginEmailRef = useRef()
@@ -10,16 +12,15 @@ function Login({setUser}) {
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
 
+  //Method
   async function getUser() {
-
+    //Refs
     const email = loginEmailRef.current.value
     const password = loginPasswordRef.current.value
-
+    //Form data
     const loginFormData = {uEmail: email, uPassword: password}
-
-    // const URL = "http://localhost:3000/login"
+    //Fetch
     const URL = "https://classy-steel-production.up.railway.app/login"
-
     try {
       let response = await fetch(URL, {
         method: "POST",
@@ -34,9 +35,10 @@ function Login({setUser}) {
     }
   }
 
+  //Method
   function loginSubmit(e) {
     e.preventDefault()
-
+    //Server Response
     getUser()
       .then(user => {
         //If user response has .errMessage property set error message
@@ -48,8 +50,6 @@ function Login({setUser}) {
           setIsMessage(true)
           //Set the userdata
           setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
-          //Set sessionID from cookie
-          // setSessionID(getSessionCookie())
           //Set user id to local storage
           localStorage.setItem('rrl_uid', user.id);
           //Reset form inputs after successful form submission
@@ -60,6 +60,7 @@ function Login({setUser}) {
       .catch((err) => console.log(err))
   }
 
+  //Render
   return(
     <div>
       <form onSubmit={loginSubmit} className="log-form d-flex flex-column gap-2">

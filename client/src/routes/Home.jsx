@@ -1,6 +1,7 @@
 //Blank profile image
 import blankProfile from '../images/blankProfile.png'
 
+//Page component route
 function Home({user}) {
 
   //Profile image logic
@@ -9,6 +10,7 @@ function Home({user}) {
     backgroundImage: `url('${profileImage}')`
   }
 
+  //Render
   return(
     <>
     {
