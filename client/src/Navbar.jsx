@@ -1,6 +1,7 @@
 //Libraries
-import React from 'react'
-import {Link} from "react-router-dom"
+import React, {Suspense} from 'react'
+import {Link, Outlet} from "react-router-dom"
+import Loading from "./Loading"
 
 //Component
 function Navbar() {
@@ -23,6 +24,9 @@ function Navbar() {
           </ul>
         </div>
       </nav>
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </>
   )
 }

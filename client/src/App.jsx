@@ -1,16 +1,20 @@
-//Components
-import Navbar from "./Navbar"
-
-//Routes
-import Home from "./routes/Home"
-import LoginRegister from "./routes/LoginRegister"
-import Profile from "./routes/Profile"
-
 //React Router Library
 import { Routes, Route, Navigate} from "react-router-dom"
 
 //Import react hooks
-import {useState, useEffect} from "react"
+import {useState, useEffect, lazy} from "react"
+
+//Components
+import Navbar from "./Navbar"
+
+//Routes
+const Home = lazy(() => import("./routes/Home"))
+const LoginRegister = lazy(() => import('./routes/LoginRegister'))
+const Profile = lazy(() => import('./routes/Profile'))
+
+// import Home from "./routes/Home"
+// import LoginRegister from "./routes/LoginRegister"
+// import Profile from "./routes/Profile"
 
 //Helper Functions
 import getSessionCookie from "./functions/getSessionCookie"
@@ -61,13 +65,15 @@ function App() {
   //Render
   return (
     <div className="app">
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/Home" element={<Navigate to="/" />} />
-        <Route path="/LoginRegister" element={<LoginRegister setUser={setUser} />} />
-        <Route path="/Profile" element={<Profile logout={logout} user={user} setUser={setUser}/>} />
-        <Route path ="*" element={<Navigate to="/" />} />
+        <Route path="/" element={ <Navbar /> }>
+          <Route path="/" element={ <Home user={user} /> }/>
+          <Route path="/Home" element={ <Navigate to="/" /> } />
+          <Route path="/LoginRegister" element={ <LoginRegister setUser={setUser} /> } />
+          <Route path="/Profile" element={ <Profile logout={logout} user={user} setUser={setUser}/> } />
+          <Route path ="*" element={ <Navigate to="/" /> } />
+        </Route>
       </Routes>
     </div>
   )
