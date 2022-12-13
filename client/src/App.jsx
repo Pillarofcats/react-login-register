@@ -12,10 +12,6 @@ const Home = lazy(() => import("./routes/Home"))
 const LoginRegister = lazy(() => import('./routes/LoginRegister'))
 const Profile = lazy(() => import('./routes/Profile'))
 
-// import Home from "./routes/Home"
-// import LoginRegister from "./routes/LoginRegister"
-// import Profile from "./routes/Profile"
-
 //Helper Functions
 import getSessionCookie from "./functions/getSessionCookie"
 import deleteSessionCookie from "./functions/deleteSessionCookie"
