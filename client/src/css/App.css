@@ -85,6 +85,10 @@
   padding: 1rem;
 }
 
+.reg-form small{ 
+  text-align: left;
+}
+
 .profile {
   display: flex;
   padding: .5rem;
