@@ -86,7 +86,7 @@
 }
 
 .reg-form small{ 
-  /* text-indent: .5rem; */
+  padding-left: .5rem;
   text-align: left;
 }
 
