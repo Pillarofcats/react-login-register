@@ -8,7 +8,7 @@ import ServerMessage from '../ServerMessage'
 import blankProfile from '../images/blankProfile.png'
 
 //Page component route
-function Profile({logout, user, setUser, setServerMessage}) {
+function Profile({logout, user, setUser}) {
   //State server message
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
