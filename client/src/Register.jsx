@@ -67,7 +67,7 @@ function Register() {
         <label htmlFor='reg-email'>Email</label>
         <input ref={registerEmailRef} type="email" name="reg-email" id="reg-email" required />
         <label htmlFor="reg-pass">Password</label>
-        <input ref={registerPasswordRef} type="text" name="reg-pass" id="reg-pass" required />
+        <input ref={registerPasswordRef} type="password" name="reg-pass" id="reg-pass" required />
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 

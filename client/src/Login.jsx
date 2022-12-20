@@ -68,7 +68,7 @@ function Login({setUser}) {
         <label htmlFor="email">Email</label>
         <input ref={loginEmailRef} type="email" name="log-email" id="log-email" required />
         <label htmlFor="password">Password</label>
-        <input ref={loginPasswordRef} type="text" name="log-pass" id="log-pass" required />
+        <input ref={loginPasswordRef} type="password" name="log-pass" id="log-pass" required />
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 
