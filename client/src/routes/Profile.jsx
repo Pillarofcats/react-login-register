@@ -37,10 +37,10 @@ function Profile({logout, user, setUser, setServerMessage}) {
         if(user.errMessage) {
           setServerMessage(["text-danger", user.errMessage])
           setIsMessage(true)
-        } else {
+        }
+        if(user) {
           setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
         }
-
       })
       .catch((err) => console.log(err))
 
