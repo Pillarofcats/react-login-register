@@ -33,7 +33,7 @@ async function postEditProfile (req, res, dbPool) {
     console.error(err)
   }
   //Error
-  return res.status(500).send('Error updating user data to db')
+  return res.status(200).send({errMessage: 'Edit input error'})
 }
 
 module.exports = postEditProfile

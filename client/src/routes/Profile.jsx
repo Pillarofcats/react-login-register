@@ -1,11 +1,17 @@
 //React hooks
 import React, {useState, useRef} from 'react'
 
+//Component
+import ServerMessage from '../ServerMessage'
+
 //Blank profile image
 import blankProfile from '../images/blankProfile.png'
 
 //Page component route
-function Profile({logout, user, setUser}) {
+function Profile({logout, user, setUser, setServerMessage}) {
+  //State server message
+  const [serverMessage, setServerMessage] = useState(["type","msg"])
+  const [isMessage, setIsMessage] = useState(false)
   //State
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
@@ -27,9 +33,14 @@ function Profile({logout, user, setUser}) {
     //Server Response
     getEdits()
       .then((user) => {
-        if(user) {
+        //If user response has .errMessage property set error message
+        if(user.errMessage) {
+          setServerMessage(["text-danger", user.errMessage])
+          setIsMessage(true)
+        } else {
           setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
         }
+
       })
       .catch((err) => console.log(err))
 
@@ -142,6 +153,7 @@ function Profile({logout, user, setUser}) {
           <h1 className="center-page">You aren't logged in Stranger!</h1>
       )
     }
+    <ServerMessage isMessage={isMessage} setIsMessage={setIsMessage} msg={serverMessage}/>
     </div>
   ) 
 }
