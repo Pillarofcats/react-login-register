@@ -67,7 +67,8 @@ function Register() {
         <label htmlFor='reg-email'>Email</label>
         <input ref={registerEmailRef} type="email" name="reg-email" id="reg-email" required />
         <label htmlFor="reg-pass">Password</label>
-        <input ref={registerPasswordRef} type="password" name="reg-pass" id="reg-pass" required />
+        <input ref={registerPasswordRef} type="password" name="reg-pass" id="reg-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}" required />
+        <small>"Password must contain: a number, uppercase character, lowercase character, and is 8-20 characters in length</small>
         <button className="btn btn-primary" type="submit">Submit</button>
       </form>
 

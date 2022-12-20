@@ -2,7 +2,7 @@
 function ServerMessage({isMessage, setIsMessage, msg}) {
   setTimeout(() => {
       setIsMessage(false)
-  }, 5000);
+  }, 8000);
   //Render
   return(
     <>

@@ -79,7 +79,7 @@ function Profile({logout, user, setUser}) {
       (isEditImage && (ir === undefined || ir === "" || ir === user.image || !isValidImage)) ||
       (isEditGender && (gr === undefined || gr === user.gender)) ||
       (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) {
-        setServerMessage(["text-danger", "An edit has the same value as current"])
+        setServerMessage(["text-danger", "An edit is empty or has the same value as current"])
         setIsMessage(true)
         return
       }
