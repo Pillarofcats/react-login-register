@@ -56,7 +56,11 @@ function Profile({logout, user, setUser}) {
   async function getEdits() {
 
     //No edits made RETURN
-    if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) return
+    if(!(isEditName || isEditEmail || isEditImage || isEditGender || isEditBirthday)) {
+      setServerMessage(["text-danger", "Empty edit field"])
+      setIsMessage(true)
+      return
+    }
 
     //Shorthand ref names
     let nr = nameRef?.current?.value
@@ -74,7 +78,11 @@ function Profile({logout, user, setUser}) {
       (isEditEmail && (er === undefined || er === "" || er === user.email)) ||
       (isEditImage && (ir === undefined || ir === "" || ir === user.image || !isValidImage)) ||
       (isEditGender && (gr === undefined || gr === user.gender)) ||
-      (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) return console.log('edit check failed')
+      (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) {
+        setServerMessage(["text-danger", "An edit has the same value as current"])
+        setIsMessage(true)
+        return
+      }
 
     //Edits object
     let edits = {}
