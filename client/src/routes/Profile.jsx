@@ -34,8 +34,8 @@ function Profile({logout, user, setUser}) {
     getEdits()
       .then((user) => {
         //If user response has .errMessage property set error message
-        if(user.errMessage) {
-          setServerMessage(["text-danger", user.errMessage])
+        if(user?.errMessage) {
+          setServerMessage(["text-danger", user?.errMessage])
           setIsMessage(true)
         }
         if(user) {
