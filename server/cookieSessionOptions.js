@@ -4,7 +4,7 @@ const cookieSessionOptions = {
   secure: true,
   httpOnly: false,
   sameSite: 'strict',
-  expires: new Date(Date.now() + 5 * 86,400,000)
+  expires: new Date(Date.now() + 5 * 86400000)
 }
 
 module.exports = cookieSessionOptions

@@ -22,6 +22,7 @@ import initUser from "./initialData/initUser"
 //Main
 function App() {
   //State
+  const [userDiary, setUserDiary] = useState([{title: 'Day 1', date: new Date().toLocaleDateString(), text: "Today was a good 1" }, {title: 'Day 2', date: new Date().toLocaleDateString(), text: "Today was a good 2" }, {date: new Date().toLocaleDateString(), text: "Today was good" }])
   const [user, setUser] = useState(() => initUser)
   //Check for session cookie
   //if found GET request to sever for user associated with session cookie id
@@ -64,7 +65,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={ <Navbar /> }>
-          <Route path="/" element={ <Home user={user} /> }/>
+          <Route path="/" element={ <Home user={user} userDiary={userDiary} /> }/>
           <Route path="/Home" element={ <Navigate to="/" /> } />
           <Route path="/LoginRegister" element={ <LoginRegister setUser={setUser} /> } />
           <Route path="/Profile" element={ <Profile logout={logout} user={user} setUser={setUser}/> } />
