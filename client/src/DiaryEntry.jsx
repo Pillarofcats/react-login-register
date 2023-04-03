@@ -3,10 +3,10 @@ import { StoreContext } from "./StoreContextProvider";
 
 function DiaryEntry({entry, index}) {
 
-  const {setUserDiary} = useContext(StoreContext)
+  const {diary} = useContext(StoreContext)
 
   function deleteEntry() {
-    setUserDiary(diary => {
+    diary.setUserDiary(diary => {
       return [...diary.filter((_, ind) => ind !== index).reverse()]
     })
   }

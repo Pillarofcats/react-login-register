@@ -3,7 +3,7 @@ import {StoreContext} from './StoreContextProvider'
 
 function DiaryForm() {
 
-  const {user} = useContext(StoreContext)
+  const {diary} = useContext(StoreContext)
 
   const titleRef = useRef()
   const textRef = useRef()
@@ -14,7 +14,7 @@ function DiaryForm() {
     const entry = {title: titleRef?.current.value, date: new Date().toLocaleDateString(), text: textRef?.current.value}
 
     if(entry.title && entry.text) {
-      user.setUserDiary(diary =>  [...diary, entry])
+      diary.setUserDiary(diary =>  [...diary, entry])
     }
   }
 
