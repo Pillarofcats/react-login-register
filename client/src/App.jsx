@@ -2,7 +2,7 @@
 import { Routes, Route, Navigate} from "react-router-dom"
 
 //Import react hooks
-import {useEffect, lazy} from "react"
+import {useEffect, useContext, lazy} from "react"
 
 //Components
 import Navbar from "./Navbar"
@@ -16,13 +16,13 @@ const Profile = lazy(() => import('./routes/Profile'))
 import getSessionCookie from "./functions/getSessionCookie"
 import deleteSessionCookie from "./functions/deleteSessionCookie"
 import getAuthUser from "./functions/getAuthUser"
-//Initial useState objects
-// import initUser from "./initialData/initUser"
-
-import logout from './functions/logout'
+import { StoreContext } from "./StoreContextProvider"
 
 //Main
 function App() {
+
+  //Store
+  const {user} = useContext(StoreContext)
 
   //Check for session cookie
   //if found GET request to sever for user associated with session cookie id
@@ -40,7 +40,7 @@ function App() {
           if(user) {
             //Destructure user data
             const {id, name, email, image, gender, birthday} = user
-            setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
+            user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
           }
         })
         .catch((err) => {
