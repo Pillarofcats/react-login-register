@@ -1,10 +1,11 @@
-import blankProfile from '../src/images/blankProfile.png'
+import blankProfile from '../images/blankProfile.png'
 
-function getProfileImage(image) {
-  const profileImage = image ? image : blankProfile
+function getProfileImage(user) {
+  const profileImage = user.user.image ? user.user.image : blankProfile
   const profileImageStyle = {
     backgroundImage: `url('${profileImage}')`
   }
+  
   return profileImageStyle
 }
 

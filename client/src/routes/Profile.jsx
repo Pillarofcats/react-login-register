@@ -29,7 +29,7 @@ function Profile() {
   const genderRef = useRef("")
   const birthdayRef = useRef("")
   //Profile image style logic
-  const profileImage = getProfileImage(user.user.image)
+  const profileImage = getProfileImage(user)
   //Component method
   function editSubmit() {
     //Submit profile data for update

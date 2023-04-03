@@ -8,7 +8,7 @@ import getProfileImage from './functions/getProfileImage'
 function Welcome() {
 
   const {user} = useContext(StoreContext)
-  const profileImage = getProfileImage(user.user.image)
+  const profileImage = getProfileImage(user)
 
   //Render
   return (
