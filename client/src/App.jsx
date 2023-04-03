@@ -2,7 +2,7 @@
 import { Routes, Route, Navigate} from "react-router-dom"
 
 //Import react hooks
-import {useState, useEffect, lazy} from "react"
+import {useEffect, lazy} from "react"
 
 //Components
 import Navbar from "./Navbar"
@@ -17,13 +17,13 @@ import getSessionCookie from "./functions/getSessionCookie"
 import deleteSessionCookie from "./functions/deleteSessionCookie"
 import getAuthUser from "./functions/getAuthUser"
 //Initial useState objects
-import initUser from "./initialData/initUser"
+// import initUser from "./initialData/initUser"
+
+import logout from './functions/logout'
 
 //Main
 function App() {
-  //State
-  const [userDiary, setUserDiary] = useState([{title: 'Day 1', date: new Date().toLocaleDateString(), text: "Today was a good 1" }, {title: 'Day 2', date: new Date().toLocaleDateString(), text: "Today was a good 2" }, {date: new Date().toLocaleDateString(), text: "Today was good" }])
-  const [user, setUser] = useState(() => initUser)
+
   //Check for session cookie
   //if found GET request to sever for user associated with session cookie id
   //ON APP LOAD ,[]
@@ -50,14 +50,14 @@ function App() {
   }, [])
 
   //Method
-  function logout() {
-    //Delete Cookie
-    deleteSessionCookie()
-    //Delete local storage item 'rll_uid'
-    localStorage.removeItem('rrl_uid')
-    //Set user
-    setUser(initUser)
-  }
+  // function logout() {
+  //   //Delete Cookie
+  //   deleteSessionCookie()
+  //   //Delete local storage item 'rll_uid'
+  //   localStorage.removeItem('rrl_uid')
+  //   //Set user
+  //   setUser(initUser)
+  // }
 
   //Render
   return (
@@ -65,10 +65,14 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={ <Navbar /> }>
-          <Route path="/" element={ <Home user={user} userDiary={userDiary} /> }/>
+          <Route path="/" element={ <Home /> }/> 
           <Route path="/Home" element={ <Navigate to="/" /> } />
-          <Route path="/LoginRegister" element={ <LoginRegister setUser={setUser} /> } />
-          <Route path="/Profile" element={ <Profile logout={logout} user={user} setUser={setUser}/> } />
+          <Route path="/LoginRegister" element={ <LoginRegister
+            // setUser={setUser} 
+            /> } />
+          <Route path="/Profile" element={ <Profile 
+          // logout={logout} user={user} setUser={setUser}
+          /> } />
           <Route path ="*" element={ <Navigate to="/" /> } />
         </Route>
       </Routes>

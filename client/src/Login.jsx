@@ -1,16 +1,19 @@
 //Components
 import ServerMessage from "./ServerMessage"
 //Libraries
-import React, {useRef, useState} from "react"
+import React, {useRef, useState, useContext} from "react"
+import { StoreContext } from "./StoreContextProvider"
 
 //Component
-function Login({setUser}) {
-  //Refs
-  const loginEmailRef = useRef()
-  const loginPasswordRef = useRef()
+function Login() {
+  //Store
+  const {user} = useContext(StoreContext)
   //State
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
+  //Refs
+  const loginEmailRef = useRef()
+  const loginPasswordRef = useRef()
 
   //Method
   async function getUser() {
@@ -40,18 +43,18 @@ function Login({setUser}) {
     e.preventDefault()
     //Server Response
     getUser()
-      .then(user => {
+      .then(res => {
         //If user response has .errMessage property set error message
-        if(user.errMessage) {
-          setServerMessage(["text-danger", user.errMessage])
+        if(res.errMessage) {
+          setServerMessage(["text-danger", res.errMessage])
           setIsMessage(true)
         } else {
-          setServerMessage(["text-success", user.resMessage])
+          setServerMessage(["text-success", res.resMessage])
           setIsMessage(true)
           //Set the userdata
-          setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
+          user.setUser({id: res.id, name: res.name, email: res.email, image: res.image, gender: res.gender, birthday: res.birthday})
           //Set user id to local storage
-          localStorage.setItem('rrl_uid', user.id);
+          localStorage.setItem('rrl_uid', res.id);
           //Reset form inputs after successful form submission
           loginEmailRef.current.value = ""
           loginPasswordRef.current.value = ""

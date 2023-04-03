@@ -1,29 +1,24 @@
-//Blank profile image
-import blankProfile from '../images/blankProfile.png'
+import React, {useContext} from 'react'
+import { StoreContext } from '../StoreContextProvider'
 
+import Welcome from '../Welcome'
 import DiaryForm from '../DiaryForm'
-import UserDiary from '../userDiary'
+import Diary from '../Diary'
 
 //Page component route
-function Home({user, userDiary}) {
+function Home() {
 
-  //Profile image logic
-  const profileImage = user.image ? user.image : blankProfile
-  const profileImageStyle = {
-    backgroundImage: `url('${profileImage}')`
-  }
+  const {user} = useContext(StoreContext)
 
   //Render
   return (
     <>
     {
-      user.id ? (
+      user.user.id ? (
         <div className="center-page">
-          <div className="profile-image" style={profileImageStyle}></div>
-          <h1 className="home">Welcome {user.name.length > 15 ? user.name.slice(0,15)+".." : user.name}!</h1> 
-          <h2>Diary</h2>
+          <Welcome />
           <DiaryForm />
-          <UserDiary userDiary={userDiary}/>
+          <Diary />
         </div>  
       ) : (
       <h1 className="center-page">Welcome Stranger!</h1>

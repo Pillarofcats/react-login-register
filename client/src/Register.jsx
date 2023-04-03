@@ -1,17 +1,17 @@
 //Components
 import ServerMessage from "./ServerMessage"
 //Libraries
-import React, {useState, useRef} from 'react'
+import React, {useRef, useState} from 'react'
 
 //Component
 function Register() {
+  //State
+  const [serverMessage, setServerMessage] = useState(["type","msg"])
+  const [isMessage, setIsMessage] = useState(false)
   //Refs
   const registerNameRef = useRef()
   const registerEmailRef = useRef()
   const registerPasswordRef = useRef()
-  //State
-  const [serverMessage, setServerMessage] = useState(["type","msg"])
-  const [isMessage, setIsMessage] = useState(false)
 
   //Method
   async function getUser() {
@@ -41,13 +41,13 @@ function Register() {
     e.preventDefault()
     //Server Response
     getUser()
-      .then(user => {
+      .then(res => {
         //If user response has .errMessage property set error message
-        if(user.errMessage) {
-          setServerMessage(["text-danger", user.errMessage])
+        if(res.errMessage) {
+          setServerMessage(["text-danger", res.errMessage])
           setIsMessage(true)
         } else {
-          setServerMessage(["text-success", user.resMessage])
+          setServerMessage(["text-success", res.resMessage])
           setIsMessage(true)
           //Reset form inputs after successful form submission
           registerNameRef.current.value = ""

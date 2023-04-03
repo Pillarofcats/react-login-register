@@ -2,10 +2,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
+//Store Context Provder
+import StoreContextProvider from "./StoreContextProvider"
 
 //CSS
-import "./css/App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/App.css';
 
 //App
 import App from './App'
@@ -14,6 +16,8 @@ import App from './App'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <HashRouter>
-    <App />
+    <StoreContextProvider>
+      <App />
+    </StoreContextProvider>
   </HashRouter>
 )

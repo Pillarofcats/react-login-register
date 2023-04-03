@@ -1,18 +1,22 @@
 //React hooks
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useContext} from 'react'
+import { StoreContext } from '../StoreContextProvider'
 
 //Component
 import ServerMessage from '../ServerMessage'
 
-//Blank profile image
+//functions
+import logout from '../functions/logout'
 import blankProfile from '../images/blankProfile.png'
 
 //Page component route
-function Profile({logout, user, setUser}) {
-  //State server message
+function Profile() {
+  //Store
+  const {user} = useContext(StoreContext)
+  //State
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
-  //State
+
   const [isEditName, setEditName] = useState(false)
   const [isEditEmail, setEditEmail] = useState(false)
   const [isEditImage, setEditImage] = useState(false)
@@ -25,21 +29,21 @@ function Profile({logout, user, setUser}) {
   const genderRef = useRef("")
   const birthdayRef = useRef("")
   //Profile image style logic
-  const profileImage = user.image ? user.image : blankProfile
+  const profileImage = user.user.image ? user.user.image : blankProfile
   const profileImageStyle = {backgroundImage: `url('${profileImage}')`}
   //Component method
   function editSubmit() {
     //Submit profile data for update
     //Server Response
     getEdits()
-      .then((user) => {
+      .then((res) => {
         //If user response has .errMessage property set error message
-        if(user?.errMessage) {
+        if(res?.errMessage) {
           setServerMessage(["text-danger", user?.errMessage])
           setIsMessage(true)
         }
-        if(user) {
-          setUser({id: user.id, name: user.name, email: user.email, image: user.image, gender: user.gender, birthday: user.birthday})
+        if(res) {
+          user.setUser({id: res.id, name: res.name, email: res.email, image: res.image, gender: res.gender, birthday: res.birthday})
         }
       })
       .catch((err) => console.log(err))
@@ -74,11 +78,11 @@ function Profile({logout, user, setUser}) {
     const isValidImage = ir ? ir.match(urlPattern) : false
 
     //Edits with no changes made RETURN
-    if((isEditName && (nr === undefined || nr === "" || nr === user.name)) ||
-      (isEditEmail && (er === undefined || er === "" || er === user.email)) ||
-      (isEditImage && (ir === undefined || ir === "" || ir === user.image || !isValidImage)) ||
-      (isEditGender && (gr === undefined || gr === user.gender)) ||
-      (isEditBirthday && (br === undefined || br === "" || br === user.birthday))) {
+    if((isEditName && (nr === undefined || nr === "" || nr === user.user.name)) ||
+      (isEditEmail && (er === undefined || er === "" || er === user.user.email)) ||
+      (isEditImage && (ir === undefined || ir === "" || ir === user.user.image || !isValidImage)) ||
+      (isEditGender && (gr === undefined || gr === user.user.gender)) ||
+      (isEditBirthday && (br === undefined || br === "" || br === user.user.birthday))) {
         setServerMessage(["text-danger", "An edit is empty or has the same value as current"])
         setIsMessage(true)
         return
@@ -95,7 +99,7 @@ function Profile({logout, user, setUser}) {
 
     //User edited data
     let userAfterEdit = {
-      id: user.id,
+      id: user.user.id,
       edits: edits
     }
 
@@ -118,7 +122,7 @@ function Profile({logout, user, setUser}) {
   return(
     <div className="center-page">
     {
-      user.id ? 
+      user.user.id ? 
       ( <div className="profile ">
           <div className="profile-image" style={profileImageStyle}></div>
           <div className="profile-grid-container">
@@ -130,19 +134,19 @@ function Profile({logout, user, setUser}) {
               <label>Birthday:</label>
             </div>
             <div className="profile-values">
-              {isEditName ? <input ref={nameRef} placeholder={user.name} type="text"/> : <p>{user.name}</p> }
-              {isEditEmail ? <input ref={emailRef} placeholder={user.email} type="text" /> : <p>{user.email}</p>}
-              {isEditImage ? <input ref={imageRef} placeholder={user.image} type="text" /> :
-                user.image?.length > 15 ? <p>{user.image.slice(0,15)+'..'}</p> : <p>{user.image}</p>}
+              {isEditName ? <input ref={nameRef} placeholder={user.user.name} type="text"/> : <p>{user.name}</p> }
+              {isEditEmail ? <input ref={emailRef} placeholder={user.user.email} type="text" /> : <p>{user.email}</p>}
+              {isEditImage ? <input ref={imageRef} placeholder={user.user.image} type="text" /> :
+                user.user.image?.length > 15 ? <p>{user.user.image.slice(0,15)+'..'}</p> : <p>{user.user.image}</p>}
               {isEditGender ?
-                <select ref={genderRef} placeholder={user.gender}>
+                <select ref={genderRef} placeholder={user.user.gender}>
                   <option value="">Empty</option>
                   <option value="Female">Female</option>
                   <option value="Male">Male</option>
                   <option value="Variant">Variant</option>
                 </select>
-                : <p>{user.gender}</p>}
-              {isEditBirthday ? <input ref={birthdayRef} placeholder={user.birthday} type="date" /> : <p>{user.birthday}</p>} 
+                : <p>{user.user.gender}</p>}
+              {isEditBirthday ? <input ref={birthdayRef} placeholder={user.user.birthday} type="date" /> : <p>{user.user.birthday}</p>} 
             </div>
             <div className="profile-edits">
               <button className="btn btn-primary" onClick={() => setEditName(prev => !prev)}>edit</button>
@@ -153,7 +157,7 @@ function Profile({logout, user, setUser}) {
             </div>
           </div>
           <div className="profile-logout-save-btns">
-            <button className="btn btn-primary me-auto" onClick={() => logout()}>Logout</button>
+            <button className="btn btn-primary me-auto" onClick={() => logout(user)}>Logout</button>
             <button className="btn btn-primary ms-auto" onClick={() => editSubmit()}>Save Edits</button>
           </div>
         </div>
