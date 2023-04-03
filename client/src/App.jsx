@@ -49,30 +49,15 @@ function App() {
     }
   }, [])
 
-  //Method
-  // function logout() {
-  //   //Delete Cookie
-  //   deleteSessionCookie()
-  //   //Delete local storage item 'rll_uid'
-  //   localStorage.removeItem('rrl_uid')
-  //   //Set user
-  //   setUser(initUser)
-  // }
-
   //Render
   return (
     <div className="app">
-      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={ <Navbar /> }>
           <Route path="/" element={ <Home /> }/> 
           <Route path="/Home" element={ <Navigate to="/" /> } />
-          <Route path="/LoginRegister" element={ <LoginRegister
-            // setUser={setUser} 
-            /> } />
-          <Route path="/Profile" element={ <Profile 
-          // logout={logout} user={user} setUser={setUser}
-          /> } />
+          <Route path="/LoginRegister" element={ <LoginRegister /> } />
+          <Route path="/Profile" element={ <Profile /> } />
           <Route path ="*" element={ <Navigate to="/" /> } />
         </Route>
       </Routes>
