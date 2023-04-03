@@ -42,12 +42,12 @@ body {
   margin: 0;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items:center;
   flex-direction: column;
   text-align: center;
   flex: 1 1 auto;
   gap: 1rem;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
 }
 
 .hidden {
