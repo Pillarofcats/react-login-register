@@ -134,8 +134,8 @@ function Profile() {
               <label>Birthday:</label>
             </div>
             <div className="profile-values">
-              {isEditName ? <input ref={nameRef} placeholder={user.user.name} type="text"/> : <p>{user.name}</p> }
-              {isEditEmail ? <input ref={emailRef} placeholder={user.user.email} type="text" /> : <p>{user.email}</p>}
+              {isEditName ? <input ref={nameRef} placeholder={user.user.name} type="text"/> : <p>{user.user.name}</p> }
+              {isEditEmail ? <input ref={emailRef} placeholder={user.user.email} type="text" /> : <p>{user.user.email}</p>}
               {isEditImage ? <input ref={imageRef} placeholder={user.user.image} type="text" /> :
                 user.user.image?.length > 15 ? <p>{user.user.image.slice(0,15)+'..'}</p> : <p>{user.user.image}</p>}
               {isEditGender ?
