@@ -47,7 +47,6 @@ body {
   text-align: center;
   flex: 1 1 auto;
   gap: 1rem;
-  border: 1px solid blue;
 }
 
 .hidden {
@@ -63,7 +62,6 @@ body {
   text-align: center;
   flex: 1 1 auto;
   gap: 1rem;
-  /* border: 1px solid blue; */
 }
 
 .reg-log-forms > div > form > label {

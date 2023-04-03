@@ -7,7 +7,7 @@ import ServerMessage from '../ServerMessage'
 
 //functions
 import logout from '../functions/logout'
-import blankProfile from '../images/blankProfile.png'
+import getProfileImage from '../functions/getProfileImage'
 
 //Page component route
 function Profile() {
@@ -29,8 +29,7 @@ function Profile() {
   const genderRef = useRef("")
   const birthdayRef = useRef("")
   //Profile image style logic
-  const profileImage = user.user.image ? user.user.image : blankProfile
-  const profileImageStyle = {backgroundImage: `url('${profileImage}')`}
+  const profileImage = getProfileImage(user.user.image)
   //Component method
   function editSubmit() {
     //Submit profile data for update
@@ -124,7 +123,7 @@ function Profile() {
     {
       user.user.id ? 
       ( <div className="profile ">
-          <div className="profile-image" style={profileImageStyle}></div>
+          <div className="profile-image" style={profileImage}></div>
           <div className="profile-grid-container">
             <div className="profile-keys">
               <label>Name:</label>

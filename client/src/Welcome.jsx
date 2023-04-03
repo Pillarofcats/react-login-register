@@ -1,21 +1,19 @@
 //Import
 import React, {useContext} from 'react'
 import { StoreContext } from './StoreContextProvider'
-import blankProfile from '../src/images/blankProfile.png'
+import getProfileImage from './functions/getProfileImage'
+
 
 //Component
 function Welcome() {
 
   const {user} = useContext(StoreContext)
+  const profileImage = getProfileImage(user.user.image)
 
-  const profileImage = user.user.image ? user.user.image : blankProfile
-  const profileImageStyle = {
-    backgroundImage: `url('${profileImage}')`
-  }
   //Render
   return (
     <>
-      <div className="profile-image" style={profileImageStyle}></div>
+      <div className="profile-image" style={profileImage}></div>
       <h1 className="home">Welcome {user.user.name.length > 15 ? user.user.name.slice(0,15)+".." : user.user.name}!</h1> 
     </>
   )
