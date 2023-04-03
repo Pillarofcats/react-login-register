@@ -36,10 +36,10 @@ function App() {
       const id = localStorage.getItem('rrl_uid')
       //Fetch auth/user
       getAuthUser(usid, id)
-        .then(user => {
-          if(user) {
+        .then(res => {
+          if(res) {
             //Destructure user data
-            const {id, name, email, image, gender, birthday} = user
+            const {id, name, email, image, gender, birthday} = res
             user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
           }
         })
