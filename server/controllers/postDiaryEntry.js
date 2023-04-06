@@ -12,15 +12,18 @@ async function postDiaryEntry(req, res, dbPool) {
     const client = await dbPool.connect()
     //Query definition
     const queryDiaryEntry = {
-      text: `UPDATE users SET diary=${diary} WHERE uid = $1 VALUES($1) RETURNING diary`,
+      text: `UPDATE users SET diary=${diary} WHERE uid = $1 RETURNING diary`,
       values: [id]
     }
     //Query email to see if it exists with login email
     const qde = await client.query(queryDiaryEntry)
+
+    const {diary} = qde.rows[0]
+    console.log('diary from db', diary)
     //Release client from db
     client.release()
     //Successful response
-    return res.status(200).send(qde)
+    return res.status(200).send(diary)
   } catch(err) {
     console.error(err)
   }
