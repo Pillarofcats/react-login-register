@@ -22,7 +22,7 @@ async function postRegister(req, res, dbPool, bcryptjs) {
         values: [uName, uEmail, hashPass]
       }
       //Query to insert user into users database
-      const qiu = await client.query(queryInsertUser)
+      await client.query(queryInsertUser)
       //Release client from db connection
       client.release()
       //Return uid,name, and email
