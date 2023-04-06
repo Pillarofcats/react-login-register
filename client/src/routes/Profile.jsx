@@ -38,7 +38,7 @@ function Profile() {
       .then((res) => {
         //If user response has .errMessage property set error message
         if(res?.errMessage) {
-          setServerMessage(["text-danger", user?.errMessage])
+          setServerMessage(["text-danger", res?.errMessage])
           setIsMessage(true)
         }
         if(res) {

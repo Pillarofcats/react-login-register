@@ -3,7 +3,7 @@ import {StoreContext} from './StoreContextProvider'
 
 function DiaryForm() {
 
-  const {diary} = useContext(StoreContext)
+  const {user, diary} = useContext(StoreContext)
 
   const titleRef = useRef()
   const textRef = useRef()
@@ -11,10 +11,44 @@ function DiaryForm() {
   function submitDiaryEntry(e) {
     e.preventDefault()
 
+    getDiary()
+      .then((res) => {
+        //If user response has .errMessage property set error message
+        if(res?.errMessage) {
+          setServerMessage(["text-danger", res?.errMessage])
+          setIsMessage(true)
+        }
+        if(res) {
+          diary.setUserDiary(diary => [...diary, res.diary])
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+
+  async function getDiary() {
+
     const entry = {title: titleRef?.current.value, date: new Date().toLocaleDateString(), text: textRef?.current.value}
 
-    if(entry.title && entry.text) {
-      diary.setUserDiary(diary =>  [...diary, entry])
+    const postData = {
+      id: user.user.id,
+      uDiary: [...diary.userDiary, entry]
+    }
+
+    console.log('diary post data', postData)
+
+    const URL = "https://classy-steel-production.up.railway.app/diaryEntry"
+
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        credentials: "include",
+        body: JSON.stringify(postData)
+      })
+
+      return await response.json()
+    } catch(err) {
+      console.error(err)
     }
   }
 
