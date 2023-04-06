@@ -19,6 +19,8 @@ function DiaryForm() {
           setIsMessage(true)
         }
         if(res) {
+          console.log('server res', res)
+
           diary.setUserDiary(diary => [...diary, res.diary])
         }
       })
