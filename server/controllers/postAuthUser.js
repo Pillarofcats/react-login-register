@@ -21,8 +21,10 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
     const qsid = await client.query(querySessionID);
     //Destructure query data
     const {email} = qsid.rows[0]
+    console.log('email postAuth', email)
+    console.log('qsid postAuth', qsid.rows[0])
     //Query email ===? decrypted sessionID email
-    if(email === decryptedSessionID) {
+    if(email == decryptedSessionID) {
       //Query Definition
       const queryUserEmail = {
         text: 'SELECT * FROM users WHERE email = $1', 
