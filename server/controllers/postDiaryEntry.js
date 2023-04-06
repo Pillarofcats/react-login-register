@@ -12,8 +12,8 @@ async function postDiaryEntry(req, res, dbPool) {
     const client = await dbPool.connect()
     //Query definition
     const queryDiaryEntry = {
-      text: 'UPDATE usertext SET (uid, text) VALUES($1, $2) RETURNING text',
-      values: [id, diary]
+      text: `UPDATE users SET diary=${diary} WHERE uid = $1 VALUES($1) RETURNING diary`,
+      values: [id]
     }
     //Query email to see if it exists with login email
     const qde = await client.query(queryDiaryEntry)
