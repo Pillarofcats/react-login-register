@@ -37,7 +37,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       //Release client from db
       client.release()
       //Successful response
-      return res.status(200).send({id: uid, name: name, email: email, image: image, gender: gender, birthday: bDay, diary: diary})
+      return res.status(200).send({id: uid, name: name, email: email, image: image, gender: gender, birthday: bDay, uDiary: diary})
     }
     //Failed auth
     return res.status(404).end()

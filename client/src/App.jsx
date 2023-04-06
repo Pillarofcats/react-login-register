@@ -22,7 +22,7 @@ import { StoreContext } from "./StoreContextProvider"
 function App() {
 
   //Store
-  const {user} = useContext(StoreContext)
+  const {user, diary} = useContext(StoreContext)
 
   //Check for session cookie
   //if found GET request to sever for user associated with session cookie id
@@ -39,7 +39,7 @@ function App() {
         .then(res => {
           if(res) {
             //Destructure user data
-            const {id, name, email, image, gender, birthday, diary} = res
+            const {id, name, email, image, gender, birthday, uDiary} = res
             user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
             diary.setUserDiary(diary)
           }
