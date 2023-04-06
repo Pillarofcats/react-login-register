@@ -39,8 +39,9 @@ function App() {
         .then(res => {
           if(res) {
             //Destructure user data
-            const {id, name, email, image, gender, birthday} = res
+            const {id, name, email, image, gender, birthday, diary} = res
             user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
+            diary.setUserDiary(diary)
           }
         })
         .catch((err) => {
