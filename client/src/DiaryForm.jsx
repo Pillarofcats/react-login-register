@@ -20,7 +20,7 @@ function DiaryForm() {
         }
         if(res) {
           console.log('server res', res)
-          diary.setUserDiary(res.diary.entries)
+          diary.setUserDiary(res.diary)
           // diary.setUserDiary(diary => [...diary, res.entries])
         }
       })
