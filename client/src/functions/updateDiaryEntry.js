@@ -8,12 +8,12 @@ async function updateDiaryEntry(id, index) {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       credentials: "include",
-      body: JSON.stringify({id, index})
+      body: JSON.stringify({id: id, index: index})
     })
 
     return await response.json()
   } catch(err) {
-      return console.log(err)
+      return console.error(err)
   }
 }
 

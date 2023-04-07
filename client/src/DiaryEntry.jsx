@@ -6,8 +6,10 @@ function DiaryEntry({entry, index}) {
 
   const {user, diary} = useContext(StoreContext)
 
-  function deleteEntry() {
-    updateDiaryEntry(user.user.id, index)
+  function deleteEntry(ind) {
+    
+    console.log(user.id.id, ind)
+    updateDiaryEntry(user.user.id, ind)
       .then((res) => {
         //If user response has .errMessage property set error message
         if(res?.errMessage) {
@@ -28,7 +30,7 @@ function DiaryEntry({entry, index}) {
 
   return (
     <div className='diary-entry' data-deid={index}>
-      <button className="delete-diary-entry btn btn-danger" onClick={deleteEntry}>X</button>
+      <button className="delete-diary-entry btn btn-danger" onClick={() => deleteEntry(index)}>X</button>
       <h5>{`${entry.title} - ${entry.date}`}</h5>
       <blockquote>{entry.text}</blockquote>
     </div>

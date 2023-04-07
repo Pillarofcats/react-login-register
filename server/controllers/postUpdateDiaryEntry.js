@@ -2,6 +2,7 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
 
   const {id, index} = req.body
 
+  console.log(id, index)
   if(!id || !index) res.end()
 
   try {
@@ -14,10 +15,11 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
     }
 
     const qgd = await client.query(queryGetDiary)
-    
+
     const {diary} = qgd.rows[0]
 
     diary = JSON.parse(diary)
+    console.log(diary)
 
     const filterDiary = diary.entries.filter((_, ind) => ind !== index)
 
