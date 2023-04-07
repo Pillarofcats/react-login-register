@@ -34,7 +34,7 @@ function DiaryForm() {
     const postData = {
       id: user.user.id,
       uDiary: {
-        entries: [...diary.userDiary, entry]
+        entries: [...diary.userDiary, entry].reverse()
       }
     }
 
