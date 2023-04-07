@@ -7,12 +7,13 @@ async function getAuthUser(usid, id) {
     const response = await fetch(URL, {
       method: "POST",
       headers: {"Content-Type":"application/json"},
+      credentials: "include",
       body: JSON.stringify({usid: usid, id: id})
     })
 
     return await response.json()
   } catch(err) {
-    console.error(err)
+      console.error(err)
   }
 }
 

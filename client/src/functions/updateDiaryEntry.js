@@ -13,7 +13,7 @@ async function updateDiaryEntry(id, index) {
 
     return await response.json()
   } catch(err) {
-      return console.error(err)
+      console.error(err)
   }
 }
 

@@ -52,7 +52,7 @@ function DiaryForm() {
 
       return await response.json()
     } catch(err) {
-      console.error(err)
+        console.error(err)
     }
   }
 

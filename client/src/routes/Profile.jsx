@@ -114,7 +114,7 @@ function Profile() {
       })
       return await response.json()
     } catch(err) {
-      return console.log(err)
+        console.log(err)
     }
   }
 
