@@ -19,11 +19,12 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
     const {diary} = qgd.rows[0]
 
     diary = JSON.parse(diary)
-    console.log(diary)
 
     const filterDiary = diary.entries.filter((_, ind) => ind !== index)
+    console.log('filter diary', filterDiary)
 
     const userDiary = JSON.stringify({entries: filterDiary})
+    console.log('diary', userDiary)
 
     const qs = `UPDATE users SET diary='${userDiary}' WHERE uid = $1 RETURNING diary`
     //Query definition
