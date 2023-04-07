@@ -4,7 +4,7 @@ async function postDiaryEntry(req, res, dbPool) {
 
   if(!id || !uDiary) res.end()
 
-  const userDiary = JSON.stringify({entries: uDiary})
+  const userDiary = JSON.stringify(uDiary)
 
   try {
     //Add db client for profile edit
@@ -20,10 +20,11 @@ async function postDiaryEntry(req, res, dbPool) {
     const qde = await client.query(queryDiaryEntry)
 
     const {diary} = qde.rows[0]
+    console.log('diary', diary)
     //Release client from db
     client.release()
     //Successful response
-    return res.status(200).send({diary})
+    return res.status(200).send(diary.entries)
   } catch(err) {
     console.error(err)
   }

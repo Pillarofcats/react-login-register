@@ -33,7 +33,9 @@ function DiaryForm() {
 
     const postData = {
       id: user.user.id,
-      uDiary: [...diary.userDiary, entry]
+      uDiary: {
+        entries: [...diary.userDiary, entry]
+      }
     }
 
     console.log('diary post data', postData)
