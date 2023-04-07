@@ -36,6 +36,7 @@ async function postAuthUser(req, res, dbPool, cryptojs) {
       const bDay = birthday ? `${birthday.getMonth()+1}-${birthday.getDate()}-${birthday.getFullYear()}` : ""
       //Release client from db
       client.release()
+      console.log('diary', diary)
       //Successful response
       return res.status(200).send({id: uid, name: name, email: email, image: image, gender: gender, birthday: bDay, uDiary: diary})
     }
