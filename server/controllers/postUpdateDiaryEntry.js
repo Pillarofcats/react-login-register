@@ -3,7 +3,6 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
   const {id, index} = req.body
 
   console.log(id, index)
-  if(!id || !index) res.end()
 
   try {
     //Add db client for profile edit
