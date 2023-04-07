@@ -8,7 +8,7 @@ function ServerMessage({isMessage, setIsMessage, msg}) {
 
     const timer = setTimeout(() => {
       setIsMessage(false)
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer)
