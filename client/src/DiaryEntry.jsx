@@ -7,7 +7,7 @@ function DiaryEntry({entry, index}) {
   const {user, diary} = useContext(StoreContext)
 
   function deleteEntry(ind) {
-    
+
     console.log(user.id.id, ind)
     updateDiaryEntry(user.user.id, ind)
       .then((res) => {
@@ -18,7 +18,7 @@ function DiaryEntry({entry, index}) {
         }
         if(res) {
           console.log('server res', res)
-          diary.setUserDiary(res.diary.entries)
+          diary.setUserDiary(res.diary.entries.reverse())
         }
       })
       .catch((err) => console.log(err))
