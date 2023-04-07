@@ -8,7 +8,8 @@ function DiaryEntry({entry, index}) {
 
   function deleteEntry(ind) {
 
-    console.log(user.id.id, ind)
+    console.log(user.user.id, ind, index)
+
     updateDiaryEntry(user.user.id, ind)
       .then((res) => {
         //If user response has .errMessage property set error message
