@@ -4,7 +4,7 @@ async function postDiaryEntry(req, res, dbPool) {
 
   if(!id || !uDiary) res.end()
 
-  const userDiary = JSON.stringify(uDiary)
+  const userDiary = JSON.stringify(uDiary.reverse())
 
   try {
     //Add db client for profile edit
