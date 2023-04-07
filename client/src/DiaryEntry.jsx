@@ -13,10 +13,10 @@ function DiaryEntry({entry, index}) {
     updateDiaryEntry(user.user.id, ind)
       .then((res) => {
         //If user response has .errMessage property set error message
-        if(res?.errMessage) {
-          setServerMessage(["text-danger", res?.errMessage])
-          setIsMessage(true)
-        }
+        // if(res?.errMessage) {
+        //   setServerMessage(["text-danger", res?.errMessage])
+        //   setIsMessage(true)
+        // }
         if(res) {
           console.log('server res', res)
           diary.setUserDiary(res.uDiary)

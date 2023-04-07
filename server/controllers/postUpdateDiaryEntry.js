@@ -19,8 +19,6 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
     const {diary} = qgd.rows[0]
     console.log('diaryyyy', diary)
 
-    // diary = JSON.parse(diary)
-
     const filterDiary = diary.entries.filter((_, ind) => ind !== index)
     console.log('filter diary', filterDiary)
 
