@@ -19,7 +19,7 @@ function DiaryEntry({entry, index}) {
         // }
         if(res) {
           console.log('server res', res)
-          diary.setUserDiary(res.uDiary)
+          diary.setUserDiary(res.uDiary.reverse())
         }
       })
       .catch((err) => console.log(err))

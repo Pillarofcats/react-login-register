@@ -11,7 +11,7 @@ function Diary() {
     <div className='diary'>
       <h2>Diary</h2> 
       {
-        diary.userDiary.reverse().map((entry, index) => (
+        diary.userDiary.map((entry, index) => (
           <DiaryEntry entry={entry} index={index} key={index}/>
         ))
       }
