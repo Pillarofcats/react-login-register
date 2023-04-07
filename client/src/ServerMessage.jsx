@@ -3,10 +3,18 @@ import React, {useEffect} from 'react'
 //Component
 function ServerMessage({isMessage, setIsMessage, msg}) {
 
-  setTimeout(() => {
-    if(isMessage) return
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
       setIsMessage(false)
-  }, 8000);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
+  
 
   //Render
   return (
