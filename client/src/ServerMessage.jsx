@@ -1,10 +1,15 @@
+import React, {useEffect} from 'react'
+
 //Component
 function ServerMessage({isMessage, setIsMessage, msg}) {
+
   setTimeout(() => {
+    if(isMessage) return
       setIsMessage(false)
   }, 8000);
+
   //Render
-  return(
+  return (
     <>
     {isMessage ? <h4 className={`${msg[0]} server-msg`}>{msg[1]}</h4> : <h4 className="hidden server-msg">{msg[1]}</h4>}
     </>
