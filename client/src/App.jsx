@@ -41,7 +41,7 @@ function App() {
             //Destructure user data
             const {id, name, email, image, gender, birthday, uDiary} = res
             user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
-            diary.setUserDiary(diary)
+            diary.setUserDiary(uDiary.entries)
           }
         })
         .catch((err) => {
