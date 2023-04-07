@@ -1,14 +1,29 @@
 import React, {useContext} from "react";
 import { StoreContext } from "./StoreContextProvider";
+import updateDiaryEntry from "./functions/updateDiaryEntry.js";
 
 function DiaryEntry({entry, index}) {
 
-  const {diary} = useContext(StoreContext)
+  const {user, diary} = useContext(StoreContext)
 
   function deleteEntry() {
-    diary.setUserDiary(diary => {
-      return [...diary.filter((_, ind) => ind !== index).reverse()]
-    })
+    updateDiaryEntry(user.user.id, index)
+      .then((res) => {
+        //If user response has .errMessage property set error message
+        if(res?.errMessage) {
+          setServerMessage(["text-danger", res?.errMessage])
+          setIsMessage(true)
+        }
+        if(res) {
+          console.log('server res', res)
+          diary.setUserDiary(res.diary.entries)
+        }
+      })
+      .catch((err) => console.log(err))
+
+    // diary.setUserDiary(diary => {
+    //   return [...diary.filter((_, ind) => ind !== index).reverse()]
+    // })
   }
 
   return (

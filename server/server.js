@@ -49,6 +49,8 @@ app.post('/editProfile', (req, res) => postEditProfile(req, res, dbPool))
 app.post('/authUser', (req, res) => postAuthUser(req, res, dbPool, cryptojs))
 //DiaryEntry end-point/route
 app.post('/diaryEntry', (req, res) => postDiaryEntry(req, res, dbPool))
+//UpdateDiaryEntry end-point/route
+app.post('/updateDiaryEntry', (req, res) => postDiaryEntry(req, res, dbPool))
 
 //Set port production/local
 const PORT = process.env.PORT || 3000
