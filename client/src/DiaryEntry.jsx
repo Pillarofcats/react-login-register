@@ -18,7 +18,7 @@ function DiaryEntry({entry, index}) {
         }
         if(res) {
           console.log('server res', res)
-          diary.setUserDiary(res.diary.entries)
+          diary.setUserDiary(res.diary)
         }
       })
       .catch((err) => console.log(err))
