@@ -39,7 +39,7 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
     //Release client from db
     client.release()
     //Successful response
-    return res.status(200).send(updatedDiary.entries)
+    return res.status(200).send({diary: updatedDiary.entries})
   } catch(err) {
     console.error(err)
   }
