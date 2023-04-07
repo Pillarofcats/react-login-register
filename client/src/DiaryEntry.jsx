@@ -6,7 +6,7 @@ function DiaryEntry({entry, index}) {
 
   const {user, diary} = useContext(StoreContext)
 
-  function deleteEntry(ind) {
+  async function deleteEntry(ind) {
 
     console.log(user.id.id, ind)
     updateDiaryEntry(user.user.id, ind)
@@ -18,7 +18,7 @@ function DiaryEntry({entry, index}) {
         }
         if(res) {
           console.log('server res', res)
-          diary.setUserDiary(res.diary.entries.reverse())
+          diary.setUserDiary(res.diary.entries)
         }
       })
       .catch((err) => console.log(err))
@@ -30,7 +30,7 @@ function DiaryEntry({entry, index}) {
 
   return (
     <div className='diary-entry' data-deid={index}>
-      <button className="delete-diary-entry btn btn-danger" onClick={() => deleteEntry(index)}>X</button>
+      <button className="delete-diary-entry btn btn-danger" onClick={deleteEntry(index)}>X</button>
       <h5>{`${entry.title} - ${entry.date}`}</h5>
       <blockquote>{entry.text}</blockquote>
     </div>
