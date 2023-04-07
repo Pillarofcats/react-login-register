@@ -42,7 +42,7 @@ function App() {
             const {id, name, email, image, gender, birthday, uDiary} = res
             user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
             console.log('auth uDiary', uDiary)
-            diary.setUserDiary(uDiary.reverse())
+            diary.setUserDiary(uDiary)
           }
         })
         .catch((err) => {
