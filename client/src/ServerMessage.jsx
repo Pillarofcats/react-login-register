@@ -13,7 +13,7 @@ function ServerMessage({isMessage, setIsMessage, msg}) {
     return () => {
       clearTimeout(timer)
     }
-  }, [])
+  }, [isMessage])
   
 
   //Render
