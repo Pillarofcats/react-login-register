@@ -23,10 +23,6 @@ function DiaryEntry({entry, index}) {
         }
       })
       .catch((err) => console.log(err))
-
-    // diary.setUserDiary(diary => {
-    //   return [...diary.filter((_, ind) => ind !== index).reverse()]
-    // })
   }
 
   return (
