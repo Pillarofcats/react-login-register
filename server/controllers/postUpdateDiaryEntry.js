@@ -34,7 +34,6 @@ async function postUpdateDiaryEntry(req, res, dbPool) {
     const qde = await client.query(queryDiaryEntry)
 
     const {diary: updatedDiary} = qde.rows[0]
-    console.log('updated Diary in db', updatedDiary)
     //Release client from db
     client.release()
     //Successful response

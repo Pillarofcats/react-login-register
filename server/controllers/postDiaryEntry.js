@@ -20,7 +20,7 @@ async function postDiaryEntry(req, res, dbPool) {
     const qde = await client.query(queryDiaryEntry)
 
     const {diary} = qde.rows[0]
-    console.log('diary', diary)
+
     //Release client from db
     client.release()
     //Successful response
