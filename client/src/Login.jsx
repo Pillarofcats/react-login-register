@@ -7,7 +7,8 @@ import { StoreContext } from "./StoreContextProvider"
 //Component
 function Login() {
   //Store
-  const {user} = useContext(StoreContext)
+  const {user, diary} = useContext(StoreContext)
+  
   //State
   const [serverMessage, setServerMessage] = useState(["type","msg"])
   const [isMessage, setIsMessage] = useState(false)
@@ -52,7 +53,9 @@ function Login() {
           setServerMessage(["text-success", res.resMessage])
           setIsMessage(true)
           //Set the userdata
-          user.setUser({id: res.id, name: res.name, email: res.email, image: res.image, gender: res.gender, birthday: res.birthday})
+          const {id, name, email, image, gender, birthday, uDiary} = res
+          user.setUser({id: id, name: name, email: email, image: image, gender: gender, birthday: birthday})
+          diary.setUserDiary(uDiary)
           //Set user id to local storage
           localStorage.setItem('rrl_uid', res.id);
           //Reset form inputs after successful form submission
