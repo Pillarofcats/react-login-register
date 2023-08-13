@@ -7,9 +7,7 @@ function DiaryEntry({entry, index}) {
   const {user, diary} = useContext(StoreContext)
 
   function deleteEntry(ind) {
-
-    console.log(user.user.id, ind, index)
-
+    // console.log(user.user.id, ind, index)
     updateDiaryEntry(user.user.id, ind)
       .then((res) => {
         //If user response has .errMessage property set error message

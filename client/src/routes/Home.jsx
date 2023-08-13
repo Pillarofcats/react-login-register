@@ -8,7 +8,7 @@ import Diary from '../Diary'
 //Page component route
 function Home() {
 
-  const {user} = useContext(StoreContext)
+  const {user, diary} = useContext(StoreContext)
 
   //Render
   return (
@@ -18,7 +18,7 @@ function Home() {
         <div className="center-page">
           <Welcome />
           <DiaryForm />
-          <Diary />
+          <Diary diary={diary}/>
         </div>  
       ) : (
       <h1 className="center-page">Welcome Stranger!</h1>

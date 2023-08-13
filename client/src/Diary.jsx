@@ -1,12 +1,9 @@
 import React, {useContext} from 'react'
 
 import DiaryEntry from './DiaryEntry'
-import { StoreContext } from './StoreContextProvider'
 
-function Diary() {
+function Diary({diary}) {
 
-  const {diary} = useContext(StoreContext)
-  
   return (
     <div className='diary'>
       <h2>Diary</h2> 

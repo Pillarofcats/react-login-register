@@ -1,7 +1,7 @@
 //Libraries
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 //Store Context Provder
 import StoreContextProvider from "./StoreContextProvider"
 
@@ -15,9 +15,9 @@ import App from './App'
 //Root render
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <HashRouter>
+  <BrowserRouter>
     <StoreContextProvider>
       <App />
     </StoreContextProvider>
-  </HashRouter>
+  </BrowserRouter>
 )
