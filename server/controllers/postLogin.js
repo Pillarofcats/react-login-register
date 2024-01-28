@@ -43,6 +43,7 @@ async function postLogin(
       const qe = await client.query(queryUser);
       //Destructure query data
       const { uid, name, email, image, gender, birthday, diary } = qe.rows[0];
+      console.log("DIARY", typeof(diary))
       //Format birthday
       const bDay = birthday
         ? `${
@@ -74,7 +75,7 @@ async function postLogin(
         image: image,
         gender: gender,
         birthday: bDay,
-        uDiary: diary.entries || null,
+        uDiary: diary?.entries,
       });
     }
     //Release client from db connection
