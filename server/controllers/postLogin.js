@@ -75,7 +75,7 @@ async function postLogin(
         image: image,
         gender: gender,
         birthday: bDay,
-        uDiary: diary?.entries,
+        uDiary: diary?.entries || [],
       });
     }
     //Release client from db connection
